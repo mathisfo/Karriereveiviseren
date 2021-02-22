@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  backend:
+    build:
+      context: ./server/innbackend
+      args:
+        DJANGO_ALLOWED_HOSTS: "*"
+    command: gunicorn innbackend.wsgi --bind 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+  frontend:
+    stdin_open: true # This is needed for our current React version as it closes with exit code 0 without it
+    build:
+      context: ./web/innfrontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - build_folder:/frontend/build
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:8080
+    volumes:
+      - ./webserver/nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+      - frontend
+volumes:
+  build_folder:
