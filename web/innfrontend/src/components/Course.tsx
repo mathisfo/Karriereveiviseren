@@ -29,7 +29,6 @@ const Course = () => {
   return (
     <div>
       <p>Heihei</p>
-      <p>{items.title}</p>
     </div>
   );
 };
