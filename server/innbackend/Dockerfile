@@ -6,7 +6,6 @@ ARG DJANGO_ALLOWED_HOSTS
 
 ENV DJANGO_ALLOWED_HOSTS $DJANGO_ALLOWED_HOSTS
 
-RUN mkdir /backend
 WORKDIR /backend
 RUN pip install pipenv
 COPY Pipfile* ./
@@ -14,8 +13,8 @@ COPY Pipfile* ./
 # or drop pipenv completely.
 # TODO: fix this in a docker efficiency update
 RUN cd /backend && pipenv lock --keep-outdated --requirements > requirements.txt
-EXPOSE 8000
 RUN pip install -r requirements.txt
 COPY . /backend/
 RUN python3.8 manage.py makemigrations
 RUN python3.8 manage.py migrate
+EXPOSE 8000
