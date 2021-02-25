@@ -1,23 +1,31 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+## Django backend
+server/innbackend/db.sqlite3
 
+server/innbackend/innbackend/__pycache__
+
+
+## React frontend
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+web/innfrontend/node_modules
+web/innfrontend/.pnp
+web/innfrontend/.pnp.js
 
 # testing
-/coverage
+web/innfrontend/coverage
 
 # production
-/build
+web/innfrontend/build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+web/innfrontend/.DS_Store
+web/innfrontend/.env.local
+web/innfrontend/.env.development.local
+web/innfrontend/.env.test.local
+web/innfrontend/.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+web/innfrontend/npm-debug.log*
+web/innfrontend/yarn-debug.log*
+web/innfrontend/yarn-error.log*
+
+## VSCode
+.vscode
