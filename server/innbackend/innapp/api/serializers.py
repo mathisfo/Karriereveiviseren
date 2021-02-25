@@ -1,7 +1,10 @@
-from rest_framework import serializers 
-from innapp.models import Course 
+from innapp.models import Course
 
-class innappSerializer(serializers.ModelSerializer):
+from rest_framework import serializers
+
+
+class innappSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Course 
-        fields = ('id', 'title', 'description', 'date')
+        model = Course
+        fields = ('url', 'id', 'title', 'startDate', 'endDate',
+                  'description', 'restriction')

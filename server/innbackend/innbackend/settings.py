@@ -136,6 +136,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Following lines are used for CORS stuff. DEV ONLY!
+# TODO: NEVER INCLUDE IN PROD!
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = False
 
