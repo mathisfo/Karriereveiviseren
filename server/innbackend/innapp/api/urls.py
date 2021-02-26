@@ -1,6 +1,12 @@
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 from .views import CourseViewSet
-from rest_framework.routers import DefaultRouter 
 
 router = DefaultRouter()
-router.register(r'', CourseViewSet)
-urlpatterns = router.urls
+router.register(r'course', CourseViewSet)
+
+# Setup automatic URL routing
+urlpatterns = [
+    # Default /api
+    path('', include(router.urls)),
+]
