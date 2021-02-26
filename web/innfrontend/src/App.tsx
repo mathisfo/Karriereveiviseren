@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./logo.svg";
 import Course from "./components/Course";
@@ -13,65 +13,40 @@ import CourseCard from "./components/CourseCard";
 import TopNavigator from "./components/TopNavigator";
 
 function App() {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/course/")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setCourses(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
+
+  console.log(courses);
+
   return (
     <div>
-      <TopNavigator></TopNavigator>
-      <Container className="p-3">
-        <Jumbotron>
-          <h1 className="header">INN01</h1>
-        </Jumbotron>
-      </Container>
+      <TopNavigator />
 
       <Container className="p-3">
         <h1 className="header">Kursoversikt</h1>
-
-        <Jumbotron>
-          <h1>Obligatorisk</h1>
-          <Container fluid>
-            <Row>
-              <Col>
-                <CourseCard
-                  title="Forkurs"
-                  text="Forkurs er noe alle må gjøre"
-                  modul="felles"
-                />
-              </Col>
-              <Col>
-                <CourseCard
-                  title="Norskkurs"
-                  text="Norskkurs lærer deg det mest basice når det kommer til norsk språk og språkutvikling, helt fra Snorre til moderne helter som TIX. Alle ungdomer må dette"
-                  modul="ungdom"
-                />
-              </Col>
-              <Col>
-                <CourseCard
-                  title="Karrierekompetanse"
-                  text="Utvikler din kompetanse for karriere. For elever i Spor 3"
-                  modul="spor3"
-                />
-              </Col>
-              <Col>
-                <CourseCard
-                  title="Karrierekompetanse"
-                  text="Utvikler din kompetanse for karriere. For elever i Spor 2"
-                  modul="spor2"
-                />
-              </Col>
-            </Row>
-          </Container>
-          <h1>Valgfrie kurs</h1>
-          <Container>
-            <Row>
-              <Col>
-                <CourseCard
-                  title="Kulhetskurs"
-                  text="Kurs for å bli kulere på byen. For ungdommer"
-                  modul="ungdom"
-                />
-              </Col>
-            </Row>
-          </Container>
-        </Jumbotron>
+        <Row>
+          {courses.map((course: any) => (
+            <Col>
+              <CourseCard {...course}></CourseCard>
+            </Col>
+          ))}
+        </Row>
       </Container>
     </div>
   );
