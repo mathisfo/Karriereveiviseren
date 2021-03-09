@@ -1,48 +1,50 @@
-import React, { Component } from "react";
+import React, { Component, FC } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Course from "./Course";
 
-type myProps = {
+interface IProps {
+  id: number;
   title: string;
-  text: string;
-  modul: string;
-};
+  startDate: string;
+  endDate: string;
+  description: string;
+  restriction: number;
+}
 
-function setColor(modul?: string) {
+function setColor(modul?: number) {
   switch (modul) {
-    case "felles":
+    case 1:
       return "pink";
-    case "spor1":
-      return "yellow";
-    case "spor2":
+    case 2:
       return "limegreen";
-    case "spor3":
+    case 3:
       return "orange";
-    case "ungdom":
+    case 4:
       return "lightblue";
     default:
       return "grey";
   }
 }
 
-export default class CourseCard extends React.Component<myProps> {
-  render() {
-    return (
-      <div>
-        <Card
-          style={{
-            width: "18rem",
-            background: setColor(this.props.modul),
-            margin: "1cm",
-          }}
-        >
-          <Card.Body>
-            <Card.Title>{this.props.title}</Card.Title>
-            <Card.Text>{this.props.text}</Card.Text>
-            <Button variant="primary">Mer informasjon:</Button>
-          </Card.Body>
-        </Card>
-      </div>
-    );
-  }
-}
+const CourseCard: FC<IProps> = (props) => {
+  return (
+    <div>
+      <Card
+        style={{
+          width: "18rem",
+          background: setColor(props.id),
+          margin: "1cm",
+        }}
+      >
+        <Card.Body>
+          <Card.Title>{props.title}</Card.Title>
+          <Card.Text>{props.description}</Card.Text>
+          <Button variant="primary">Mer informasjon</Button>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+};
+
+export default CourseCard;
