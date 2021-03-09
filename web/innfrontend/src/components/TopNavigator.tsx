@@ -6,6 +6,12 @@ import { PersonCircle } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 
 const TopNavigator = () => {
+
+  function resetStorage() {
+    localStorage.setItem("LandingKey", "true");
+    window.location.reload();
+  }
+
   return (
     <Navbar bg="light" expand="lg">
       <img src={logo}></img>
@@ -19,7 +25,7 @@ const TopNavigator = () => {
         </Nav>
       </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">
-        <Button>
+        <Button onClick={resetStorage}>
           <PersonCircle></PersonCircle> Logg ut
         </Button>
       </Navbar.Collapse>
@@ -28,3 +34,4 @@ const TopNavigator = () => {
 };
 
 export default TopNavigator;
+
