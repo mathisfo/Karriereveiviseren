@@ -4,6 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import logo from "../statics/imdi-logo.svg";
 import { PersonCircle } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
+import { Link, Router } from "react-router-dom";
+
 
 const TopNavigator = () => {
 
@@ -19,9 +21,7 @@ const TopNavigator = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Hjem</Nav.Link>
-          <Nav.Link href="#link">Mine tiltak</Nav.Link>
-          <Nav.Link href="#link">Min progresjon</Nav.Link>
+    
         </Nav>
       </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">

@@ -6,6 +6,14 @@ import Col from "react-bootstrap/Row";
 import CourseCard from "./components/CourseCard";
 import TopNavigator from "./components/TopNavigator";
 import Landing from "./components/Landing";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Home from "./components/Home";
+import Progression from "./components/Progression";
 
 function App() {
   const [error, setError] = useState(null);
@@ -42,14 +50,42 @@ function App() {
         <div>
           <TopNavigator></TopNavigator>
           <Container className="p-3">
-            <h1 className="header">Kursoversikt</h1>
-            <Row>
+            <Router>
+            <div>
+              <nav>
+                <ul>
+                  <li>
+                    <Link to="/home">Hjem</Link>
+                  </li>
+                  <li>
+                    <Link to="/courses">Mine tiltak</Link>
+                  </li>
+                  <li>
+                    <Link to="/progression">Progresjon</Link>
+                  </li>
+                </ul>
+              </nav>
+            <Switch>
+              <Route path="/home">
+                <Home />
+              </Route>
+              <Route path="/courses">
+              <Container >
+              <Row>
               {courses.map((course: any) => (
                 <Col>
                   <CourseCard {...course}></CourseCard>
                 </Col>
               ))}
             </Row>
+            </Container>
+              </Route>
+              <Route path="/progression">
+                <Progression />
+              </Route>
+            </Switch>
+            </div>
+            </Router>
           </Container>
         </div>
       ) : (

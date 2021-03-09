@@ -1,7 +1,6 @@
 import React, { Component, FC } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Course from "./Course";
 
 interface IProps {
   id: number;
