@@ -7,10 +7,10 @@ import CourseCard from "./components/CourseCard";
 import TopNavigator from "./components/TopNavigator";
 import Landing from "./components/Landing";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
 import Home from "./components/Home";
 import Progression from "./components/Progression";
@@ -45,31 +45,17 @@ function App() {
   }
 
   return (
-    <div>
+    <BrowserRouter>
       {!getStorage() ? (
         <div>
           <TopNavigator></TopNavigator>
           <Container className="p-3">
-            <Router>
             <div>
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="/home">Hjem</Link>
-                  </li>
-                  <li>
-                    <Link to="/courses">Mine tiltak</Link>
-                  </li>
-                  <li>
-                    <Link to="/progression">Progresjon</Link>
-                  </li>
-                </ul>
-              </nav>
             <Switch>
-              <Route path="/home">
+              <Route exact path="/home">
                 <Home />
               </Route>
-              <Route path="/courses">
+              <Route exact path="/courses">
               <Container >
               <Row>
               {courses.map((course: any) => (
@@ -80,18 +66,17 @@ function App() {
             </Row>
             </Container>
               </Route>
-              <Route path="/progression">
+              <Route exact path="/progression">
                 <Progression />
               </Route>
             </Switch>
             </div>
-            </Router>
           </Container>
         </div>
       ) : (
         <Landing handleClick={() => setShowSite(!showSite)} />
       )}
-    </div>
+      </BrowserRouter>
   );
 }
 
