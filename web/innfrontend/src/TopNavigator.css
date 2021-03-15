@@ -1,0 +1,8 @@
+.navbar-item {
+  padding: 1em;
+}
+
+.navbar-item:hover {
+  font-weight: 700;
+  text-decoration: none;
+}
