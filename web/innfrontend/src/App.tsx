@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -14,28 +14,25 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home";
 import Progression from "./components/Progression";
+import CourseProvider, { CourseContext } from "./store/CourseContext/";
 
 function App() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [courses, setCourses] = useState([]);
+  const { error, loading, courseList, apiRequest, apiSuccess, apiError } = useContext(CourseContext);
 
   useEffect(() => {
+    apiRequest();
     fetch("http://127.0.0.1:8000/api/course/")
       .then((res) => res.json())
       .then(
         (result) => {
-          setIsLoaded(true);
-          setCourses(result);
+          apiSuccess(result);
         },
         (error) => {
-          setIsLoaded(true);
-          setError(error);
+          apiError(error);
         }
       );
   }, []);
 
-  console.log(courses);
 
   const [showSite, setShowSite] = React.useState(false);
 
@@ -58,7 +55,7 @@ function App() {
               <Route exact path="/courses">
               <Container >
               <Row>
-              {courses.map((course: any) => (
+              {courseList.map((course: any) => (
                 <Col>
                   <CourseCard {...course}></CourseCard>
                 </Col>
@@ -80,4 +77,8 @@ function App() {
   );
 }
 
-export default App;
+export default () => (
+  <CourseProvider>
+    <App />
+  </CourseProvider>
+);
