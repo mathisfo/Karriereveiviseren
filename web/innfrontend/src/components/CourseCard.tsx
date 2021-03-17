@@ -14,13 +14,11 @@ interface IProps {
 function setColor(modul?: number) {
   switch (modul) {
     case 1:
-      return "pink";
+      return "yellow";
     case 2:
       return "limegreen";
     case 3:
       return "orange";
-    case 4:
-      return "lightblue";
     default:
       return "grey";
   }
@@ -32,7 +30,7 @@ const CourseCard: FC<IProps> = (props) => {
       <Card
         style={{
           width: "18rem",
-          background: setColor(props.id),
+          background: setColor(props.restriction),
           margin: "1cm",
         }}
       >
@@ -40,6 +38,7 @@ const CourseCard: FC<IProps> = (props) => {
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
           <Button variant="primary">Mer informasjon</Button>
+          <Button>Legg i mine tiltak</Button>
         </Card.Body>
       </Card>
     </div>
