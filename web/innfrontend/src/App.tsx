@@ -6,33 +6,29 @@ import Col from "react-bootstrap/Row";
 import CourseCard from "./components/CourseCard";
 import TopNavigator from "./components/TopNavigator";
 import Landing from "./components/Landing";
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Progression from "./components/Progression";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
 
 function App() {
-  const { error, loading, courseList, apiRequest, apiSuccess, apiError } = useContext(CourseContext);
+  const courseContext = useContext(CourseContext);
 
   useEffect(() => {
-    apiRequest();
+    // Need conditional render because of possible null in courseContext
+    // Have not found a fix for this if we are going with the reducer instead of state
+    courseContext?.dispatch({ type: "API_REQUEST" });
     fetch("http://127.0.0.1:8000/api/course/")
       .then((res) => res.json())
       .then(
         (result) => {
-          apiSuccess(result);
+          courseContext?.dispatch({ type: "API_SUCCESS", payload: result });
         },
         (error) => {
-          apiError(error);
+          courseContext?.dispatch({ type: "API_ERROR", payload: error });
         }
       );
   }, []);
-
 
   const [showSite, setShowSite] = React.useState(false);
 
@@ -48,32 +44,32 @@ function App() {
           <TopNavigator></TopNavigator>
           <Container className="p-3">
             <div>
-            <Switch>
-              <Route exact path="/home">
-                <Home />
-              </Route>
-              <Route exact path="/courses">
-              <Container >
-              <Row>
-              {courseList.map((course: any) => (
-                <Col>
-                  <CourseCard {...course}></CourseCard>
-                </Col>
-              ))}
-            </Row>
-            </Container>
-              </Route>
-              <Route exact path="/progression">
-                <Progression />
-              </Route>
-            </Switch>
+              <Switch>
+                <Route exact path="/home">
+                  <Home />
+                </Route>
+                <Route exact path="/courses">
+                  <Container>
+                    <Row>
+                      {courseContext?.state.courseList.map((course: any) => (
+                        <Col>
+                          <CourseCard {...course}></CourseCard>
+                        </Col>
+                      ))}
+                    </Row>
+                  </Container>
+                </Route>
+                <Route exact path="/progression">
+                  <Progression />
+                </Route>
+              </Switch>
             </div>
           </Container>
         </div>
       ) : (
         <Landing handleClick={() => setShowSite(!showSite)} />
       )}
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
