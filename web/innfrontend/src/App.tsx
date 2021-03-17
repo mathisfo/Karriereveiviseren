@@ -12,7 +12,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import Home from "./components/Home";
+import MyCourses from "./components/MyCourses";
 import Progression from "./components/Progression";
 
 function App() {
@@ -53,9 +53,6 @@ function App() {
             <div>
             <Switch>
               <Route exact path="/home">
-                <Home />
-              </Route>
-              <Route exact path="/courses">
               <Container >
               <Row>
               {courses.map((course: any) => (
@@ -65,6 +62,9 @@ function App() {
               ))}
             </Row>
             </Container>
+              </Route>
+              <Route exact path="/courses">
+                <MyCourses/>
               </Route>
               <Route exact path="/progression">
                 <Progression />
