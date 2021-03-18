@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, Dispatch } from "react";
-import { Course, CourseContextState } from "./types";
+import { CourseContextState, Actions } from "./types";
 
 // State
 const initialState: CourseContextState = {
@@ -7,28 +7,6 @@ const initialState: CourseContextState = {
   loading: false,
   courseList: [],
 };
-
-// Actions
-interface IRequest {
-  type: "API_REQUEST";
-}
-
-interface ISuccess {
-  type: "API_SUCCESS";
-  payload: Array<Course>;
-}
-
-interface IError {
-  type: "API_ERROR";
-  payload: string;
-}
-
-interface ISelect {
-  type: "COURSE_SELECT";
-  payload: Array<Course>;
-}
-
-type Actions = IRequest | ISuccess | IError | ISelect;
 
 // Reducer
 const reducer = (
@@ -73,6 +51,10 @@ interface IContext {
   dispatch: Dispatch<Actions>;
 }
 
+/**
+ * @member state provides the CourseContextState object stored as the context state by the provider.
+ * @member dispatch provides the reducer of the context with the associated methods.
+ */
 export const CourseContext = createContext<IContext | null>(null);
 
 /**
@@ -95,3 +77,4 @@ export default CourseContextProvider;
 
 // Why is the code this way?
 // https://stackoverflow.com/questions/65836693/unable-to-pass-objects-state-and-dispatch-to-provider-when-using-createcontext-a
+// It's unfortunate, but as of right now there is no going around having conditional checks on whether Context is null or not.
