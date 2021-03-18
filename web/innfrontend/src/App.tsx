@@ -17,22 +17,23 @@ import Progression from "./components/Progression";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
 
 function App() {
-  const { error, loading, courseList, apiRequest, apiSuccess, apiError } = useContext(CourseContext);
+  const courseContext = useContext(CourseContext);
 
   useEffect(() => {
-    apiRequest();
+    // Need conditional render because of possible null in courseContext
+    // Have not found a fix for this if we are going with the reducer instead of state
+    courseContext?.dispatch({ type: "API_REQUEST" });
     fetch("http://127.0.0.1:8000/api/course/")
       .then((res) => res.json())
       .then(
         (result) => {
-          apiSuccess(result);
+          courseContext?.dispatch({ type: "API_SUCCESS", payload: result });
         },
         (error) => {
-          apiError(error);
+          courseContext?.dispatch({ type: "API_ERROR", payload: error });
         }
       );
   }, []);
-
 
   const [showSite, setShowSite] = React.useState(false);
 
@@ -52,7 +53,7 @@ function App() {
               <Route exact path="/home">
               <Container >
               <Row>
-              {courseList.map((course: any) => (
+              {courseContext?.state.courseList.map((course: any) => (
                 <Col>
                   <CourseCard {...course}></CourseCard>
                 </Col>
@@ -73,7 +74,7 @@ function App() {
       ) : (
         <Landing handleClick={() => setShowSite(!showSite)} />
       )}
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
