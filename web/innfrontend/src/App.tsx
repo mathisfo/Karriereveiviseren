@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -14,28 +14,26 @@ import {
 } from "react-router-dom";
 import MyCourses from "./components/MyCourses";
 import Progression from "./components/Progression";
+import CourseProvider, { CourseContext } from "./store/CourseContext/";
 
 function App() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [courses, setCourses] = useState([]);
+  const courseContext = useContext(CourseContext);
 
   useEffect(() => {
+    // Need conditional render because of possible null in courseContext
+    // Have not found a fix for this if we are going with the reducer instead of state
+    courseContext?.dispatch({ type: "API_REQUEST" });
     fetch("http://127.0.0.1:8000/api/course/")
       .then((res) => res.json())
       .then(
         (result) => {
-          setIsLoaded(true);
-          setCourses(result);
+          courseContext?.dispatch({ type: "API_SUCCESS", payload: result });
         },
         (error) => {
-          setIsLoaded(true);
-          setError(error);
+          courseContext?.dispatch({ type: "API_ERROR", payload: error });
         }
       );
   }, []);
-
-  console.log(courses);
 
   const [showSite, setShowSite] = React.useState(false);
 
@@ -55,7 +53,7 @@ function App() {
               <Route exact path="/home">
               <Container >
               <Row>
-              {courses.map((course: any) => (
+              {courseContext?.state.courseList.map((course: any) => (
                 <Col>
                   <CourseCard {...course}></CourseCard>
                 </Col>
@@ -76,8 +74,12 @@ function App() {
       ) : (
         <Landing handleClick={() => setShowSite(!showSite)} />
       )}
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
-export default App;
+export default () => (
+  <CourseProvider>
+    <App />
+  </CourseProvider>
+);
