@@ -5,6 +5,7 @@ export type Course = {
   endDate: string;
   description: string;
   restriction: number;
+  isSelected: boolean;
 };
 
 export type CourseContextState = {

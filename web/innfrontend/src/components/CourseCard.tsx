@@ -1,6 +1,7 @@
-import React, { Component, FC } from "react";
+import React, { Component, FC, useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { CourseContext } from "../store/CourseContext";
 
 interface IProps {
   id: number;
@@ -9,6 +10,7 @@ interface IProps {
   endDate: string;
   description: string;
   restriction: number;
+  isSelected: boolean;
 }
 
 function setColor(modul?: number) {
@@ -27,6 +29,26 @@ function setColor(modul?: number) {
 }
 
 const CourseCard: FC<IProps> = (props) => {
+  const courseContext = useContext(CourseContext);
+
+  let newCourseList = courseContext?.state.courseList;
+
+  // This should not be this complicated
+  // TODO: Find a better way to handle this
+  function selectCard() {
+    newCourseList = newCourseList?.map(
+      (course) => {
+        if(course.id == props.id) {
+          course.isSelected = !course.isSelected;
+        }
+        return course;
+      }
+    )
+    if(newCourseList) {
+      courseContext?.dispatch({type: "COURSE_SELECT", payload: newCourseList});
+    }
+  };
+
   return (
     <div>
       <Card
@@ -40,6 +62,7 @@ const CourseCard: FC<IProps> = (props) => {
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
           <Button variant="primary">Mer informasjon</Button>
+          <Button variant="primary" onClick={selectCard}>Select</Button>
         </Card.Body>
       </Card>
     </div>

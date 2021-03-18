@@ -23,7 +23,12 @@ interface IError {
   payload: string;
 }
 
-type Actions = IRequest | ISuccess | IError;
+interface ISelect {
+  type: "COURSE_SELECT";
+  payload: Array<Course>;
+}
+
+type Actions = IRequest | ISuccess | IError | ISelect;
 
 // Reducer
 const reducer = (
@@ -49,6 +54,12 @@ const reducer = (
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case "COURSE_SELECT":
+      return {
+        ...state,
+        courseList: action.payload,
       };
 
     default:
