@@ -36,18 +36,19 @@ const CourseCard: FC<IProps> = (props) => {
   // This should not be this complicated
   // TODO: Find a better way to handle this
   function selectCard() {
-    newCourseList = newCourseList?.map(
-      (course) => {
-        if(course.id == props.id) {
-          course.isSelected = !course.isSelected;
-        }
-        return course;
+    newCourseList = newCourseList?.map((course) => {
+      if (course.id == props.id) {
+        course.isSelected = !course.isSelected;
       }
-    )
-    if(newCourseList) {
-      courseContext?.dispatch({type: "COURSE_SELECT", payload: newCourseList});
+      return course;
+    });
+    if (newCourseList) {
+      courseContext?.dispatch({
+        type: "COURSE_SELECT",
+        payload: newCourseList,
+      });
     }
-  };
+  }
 
   return (
     <div>
@@ -62,7 +63,9 @@ const CourseCard: FC<IProps> = (props) => {
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
           <Button variant="primary">Mer informasjon</Button>
-          <Button variant="primary" onClick={selectCard}>Select</Button>
+          <Button variant="primary" onClick={selectCard}>
+            Select
+          </Button>
         </Card.Body>
       </Card>
     </div>
