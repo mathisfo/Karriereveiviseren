@@ -6,8 +6,13 @@ import Col from "react-bootstrap/Row";
 import CourseCard from "./components/CourseCard";
 import TopNavigator from "./components/TopNavigator";
 import Landing from "./components/Landing";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Home from "./components/Home";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
+import MyCourses from "./components/MyCourses";
 import Progression from "./components/Progression";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
 
@@ -44,25 +49,25 @@ function App() {
           <TopNavigator></TopNavigator>
           <Container className="p-3">
             <div>
-              <Switch>
-                <Route exact path="/home">
-                  <Home />
-                </Route>
-                <Route exact path="/courses">
-                  <Container>
-                    <Row>
-                      {courseContext?.state.courseList.map((course: any) => (
-                        <Col>
-                          <CourseCard {...course}></CourseCard>
-                        </Col>
-                      ))}
-                    </Row>
-                  </Container>
-                </Route>
-                <Route exact path="/progression">
-                  <Progression />
-                </Route>
-              </Switch>
+            <Switch>
+              <Route exact path="/home">
+              <Container >
+              <Row>
+              {courseContext?.state.courseList.map((course: any) => (
+                <Col>
+                  <CourseCard {...course}></CourseCard>
+                </Col>
+              ))}
+            </Row>
+            </Container>
+              </Route>
+              <Route exact path="/courses">
+                <MyCourses/>
+              </Route>
+              <Route exact path="/progression">
+                <Progression />
+              </Route>
+            </Switch>
             </div>
           </Container>
         </div>
