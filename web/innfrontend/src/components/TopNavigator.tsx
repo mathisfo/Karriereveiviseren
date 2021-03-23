@@ -6,6 +6,7 @@ import { PersonCircle } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import { Link, NavLink, Router } from "react-router-dom";
 import "../TopNavigator.css";
+import Logout from "./Logout";
 
 const TopNavigator = () => {
   function resetStorage() {
@@ -58,9 +59,7 @@ const TopNavigator = () => {
         </Nav>
       </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">
-        <Button onClick={resetStorage}>
-          <PersonCircle></PersonCircle> Logg ut
-        </Button>
+        <Logout />
       </Navbar.Collapse>
     </Navbar>
   );

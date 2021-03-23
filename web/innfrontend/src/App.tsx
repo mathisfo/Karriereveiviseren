@@ -2,7 +2,8 @@ import React, { useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
-import Landing from "./components/Landing";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import MyCourses from "./components/MyCourses";
@@ -57,7 +58,7 @@ function App() {
           </Container>
         </div>
       ) : (
-        <Landing handleClick={() => setShowSite(!showSite)} />
+        <Login/>
       )}
     </BrowserRouter>
   );
