@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'innapp',
+    'userpreferences',
 ]
 
 SITE_ID = 1
