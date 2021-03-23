@@ -1,72 +1,65 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Chart from "react-google-charts";
+import { CourseContext } from "../store/CourseContext";
+import { Course } from "../store/CourseContext/types";
+
+const parseCourseObject = (course: Course) => {
+  let selectedCourse = [];
+  selectedCourse.push(
+    course.id,
+    course.title,
+    "temp",
+    new Date(course.startDate),
+    new Date(course.endDate),
+    null,
+    100,
+    null
+  );
+  return selectedCourse;
+};
 
 const Progression = () => {
+  // TODO: make custom type such that we do not use any
+  const diagramData: Array<any> = [
+    [
+      { type: "string", label: "Task ID" },
+      { type: "string", label: "Task Name" },
+      { type: "string", label: "Resource" },
+      { type: "date", label: "Start Date" },
+      { type: "date", label: "End Date" },
+      { type: "number", label: "Duration" },
+      { type: "number", label: "Percent Complete" },
+      { type: "string", label: "Dependencies" },
+    ],
+  ];
+
+  const courseContext = useContext(CourseContext);
+
+  useEffect(() => {
+    courseContext?.state.courseList.map((course) => {
+      if (course.isSelected) {
+        let selectedCourse = parseCourseObject(course);
+        diagramData.push(selectedCourse);
+      }
+    });
+  }, []);
+
   return (
     <div>
       <Chart
         width={"100%"}
         height={"400px"}
         chartType="Gantt"
-        loader={<div>Loading Chart</div>}
-        data={[
-          [
-            { type: "string", label: "Task ID" },
-            { type: "string", label: "Task Name" },
-            { type: "string", label: "Resource" },
-            { type: "date", label: "Start Date" },
-            { type: "date", label: "End Date" },
-            { type: "number", label: "Duration" },
-            { type: "number", label: "Percent Complete" },
-            { type: "string", label: "Dependencies" },
-          ],
-          [
-            "2014Spring",
-            "Norsk kurs",
-            "spring",
-            new Date(2021, 2, 22),
-            new Date(2021, 8, 20),
-            null,
-            100,
-            null,
-          ],
-          [
-            "2014Summer",
-            "Data kurs",
-            "summer",
-            new Date(2021, 5, 21),
-            new Date(2021, 8, 20),
-            null,
-            100,
-            null,
-          ],
-          [
-            "2014Autumn",
-            "CV kurs",
-            "autumn",
-            new Date(2021, 2, 21),
-            new Date(2021, 11, 20),
-            null,
-            100,
-            null,
-          ],
-          [
-            "2014Winter",
-            "Bank kurs",
-            "winter",
-            new Date(2021, 11, 21),
-            new Date(2021, 12, 21),
-            null,
-            100,
-            null,
-          ],
-        ]}
+        // TODO: Replace loader with loading wheel/bar
+        loader={<div>Laster inn Gantt diagram...</div>}
+        data={diagramData}
         options={{
           height: 400,
           gantt: {
             trackHeight: 30,
           },
         }}
+        // Why is rootProps here?
         rootProps={{ "data-testid": "2" }}
       />
     </div>
