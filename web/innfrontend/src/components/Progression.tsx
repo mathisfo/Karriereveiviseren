@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import Chart from "react-google-charts";
+import { createSolutionBuilderWithWatch } from "typescript";
 import { CourseContext } from "../store/CourseContext";
 import { Course } from "../store/CourseContext/types";
 
@@ -12,9 +13,7 @@ const prepareChartData = (course: Course) => {
     new Date(course.startDate),
     new Date(course.endDate),
     null,
-    // TODO: Calculate percentage done
-    100,
-    //
+    Math.round((new Date().getTime() - new Date(course.startDate).getTime()) / (new Date(course.endDate).getTime()-new Date(course.startDate).getTime())*100),
     null
   );
   return selectedCourse;
@@ -65,11 +64,9 @@ const Progression = () => {
         options={{
           height: 400,
           gantt: {
-            trackHeight: 30,
+            trackHeight: 40,
           },
         }}
-        // Why is rootProps here?
-        rootProps={{ "data-testid": "2" }}
       />
     </div>
   );
