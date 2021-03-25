@@ -13,7 +13,7 @@ const prepareChartData = (course: Course) => {
     new Date(course.startDate),
     new Date(course.endDate),
     null,
-    Math.round((new Date().getTime() - new Date(course.startDate).getTime()) / (new Date(course.endDate).getTime()-new Date(course.startDate).getTime())*100),
+    Math.min(100,Math.round((new Date().getTime() - new Date(course.startDate).getTime()) / (new Date(course.endDate).getTime()-new Date(course.startDate).getTime())*100)),
     null
   );
   return selectedCourse;
@@ -65,6 +65,21 @@ const Progression = () => {
           height: 400,
           gantt: {
             trackHeight: 40,
+            palette: [{
+              "color": "#edc642",
+              "dark": "#a38a36",
+              "light": "#f6d66b"
+            },
+            {
+              "color": "#eb6859",
+              "dark": "#a52714",
+              "light": "#f4c7c3"
+            },
+            {
+              "color": "#49bf65",
+              "dark": "#3a9951",
+              "light": "#fce8b2"
+            }]
           },
         }}
       />
