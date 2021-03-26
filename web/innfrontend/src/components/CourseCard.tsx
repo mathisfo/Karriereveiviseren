@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CourseContext } from "../store/CourseContext";
 
+
 interface IProps {
   id: number;
   title: string;
@@ -16,13 +17,11 @@ interface IProps {
 function setColor(modul?: number) {
   switch (modul) {
     case 1:
-      return "pink";
+      return "#f6d66b";
     case 2:
-      return "limegreen";
+      return "#49bf65";
     case 3:
-      return "orange";
-    case 4:
-      return "lightblue";
+      return "#eb6859";
     default:
       return "grey";
   }
@@ -55,7 +54,7 @@ const CourseCard: FC<IProps> = (props) => {
       <Card
         style={{
           width: "18rem",
-          background: setColor(props.id),
+          background: setColor(props.restriction),
           margin: "1cm",
         }}
       >

@@ -17,7 +17,7 @@ const MyCourses = () => {
               <CourseCard {...course}></CourseCard>
             </Col>
           ) : (
-            <div></div>
+            <></>
           )
         )}
       </Row>
