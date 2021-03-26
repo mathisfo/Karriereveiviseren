@@ -6,20 +6,23 @@ import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
 
 const MyCourses = () => {
-    const courseContext = useContext(CourseContext);
+  const courseContext = useContext(CourseContext);
 
-    return (
-<Container >
-              <Row>
-              {courseContext?.state.courseList.map((course: any) => (
-                  course.isSelected ? 
-                <Col>
-                  <CourseCard {...course}></CourseCard>
-                </Col> : <div></div>
-              ))}
-            </Row>
-            </Container>
-    )
-}
+  return (
+    <Container>
+      <Row>
+        {courseContext?.state.courseList.map((course: any) =>
+          course.isSelected ? (
+            <Col>
+              <CourseCard {...course}></CourseCard>
+            </Col>
+          ) : (
+            <div></div>
+          )
+        )}
+      </Row>
+    </Container>
+  );
+};
 
-export default MyCourses; 
+export default MyCourses;
