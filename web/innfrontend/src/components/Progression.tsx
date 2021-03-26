@@ -58,13 +58,12 @@ const Progression = () => {
     <div>
       <Chart
         width={"100%"}
-        height={"400px"}
+        height={"1200px"}
         chartType="Gantt"
         // TODO: Replace loader with loading wheel/bar
         loader={<div>Laster inn Gantt diagram...</div>}
         data={diagramData}
         options={{
-          height: 400,
           gantt: {
             trackHeight: 40,
             palette: [{
