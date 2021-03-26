@@ -30,7 +30,6 @@ interface IDiagramConst {
 type ChartTypes = Array<IDiagramConst> | Array<string | number | Date | null>;
 
 const Progression = () => {
-<<<<<<< HEAD
   const diagramData: Array<ChartTypes> = [
     [
       { type: "string", label: "Task ID" },
@@ -88,9 +87,6 @@ const Progression = () => {
       />
     </div>
   );
-=======
-  return <div>Progresjon:)</div>;
->>>>>>> d47d27a01da45a674baea05401db63ad6ef7816f
 };
 
 export default Progression;
