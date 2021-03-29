@@ -5,11 +5,9 @@ import logo from "../statics/imdi-logo.svg";
 import { PersonCircle } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import { Link, NavLink, Router } from "react-router-dom";
-import '../TopNavigator.css';
-
+import "../TopNavigator.css";
 
 const TopNavigator = () => {
-
   function resetStorage() {
     localStorage.setItem("LandingKey", "true");
     window.location.reload();
@@ -57,15 +55,14 @@ const TopNavigator = () => {
             </NavLink>
           </Navbar.Text>
         </Nav>
-        </Navbar.Collapse>
+      </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">
         <Button onClick={resetStorage}>
           <PersonCircle></PersonCircle> Logg ut
         </Button>
-    </Navbar.Collapse>
+      </Navbar.Collapse>
     </Navbar>
   );
 };
 
 export default TopNavigator;
-
