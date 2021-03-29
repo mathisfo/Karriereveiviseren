@@ -52,8 +52,17 @@ const Progression = () => {
     });
   }, []);
 
+/*
+  if (diagramData.length = 8) {
+    return (
+      <div> Legg til kurs i listen under for å se din progresjon. </div>
+    )}
+  else {  
+*/
   return (
+    
     <div>
+    <h2>Mitt introduksjonsprogram </h2>
       <Chart
         width={"100%"}
         height={"400px"}
@@ -88,3 +97,5 @@ const Progression = () => {
 };
 
 export default Progression;
+
+

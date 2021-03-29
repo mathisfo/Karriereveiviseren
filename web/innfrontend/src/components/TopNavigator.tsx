@@ -17,46 +17,45 @@ const TopNavigator = () => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <img src={logo}></img>
       <Navbar.Brand>INN</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav  className="mr-auto">
-        <Navbar.Text>
-        <NavLink
-        className="navbar-item"
-        activeClassName="is-active"
-        to="/home"
-        activeStyle={{
-          fontWeight: "bold",
-        }}
-        exact
-    >
-      Hjem
-    </NavLink>
-    <NavLink
-        className="navbar-item"
-        activeClassName="is-active"
-        to="/courses"
-        activeStyle={{
-          fontWeight: "bold",
-        }}
-        exact
-    >
-      Mine tiltak
-    </NavLink>
-    <NavLink
-        className="navbar-item"
-        activeClassName="is-active"
-        to="/progression"
-        activeStyle={{
-          fontWeight: "bold",
-        }}
-        exact
-    >
-      Progresjon
-    </NavLink>  
-    </Navbar.Text>
+        <Nav className="mr-auto">
+          <Navbar.Text>
+            <NavLink
+              className="navbar-item"
+              activeClassName="is-active"
+              to="/home"
+              activeStyle={{
+                fontWeight: "bold",
+              }}
+              exact
+            >
+              Hjem
+            </NavLink>
+            <NavLink
+              className="navbar-item"
+              activeClassName="is-active"
+              to="/courses"
+              activeStyle={{
+                fontWeight: "bold",
+              }}
+              exact
+            >
+              Mine aktiviteter
+            </NavLink>
+            <NavLink
+              className="navbar-item"
+              activeClassName="is-active"
+              to="/progression"
+              activeStyle={{
+                fontWeight: "bold",
+              }}
+              exact
+            >
+              Mitt introduksjonsprogram
+            </NavLink>
+          </Navbar.Text>
         </Nav>
         </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">
