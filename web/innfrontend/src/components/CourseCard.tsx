@@ -74,6 +74,7 @@ const CourseCard: FC<IProps> = (props) => {
       </Card.Body>
       </Card>
       <Modal
+      centered
             show={show}
             onHide={() => setShow(false)}
             dialogClassName="modal-90w"
