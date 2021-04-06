@@ -45,6 +45,7 @@ function App() {
               <Switch>
                 <Route exact path="/home">
                   <Home />
+
                 </Route>
                 <Route exact path="/courses">
                   <MyCourses />

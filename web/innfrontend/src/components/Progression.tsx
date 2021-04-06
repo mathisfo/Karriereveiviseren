@@ -64,10 +64,9 @@ const Progression = () => {
   return (
     
     <div>
-    <h2>Mitt introduksjonsprogram </h2>
       <Chart
         width={"100%"}
-        height={"400px"}
+        height={"300px"}
         chartType="Gantt"
         // TODO: Replace loader with loading wheel/bar
         loader={<div>Laster inn Gantt diagram...</div>}
