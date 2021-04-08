@@ -8,14 +8,16 @@ import { CourseContext } from "../store/CourseContext";
 const Home = () => {
   const courseContext = useContext(CourseContext);
 
+  console.log(courseContext);
+
   return (
     <Container>
       <Row>
-        {courseContext?.state.courseList.map((course: any) => (
+        { courseContext?.state.courseList.length ? courseContext?.state.courseList.map((course: any) => (
           <Col>
             <CourseCard {...course}></CourseCard>
           </Col>
-        ))}
+        )) : <p>No stuff here</p>}
       </Row>
     </Container>
   );
