@@ -15,8 +15,8 @@ const Home = () => {
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const handleClick = (e, titleProps) => {
-    const { index } = titleProps
+  function handleClick(titleProps: any) {
+    const index = titleProps
     const newIndex = activeIndex === index ? -1 : index
     setActiveIndex(newIndex)
   }
@@ -67,8 +67,10 @@ const Home = () => {
           </Row>
         </Container>
         <Accordion fluid styled>
-          <Accordion.Title>Arbeidsrettet</Accordion.Title>
-          <Accordion.Content>
+          <Accordion.Title active={activeIndex === 1}
+          index={1}
+          onClick={handleClick}><Icon name='dropdown' />Arbeidsrettet</Accordion.Title>
+          <Accordion.Content active={activeIndex === 1}>
             <p>NIGGERS</p>
           </Accordion.Content>
         </Accordion>
