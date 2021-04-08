@@ -14,6 +14,7 @@ interface IProps {
   description: string;
   restriction: number;
   isSelected: boolean;
+  category: string;
 }
 
 function setColor(modul?: number) {

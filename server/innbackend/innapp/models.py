@@ -12,6 +12,7 @@ class Course(models.Model):
     restriction = models.IntegerField('spor', default=0)
     # if we move to postgres, we can use arrayfield here
     #other = models.ArrayField()
+    category = models.CharField('kategori', max_length=100, default="")
 
     def __str__(self):
         return self.title
