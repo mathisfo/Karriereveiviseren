@@ -5,7 +5,6 @@ import { CourseContext } from "../store/CourseContext";
 import Modal from "react-bootstrap/Modal";
 import { render } from "@testing-library/react";
 
-
 interface IProps {
   id: number;
   title: string;
@@ -36,8 +35,6 @@ const CourseCard: FC<IProps> = (props) => {
 
   let newCourseList = courseContext?.state.courseList;
 
-
-
   // This should not be this complicated
   // TODO: Find a better way to handle this
   function selectCard() {
@@ -55,41 +52,44 @@ const CourseCard: FC<IProps> = (props) => {
     }
   }
 
+  console.log(props.category);
+
   return (
     <div>
-    <Card
-    style={{
-      width: "20rem",
-      height: "8rem",
-      background: setColor(props.restriction),
-      margin: "1cm",
-      padding: "0.5rem",
-    }}
-  >
-      <Card.Title>{props.title}</Card.Title>
-      <Card.Body>
-      <Button variant="primary" onClick={() => setShow(true)}>
-      Mer informasjon
-      </Button>{" "}
-      <Button variant="primary" onClick={selectCard}>Velg</Button>
-      </Card.Body>
+      <Card
+        style={{
+          width: "20rem",
+          height: "8rem",
+          background: setColor(props.restriction),
+          margin: "1cm",
+          padding: "0.5rem",
+        }}
+      >
+        <Card.Title>{props.title}</Card.Title>
+        <Card.Body>
+          <Button variant="primary" onClick={() => setShow(true)}>
+            Mer informasjon
+          </Button>{" "}
+          <Button variant="primary" onClick={selectCard}>
+            Velg
+          </Button>
+        </Card.Body>
       </Card>
       <Modal
-      centered
-            show={show}
-            onHide={() => setShow(false)}
-            dialogClassName="modal-90w"
-            aria-labelledby="example-custom-modal-styling-title"
-          >
-          <Modal.Header closeButton>
+        centered
+        show={show}
+        onHide={() => setShow(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
             {props.title}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
-          {props.description}
-          </p>
+          <h2>{props.category}</h2>
+          <p>{props.description}</p>
         </Modal.Body>
       </Modal>
     </div>

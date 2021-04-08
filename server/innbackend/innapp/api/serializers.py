@@ -7,4 +7,4 @@ class innappSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Course
         fields = ('url', 'id', 'title', 'startDate', 'endDate',
-                  'description', 'restriction')
+                  'description', 'restriction', 'category')

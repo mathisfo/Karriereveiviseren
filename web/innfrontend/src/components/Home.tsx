@@ -11,15 +11,9 @@ import { Accordion, Icon } from "semantic-ui-react";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
-  const [selectedRestriction, setSelectedRestriction] = React.useState(0);
+  const [selectedRestriction, setSelectedRestriction] = React.useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
-
-  function handleClick(titleProps: any) {
-    const index = titleProps
-    const newIndex = activeIndex === index ? -1 : index
-    setActiveIndex(newIndex)
-  }
 
   return (
     <div>
@@ -34,16 +28,22 @@ const Home = () => {
             <Col>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Spor
+                  {selectedRestriction}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => setSelectedRestriction(1)}>
+                  <Dropdown.Item
+                    onClick={() => setSelectedRestriction("Spor 1")}
+                  >
                     Spor 1
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSelectedRestriction(2)}>
+                  <Dropdown.Item
+                    onClick={() => setSelectedRestriction("Spor 2")}
+                  >
                     Spor 2
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSelectedRestriction(3)}>
+                  <Dropdown.Item
+                    onClick={() => setSelectedRestriction("Spor 3")}
+                  >
                     Spor 3
                   </Dropdown.Item>
                 </Dropdown.Menu>
@@ -67,36 +67,109 @@ const Home = () => {
           </Row>
         </Container>
         <Accordion fluid styled>
-          <Accordion.Title active={activeIndex === 1}
-          index={1}
-          onClick={handleClick}><Icon name='dropdown' />Arbeidsrettet</Accordion.Title>
+          <Accordion.Title
+            active={activeIndex === 1}
+            index={1}
+            onClick={() => setActiveIndex(1)}
+          >
+            <Icon name="dropdown" />
+            Arbeidsrettet
+          </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            <p>NIGGERS</p>
+            <Row>
+              {courseContext?.state.courseList
+                .filter(
+                  (e) =>
+                    // TODO: This filter is not intuitive in the long run if we filter on several conditions in the future. This works as a proof of concept. We should check out prewritten react filters
+                    e.category === "Arbeidsrettet" &&
+                    ((e.restriction === 1 &&
+                      selectedRestriction === "Spor 1" &&
+                      e.title.toLowerCase().includes(input)) ||
+                      (e.restriction === 2 &&
+                        selectedRestriction === "Spor 2" &&
+                        e.title.toLowerCase().includes(input)) ||
+                      (e.restriction === 3 &&
+                        selectedRestriction === "Spor 3" &&
+                        e.title.toLowerCase().includes(input)) ||
+                      (e.title.toLowerCase().includes(input) &&
+                        selectedRestriction === ""))
+                )
+                .map((course: any) => (
+                  <Col>
+                    <CourseCard {...course}></CourseCard>
+                  </Col>
+                ))}
+            </Row>
+          </Accordion.Content>
+          <Accordion.Title
+            active={activeIndex === 2}
+            index={2}
+            onClick={() => setActiveIndex(2)}
+          >
+            <Icon name="dropdown" />
+            Utdanningsrettet
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 2}>
+            <Row>
+              {courseContext?.state.courseList
+                .filter(
+                  (e) =>
+                    // TODO: This filter is not intuitive in the long run if we filter on several conditions in the future. This works as a proof of concept. We should check out prewritten react filters
+                    e.category === "Utdanningsrettet" &&
+                    ((e.restriction === 1 &&
+                      selectedRestriction === "Spor 1" &&
+                      e.title.toLowerCase().includes(input)) ||
+                      (e.restriction === 2 &&
+                        selectedRestriction === "Spor 2" &&
+                        e.title.toLowerCase().includes(input)) ||
+                      (e.restriction === 3 &&
+                        selectedRestriction === "Spor 3" &&
+                        e.title.toLowerCase().includes(input)) ||
+                      (e.title.toLowerCase().includes(input) &&
+                        selectedRestriction === ""))
+                )
+                .map((course: any) => (
+                  <Col>
+                    <CourseCard {...course}></CourseCard>
+                  </Col>
+                ))}
+            </Row>
+          </Accordion.Content>
+          <Accordion.Title
+            active={activeIndex === 3}
+            index={3}
+            onClick={() => setActiveIndex(3)}
+          >
+            <Icon name="dropdown" />
+            Samfunnsrettet
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 3}>
+            <Row>
+              {courseContext?.state.courseList
+                .filter(
+                  (e) =>
+                    // TODO: This filter is not intuitive in the long run if we filter on several conditions in the future. This works as a proof of concept. We should check out prewritten react filters
+                    e.category === "Samfunnsrettet" &&
+                    ((e.restriction === 1 &&
+                      selectedRestriction === "Spor 1" &&
+                      e.title.toLowerCase().includes(input)) ||
+                      (e.restriction === 2 &&
+                        selectedRestriction === "Spor 2" &&
+                        e.title.toLowerCase().includes(input)) ||
+                      (e.restriction === 3 &&
+                        selectedRestriction === "Spor 3" &&
+                        e.title.toLowerCase().includes(input)) ||
+                      (e.title.toLowerCase().includes(input) &&
+                        selectedRestriction === ""))
+                )
+                .map((course: any) => (
+                  <Col>
+                    <CourseCard {...course}></CourseCard>
+                  </Col>
+                ))}
+            </Row>
           </Accordion.Content>
         </Accordion>
-        <Row>
-          {courseContext?.state.courseList
-            .filter(
-              (e) =>
-                // TODO: This filter is not intuitive in the long run if we filter on several conditions in the future. This works as a proof of concept. We should check out prewritten react filters
-                (e.restriction === 1 &&
-                  selectedRestriction === 1 &&
-                  e.title.toLowerCase().includes(input)) ||
-                (e.restriction === 2 &&
-                  selectedRestriction === 2 &&
-                  e.title.toLowerCase().includes(input)) ||
-                (e.restriction === 3 &&
-                  selectedRestriction === 3 &&
-                  e.title.toLowerCase().includes(input)) ||
-                (e.title.toLowerCase().includes(input) &&
-                  selectedRestriction === 0)
-            )
-            .map((course: any) => (
-              <Col>
-                <CourseCard {...course}></CourseCard>
-              </Col>
-            ))}
-        </Row>
       </Container>
     </div>
   );
