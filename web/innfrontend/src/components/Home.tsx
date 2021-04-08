@@ -9,11 +9,20 @@ import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { Accordion, Icon } from "semantic-ui-react";
 
+
+
 const Home = () => {
   const courseContext = useContext(CourseContext);
   const [selectedRestriction, setSelectedRestriction] = React.useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
+
+
+  function handleClick(index: number) {
+    setActiveIndex(index)
+    const newIndex = activeIndex === index ? -1 : index
+    setActiveIndex( newIndex )
+  } 
 
   return (
     <div>
@@ -53,8 +62,6 @@ const Home = () => {
               <InputGroup className="mb-3">
                 <FormControl
                   placeholder="Søk..."
-                  aria-label="Recipient's username"
-                  aria-describedby="basic-addon2"
                   onChange={(e) => setInput(e.target.value)}
                 />
                 <InputGroup.Append>
@@ -69,8 +76,7 @@ const Home = () => {
         <Accordion fluid styled>
           <Accordion.Title
             active={activeIndex === 1}
-            index={1}
-            onClick={() => setActiveIndex(1)}
+            onClick={(e) => handleClick(1)}
           >
             <Icon name="dropdown" />
             Arbeidsrettet
@@ -102,9 +108,8 @@ const Home = () => {
             </Row>
           </Accordion.Content>
           <Accordion.Title
-            active={activeIndex === 2}
-            index={2}
-            onClick={() => setActiveIndex(2)}
+          active={activeIndex === 2}
+          onClick={(e) => handleClick(2)}
           >
             <Icon name="dropdown" />
             Utdanningsrettet
@@ -136,9 +141,8 @@ const Home = () => {
             </Row>
           </Accordion.Content>
           <Accordion.Title
-            active={activeIndex === 3}
-            index={3}
-            onClick={() => setActiveIndex(3)}
+          active={activeIndex === 3}
+          onClick={(e) => handleClick(3)}
           >
             <Icon name="dropdown" />
             Samfunnsrettet
