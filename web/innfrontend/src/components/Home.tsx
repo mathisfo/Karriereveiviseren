@@ -7,7 +7,7 @@ import { CourseContext } from "../store/CourseContext";
 import Progression from "./Progression";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
-import { Accordion, Icon } from "semantic-ui-react";
+import { Accordion, Checkbox, Icon } from "semantic-ui-react";
 
 
 
@@ -16,13 +16,30 @@ const Home = () => {
   const [selectedRestriction, setSelectedRestriction] = React.useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [isChecked, setChecked] = useState(false);
+  const initialList = ["Spor 1", "Spor 2", "Spor 3"];
 
+  const [list, setList] = React.useState(initialList);
 
   function handleClick(index: number) {
     setActiveIndex(index)
     const newIndex = activeIndex === index ? -1 : index
     setActiveIndex( newIndex )
   } 
+
+  function handleChange(value: string) {
+    if (!isChecked) {
+    setChecked(true)
+    initialList.push(value)
+  }
+    else {
+      setChecked(false)
+      const newList = list.filter(item => initialList.values.toString !== value);
+      setList(newList);
+    }
+  }
+
+
 
   return (
     <div>
@@ -41,8 +58,9 @@ const Home = () => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item
-                    onClick={() => setSelectedRestriction("Spor 1")}
+                    
                   >
+                  <Checkbox id={1} checked={isChecked} defaultChecked onChange={(e) => handleChange("Spor 1")}/>
                     Spor 1
                   </Dropdown.Item>
                   <Dropdown.Item
@@ -79,7 +97,8 @@ const Home = () => {
             onClick={(e) => handleClick(1)}
           >
             <Icon name="dropdown" />
-            Arbeidsrettet
+            Arbeidsrettet {"   "} 
+            <Icon name="briefcase" />
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
             <Row>
@@ -112,7 +131,8 @@ const Home = () => {
           onClick={(e) => handleClick(2)}
           >
             <Icon name="dropdown" />
-            Utdanningsrettet
+            Utdanningsrettet {" "}
+            <Icon name="graduation cap"/>
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
             <Row>
@@ -145,7 +165,8 @@ const Home = () => {
           onClick={(e) => handleClick(3)}
           >
             <Icon name="dropdown" />
-            Samfunnsrettet
+            Samfunnsrettet {" "}
+            <Icon name="users"/>
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
             <Row>
