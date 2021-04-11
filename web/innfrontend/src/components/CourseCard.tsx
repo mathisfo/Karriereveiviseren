@@ -90,6 +90,7 @@ const CourseCard: FC<IProps> = (props) => {
         <Modal.Body>
           <h2>{props.category}</h2>
           <p>{props.description}</p>
+          <p>Spor {props.restriction}</p>
         </Modal.Body>
       </Modal>
     </div>

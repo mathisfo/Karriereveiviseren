@@ -8,38 +8,22 @@ import Progression from "./Progression";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { Accordion, Checkbox, Icon } from "semantic-ui-react";
-
-
+import { updateExpressionWithTypeArguments } from "typescript";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
-  const [selectedRestriction, setSelectedRestriction] = React.useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [isChecked, setChecked] = useState(false);
-  const initialList = ["Spor 1", "Spor 2", "Spor 3"];
 
-  const [list, setList] = React.useState(initialList);
+  const [box1, setBox1] = useState(false);
+  const [box2, setBox2] = useState(false);
+  const [box3, setBox3] = useState(false);
 
   function handleClick(index: number) {
-    setActiveIndex(index)
-    const newIndex = activeIndex === index ? -1 : index
-    setActiveIndex( newIndex )
-  } 
-
-  function handleChange(value: string) {
-    if (!isChecked) {
-    setChecked(true)
-    initialList.push(value)
+    setActiveIndex(index);
+    const newIndex = activeIndex === index ? -1 : index;
+    setActiveIndex(newIndex);
   }
-    else {
-      setChecked(false)
-      const newList = list.filter(item => initialList.values.toString !== value);
-      setList(newList);
-    }
-  }
-
-
 
   return (
     <div>
@@ -52,29 +36,21 @@ const Home = () => {
         <Container>
           <Row md={2}>
             <Col>
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  {selectedRestriction}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item
-                    
-                  >
-                  <Checkbox id={1} checked={isChecked} defaultChecked onChange={(e) => handleChange("Spor 1")}/>
-                    Spor 1
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => setSelectedRestriction("Spor 2")}
-                  >
-                    Spor 2
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => setSelectedRestriction("Spor 3")}
-                  >
-                    Spor 3
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <Checkbox
+                checked={box1}
+                label="Spor 1"
+                onClick={() => setBox1(!box1)}
+              />
+              <Checkbox
+                checked={box2}
+                label="Spor 2"
+                onClick={() => setBox2(!box2)}
+              />
+              <Checkbox
+                checked={box3}
+                label="Spor 3"
+                onClick={() => setBox3(!box3)}
+              />
             </Col>
             <Col>
               <InputGroup className="mb-3">
@@ -97,7 +73,7 @@ const Home = () => {
             onClick={(e) => handleClick(1)}
           >
             <Icon name="dropdown" />
-            Arbeidsrettet {"   "} 
+            Arbeidsrettet {"   "}
             <Icon name="briefcase" />
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
@@ -105,19 +81,12 @@ const Home = () => {
               {courseContext?.state.courseList
                 .filter(
                   (e) =>
-                    // TODO: This filter is not intuitive in the long run if we filter on several conditions in the future. This works as a proof of concept. We should check out prewritten react filters
                     e.category === "Arbeidsrettet" &&
-                    ((e.restriction === 1 &&
-                      selectedRestriction === "Spor 1" &&
-                      e.title.toLowerCase().includes(input)) ||
-                      (e.restriction === 2 &&
-                        selectedRestriction === "Spor 2" &&
-                        e.title.toLowerCase().includes(input)) ||
-                      (e.restriction === 3 &&
-                        selectedRestriction === "Spor 3" &&
-                        e.title.toLowerCase().includes(input)) ||
-                      (e.title.toLowerCase().includes(input) &&
-                        selectedRestriction === ""))
+                    e.title.toLowerCase().includes(input) &&
+                    ((!box1 && !box2 && !box3) ||
+                      (e.restriction === 1 && box1) ||
+                      (e.restriction === 2 && box2) ||
+                      (e.restriction === 3 && box3))
                 )
                 .map((course: any) => (
                   <Col>
@@ -127,65 +96,50 @@ const Home = () => {
             </Row>
           </Accordion.Content>
           <Accordion.Title
-          active={activeIndex === 2}
-          onClick={(e) => handleClick(2)}
+            active={activeIndex === 2}
+            onClick={(e) => handleClick(2)}
           >
             <Icon name="dropdown" />
-            Utdanningsrettet {" "}
-            <Icon name="graduation cap"/>
+            Utdanningsrettet <Icon name="graduation cap" />
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
             <Row>
               {courseContext?.state.courseList
                 .filter(
                   (e) =>
-                    // TODO: This filter is not intuitive in the long run if we filter on several conditions in the future. This works as a proof of concept. We should check out prewritten react filters
                     e.category === "Utdanningsrettet" &&
-                    ((e.restriction === 1 &&
-                      selectedRestriction === "Spor 1" &&
-                      e.title.toLowerCase().includes(input)) ||
-                      (e.restriction === 2 &&
-                        selectedRestriction === "Spor 2" &&
-                        e.title.toLowerCase().includes(input)) ||
-                      (e.restriction === 3 &&
-                        selectedRestriction === "Spor 3" &&
-                        e.title.toLowerCase().includes(input)) ||
-                      (e.title.toLowerCase().includes(input) &&
-                        selectedRestriction === ""))
+                    e.title.toLowerCase().includes(input) &&
+                    ((!box1 && !box2 && !box3) ||
+                      (e.restriction === 1 && box1) ||
+                      (e.restriction === 2 && box2) ||
+                      (e.restriction === 3 && box3))
                 )
                 .map((course: any) => (
                   <Col>
+                  
                     <CourseCard {...course}></CourseCard>
                   </Col>
                 ))}
             </Row>
           </Accordion.Content>
           <Accordion.Title
-          active={activeIndex === 3}
-          onClick={(e) => handleClick(3)}
+            active={activeIndex === 3}
+            onClick={(e) => handleClick(3)}
           >
             <Icon name="dropdown" />
-            Samfunnsrettet {" "}
-            <Icon name="users"/>
+            Samfunnsrettet <Icon name="users" />
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
             <Row>
               {courseContext?.state.courseList
                 .filter(
                   (e) =>
-                    // TODO: This filter is not intuitive in the long run if we filter on several conditions in the future. This works as a proof of concept. We should check out prewritten react filters
                     e.category === "Samfunnsrettet" &&
-                    ((e.restriction === 1 &&
-                      selectedRestriction === "Spor 1" &&
-                      e.title.toLowerCase().includes(input)) ||
-                      (e.restriction === 2 &&
-                        selectedRestriction === "Spor 2" &&
-                        e.title.toLowerCase().includes(input)) ||
-                      (e.restriction === 3 &&
-                        selectedRestriction === "Spor 3" &&
-                        e.title.toLowerCase().includes(input)) ||
-                      (e.title.toLowerCase().includes(input) &&
-                        selectedRestriction === ""))
+                    e.title.toLowerCase().includes(input) &&
+                    ((!box1 && !box2 && !box3) ||
+                      (e.restriction === 1 && box1) ||
+                      (e.restriction === 2 && box2) ||
+                      (e.restriction === 3 && box3))
                 )
                 .map((course: any) => (
                   <Col>
