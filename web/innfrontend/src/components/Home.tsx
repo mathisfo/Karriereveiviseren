@@ -8,7 +8,6 @@ import Progression from "./Progression";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { Accordion, Checkbox, Icon } from "semantic-ui-react";
-import { updateExpressionWithTypeArguments } from "typescript";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
@@ -23,6 +22,24 @@ const Home = () => {
     setActiveIndex(index);
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
+  }
+
+  function filteredCourses(categoryType: string) {
+    return courseContext?.state.courseList
+      .filter(
+        (e) =>
+          e.category === categoryType &&
+          e.title.toLowerCase().includes(input) &&
+          ((!box1 && !box2 && !box3) ||
+            (e.restriction === 1 && box1) ||
+            (e.restriction === 2 && box2) ||
+            (e.restriction === 3 && box3))
+      )
+      .map((course: any) => (
+        <Col>
+          <CourseCard {...course}></CourseCard>
+        </Col>
+      ));
   }
 
   return (
@@ -77,23 +94,7 @@ const Home = () => {
             <Icon name="briefcase" />
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            <Row>
-              {courseContext?.state.courseList
-                .filter(
-                  (e) =>
-                    e.category === "Arbeidsrettet" &&
-                    e.title.toLowerCase().includes(input) &&
-                    ((!box1 && !box2 && !box3) ||
-                      (e.restriction === 1 && box1) ||
-                      (e.restriction === 2 && box2) ||
-                      (e.restriction === 3 && box3))
-                )
-                .map((course: any) => (
-                  <Col>
-                    <CourseCard {...course}></CourseCard>
-                  </Col>
-                ))}
-            </Row>
+            <Row>{filteredCourses("Arbeidsrettet")}</Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}
@@ -103,24 +104,7 @@ const Home = () => {
             Utdanningsrettet <Icon name="graduation cap" />
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            <Row>
-              {courseContext?.state.courseList
-                .filter(
-                  (e) =>
-                    e.category === "Utdanningsrettet" &&
-                    e.title.toLowerCase().includes(input) &&
-                    ((!box1 && !box2 && !box3) ||
-                      (e.restriction === 1 && box1) ||
-                      (e.restriction === 2 && box2) ||
-                      (e.restriction === 3 && box3))
-                )
-                .map((course: any) => (
-                  <Col>
-                  
-                    <CourseCard {...course}></CourseCard>
-                  </Col>
-                ))}
-            </Row>
+            <Row>{filteredCourses("Utdanningsrettet")}</Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 3}
@@ -130,23 +114,7 @@ const Home = () => {
             Samfunnsrettet <Icon name="users" />
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
-            <Row>
-              {courseContext?.state.courseList
-                .filter(
-                  (e) =>
-                    e.category === "Samfunnsrettet" &&
-                    e.title.toLowerCase().includes(input) &&
-                    ((!box1 && !box2 && !box3) ||
-                      (e.restriction === 1 && box1) ||
-                      (e.restriction === 2 && box2) ||
-                      (e.restriction === 3 && box3))
-                )
-                .map((course: any) => (
-                  <Col>
-                    <CourseCard {...course}></CourseCard>
-                  </Col>
-                ))}
-            </Row>
+            <Row>{filteredCourses("Samfunnsrettet")}</Row>
           </Accordion.Content>
         </Accordion>
       </Container>
