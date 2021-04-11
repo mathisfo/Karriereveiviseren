@@ -2,6 +2,13 @@ from django.db import models
 from django.utils.timezone import now
 
 
+class Category(models.Model):
+    category = models.CharField('kategori', max_length=100, default="")
+
+    def __str__(self):
+        return self.category
+
+
 class Course(models.Model):
     title = models.CharField('tiltak', max_length=120)
     startDate = models.DateTimeField(
@@ -12,7 +19,7 @@ class Course(models.Model):
     restriction = models.IntegerField('spor', default=0)
     # if we move to postgres, we can use arrayfield here
     #other = models.ArrayField()
-    category = models.CharField('kategori', max_length=100, default="")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

@@ -8,6 +8,7 @@ import Progression from "./Progression";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { Accordion, Checkbox, Icon } from "semantic-ui-react";
+import AccordionContainer from "./AccordionContainer";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
