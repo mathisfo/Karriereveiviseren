@@ -9,7 +9,7 @@ import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { Accordion, Checkbox, Icon } from "semantic-ui-react";
 import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
-import CategoryAccordion from "./CourseAccordion";
+import CourseAccordion from "./CourseAccordion";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
@@ -136,7 +136,7 @@ const Home = () => {
             <Row>{filteredCourses("Samfunnsrettet")}</Row>
           </Accordion.Content>
         </Accordion>
-        <CategoryAccordion />
+        <CourseAccordion courseList={courseContext?.state.courseList}  />
       </Container>
     </div>
   );
