@@ -1,4 +1,4 @@
-import React, { useContext, useState, Component } from "react";
+import React, { useContext, useState, Component, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
@@ -8,12 +8,30 @@ import Progression from "./Progression";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { Accordion, Checkbox, Icon } from "semantic-ui-react";
-import AccordionContainer from "./AccordionContainer";
+import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
+import CategoryAccordion from "./CourseAccordion";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const categoryContext = useContext(CategoryContext);
+
+  useEffect(() => {
+    // Need conditional render because of possible null in courseContext
+    // Have not found a fix for this if we are going with the reducer instead of state
+    categoryContext?.dispatch({ type: "API_REQUEST" });
+    fetch("http://127.0.0.1:8000/api/category/")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          categoryContext?.dispatch({ type: "API_SUCCESS", payload: result });
+        },
+        (error) => {
+          categoryContext?.dispatch({ type: "API_ERROR", payload: error });
+        }
+      );
+  }, []);
 
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
@@ -118,9 +136,14 @@ const Home = () => {
             <Row>{filteredCourses("Samfunnsrettet")}</Row>
           </Accordion.Content>
         </Accordion>
+        <CategoryAccordion />
       </Container>
     </div>
   );
 };
 
-export default Home;
+export default () => (
+  <CategoryProvider>
+    <Home />
+  </CategoryProvider>
+);
