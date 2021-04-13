@@ -1,8 +1,6 @@
-from innapp.models import Course
 from userpreferences.models import UserPreference
-from .serializers import CategorySerializer, userPreferenceSerializer, UserSerializer
+from .serializers import CategorySerializer, userPreferenceSerializer, UserSerializer, CourseSerializer
 from innapp.models import Course, Category
-from .serializers import CourseSerializer, CategorySerializer
 from rest_framework import viewsets
 from rest_framework import generics
 from django.contrib.auth.models import User
@@ -25,7 +23,6 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    serializer_class = CourseSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):

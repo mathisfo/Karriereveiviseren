@@ -39,7 +39,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {false ? (
+      {true ? (
         <div>
           <TopNavigator></TopNavigator>
           <Container className="p-3">

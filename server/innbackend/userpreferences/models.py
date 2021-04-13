@@ -12,4 +12,8 @@ class UserPreference(models.Model):
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return str(self.selected)
+
+        if str(self.user)[-1] == 's':
+            return str(self.user) + "'" + ' valgte tiltak'
+        else:
+            return str(self.user) + 's' + ' valgte tiltak'
