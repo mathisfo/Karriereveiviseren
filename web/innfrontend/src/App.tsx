@@ -23,7 +23,7 @@ function App() {
       .then(
         (result: any) => {
           console.log(result);
-          courseContext?.dispatch({ type: "API_SUCCESS", payload: result });
+          courseContext?.dispatch({ type: "API_SUCCESS", payload: result.data });
         },
         (error) => {
           courseContext?.dispatch({ type: "API_ERROR", payload: error });
