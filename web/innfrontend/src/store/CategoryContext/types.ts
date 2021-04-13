@@ -1,21 +1,14 @@
 // TODO: change startDate and endDate from string to date
-export type Course = {
+export type Category= {
   id: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  restriction: number;
-  isSelected: boolean;
-  category: string; 
-};
+  category: string;
+}
 
-// Course Context
-export type CourseContextState = {
+export type CategoryContextState = {
   error: string;
   loading: boolean;
-  courseList: Array<Course>;
-};
+  categoryList: Array<Category>;
+}
 
 // Actions
 interface IRequest {
@@ -24,16 +17,19 @@ interface IRequest {
 
 interface ISuccess {
   type: "API_SUCCESS";
-  payload: Array<Course>;
+  payload: Array<Category>;
 }
+
 interface IError {
   type: "API_ERROR";
   payload: string;
 }
 
 interface ISelect {
-  type: "COURSE_SELECT";
-  payload: Array<Course>;
+  type: "CATEGORY_SELECT";
+  payload: Array<Category>;
 }
+
+
 
 export type Actions = IRequest | ISuccess | IError | ISelect;

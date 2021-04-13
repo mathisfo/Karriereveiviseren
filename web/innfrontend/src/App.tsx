@@ -13,6 +13,7 @@ import CourseProvider, { CourseContext } from "./store/CourseContext/";
 function App() {
   const courseContext = useContext(CourseContext);
 
+
   useEffect(() => {
     // Need conditional render because of possible null in courseContext
     // Have not found a fix for this if we are going with the reducer instead of state

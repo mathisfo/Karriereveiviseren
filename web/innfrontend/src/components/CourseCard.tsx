@@ -1,8 +1,9 @@
-import React, { Component, FC, useContext } from "react";
+import React, { Component, FC, useContext, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CourseContext } from "../store/CourseContext";
-
+import Modal from "react-bootstrap/Modal";
+import { render } from "@testing-library/react";
 
 interface IProps {
   id: number;
@@ -12,6 +13,7 @@ interface IProps {
   description: string;
   restriction: number;
   isSelected: boolean;
+  category: string;
 }
 
 function setColor(modul?: number) {
@@ -29,6 +31,7 @@ function setColor(modul?: number) {
 
 const CourseCard: FC<IProps> = (props) => {
   const courseContext = useContext(CourseContext);
+  const [show, setShow] = useState(false);
 
   let newCourseList = courseContext?.state.courseList;
 
@@ -49,24 +52,47 @@ const CourseCard: FC<IProps> = (props) => {
     }
   }
 
+  console.log(props.category);
+
   return (
     <div>
       <Card
         style={{
-          width: "18rem",
+          width: "20rem",
+          height: "8rem",
           background: setColor(props.restriction),
           margin: "1cm",
+          padding: "0.5rem",
         }}
       >
+        <Card.Title>{props.title}</Card.Title>
         <Card.Body>
-          <Card.Title>{props.title}</Card.Title>
-          <Card.Text>{props.description}</Card.Text>
-          <Button variant="primary">Mer informasjon</Button>
+          <Button variant="primary" onClick={() => setShow(true)}>
+            Mer informasjon
+          </Button>{" "}
           <Button variant="primary" onClick={selectCard}>
-            Select
+            Velg
           </Button>
         </Card.Body>
       </Card>
+      <Modal
+        centered
+        show={show}
+        onHide={() => setShow(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            {props.title}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h2>{props.category}</h2>
+          <p>{props.description}</p>
+          <p>Spor {props.restriction}</p>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

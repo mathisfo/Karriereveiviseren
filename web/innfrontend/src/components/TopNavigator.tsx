@@ -16,7 +16,6 @@ const TopNavigator = () => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <img src={logo}></img>
       <Navbar.Brand>INN</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -42,7 +41,7 @@ const TopNavigator = () => {
               }}
               exact
             >
-              Mine tiltak
+              Mine aktiviteter
             </NavLink>
             <NavLink
               className="navbar-item"
@@ -53,7 +52,7 @@ const TopNavigator = () => {
               }}
               exact
             >
-              Progresjon
+              Mitt introduksjonsprogram
             </NavLink>
           </Navbar.Text>
         </Nav>

@@ -1,11 +1,12 @@
 from innapp.models import Course
 from userpreferences.models import UserPreference
+from innapp.models import Course, Category
+
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
 
-
-class innappSerializer(serializers.HyperlinkedModelSerializer):
+class CourseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Course
         fields = ('url', 'id', 'title', 'startDate', 'endDate',
@@ -24,3 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('email', 'first_name', 'last_name',
                   'password', 'is_superuser')
+
+
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('url', 'id', 'category')
