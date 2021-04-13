@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
@@ -8,9 +8,11 @@ import Home from "./components/Home";
 import MyCourses from "./components/MyCourses";
 import Progression from "./components/Progression";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
+import GoogleSocialAuth from "./components/GoogleSocialAuth";
 
 function App() {
   const courseContext = useContext(CourseContext);
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     // Need conditional render because of possible null in courseContext
@@ -35,32 +37,36 @@ function App() {
     return getKey === true && getKey != null;
   }
 
-  return (
-    <BrowserRouter>
-      {!getStorage() ? (
-        <div>
-          <TopNavigator></TopNavigator>
-          <Container className="p-3">
-            <div>
-              <Switch>
-                <Route exact path="/home">
-                  <Home />
-                </Route>
-                <Route exact path="/courses">
-                  <MyCourses />
-                </Route>
-                <Route exact path="/progression">
-                  <Progression />
-                </Route>
-              </Switch>
-            </div>
-          </Container>
-        </div>
-      ) : (
-        <Landing handleClick={() => setShowSite(!showSite)} />
-      )}
-    </BrowserRouter>
-  );
+  if (!login) {
+    return <GoogleSocialAuth />;
+  } else {
+    return (
+      <BrowserRouter>
+        {!getStorage() ? (
+          <div>
+            <TopNavigator></TopNavigator>
+            <Container className="p-3">
+              <div>
+                <Switch>
+                  <Route exact path="/home">
+                    <Home />
+                  </Route>
+                  <Route exact path="/courses">
+                    <MyCourses />
+                  </Route>
+                  <Route exact path="/progression">
+                    <Progression />
+                  </Route>
+                </Switch>
+              </div>
+            </Container>
+          </div>
+        ) : (
+          <Landing handleClick={() => setShowSite(!showSite)} />
+        )}
+      </BrowserRouter>
+    );
+  }
 }
 
 export default () => (
