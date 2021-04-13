@@ -9,6 +9,7 @@ import MyCourses from "./components/MyCourses";
 import Progression from "./components/Progression";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
 import GoogleSocialAuth from "./components/GoogleSocialAuth";
+import axios from "axios";
 
 function App() {
   const courseContext = useContext(CourseContext);
@@ -18,10 +19,10 @@ function App() {
     // Need conditional render because of possible null in courseContext
     // Have not found a fix for this if we are going with the reducer instead of state
     courseContext?.dispatch({ type: "API_REQUEST" });
-    fetch("http://127.0.0.1:8000/api/course/")
-      .then((res) => res.json())
+    axios.get("http://127.0.0.1:8000/api/course/", /*{withCredentials: true}*/)
       .then(
-        (result) => {
+        (result: any) => {
+          console.log(result);
           courseContext?.dispatch({ type: "API_SUCCESS", payload: result });
         },
         (error) => {
@@ -37,11 +38,9 @@ function App() {
     return getKey === true && getKey != null;
   }
 
-  if (!login) {
-    return <GoogleSocialAuth />;
-  } else {
     return (
       <BrowserRouter>
+      <GoogleSocialAuth />
         {!getStorage() ? (
           <div>
             <TopNavigator></TopNavigator>
@@ -67,7 +66,6 @@ function App() {
       </BrowserRouter>
     );
   }
-}
 
 export default () => (
   <CourseProvider>
