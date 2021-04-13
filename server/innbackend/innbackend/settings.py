@@ -26,34 +26,32 @@ SECRET_KEY = 'y2pyp!#esrdi=@%^vka&c)gm2*p0ky=&6h8)lf4wdob4*rw2l1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
-CORS_ALLOW_HEADERS = default_headers + (
-    'Access-Control-Allow-Origin',
-)
 # Application definition
-
 INSTALLED_APPS = [
     'corsheaders',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth', 
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     'innapp',
 ]
 
-SITE_ID = 1
-
-'''
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permission.AllowAny'
-    ]
-}
-'''
+SITE_ID = 2
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -65,6 +63,26 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+ALLOWED_HOSTS = ['*']
+
+# Following lines are used for CORS stuff. DEV ONLY!
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+
+CORS_ALLOW_HEADERS = default_headers + (
+    'Access-Control-Allow-Origin',
+)
+
+
+'''
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permission.AllowAny'
+    ]
+}
+'''
 
 ROOT_URLCONF = 'innbackend.urls'
 
@@ -135,13 +153,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# Following lines are used for CORS stuff. DEV ONLY!
-# TODO: NEVER INCLUDE IN PROD!
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = False
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000"
-]
