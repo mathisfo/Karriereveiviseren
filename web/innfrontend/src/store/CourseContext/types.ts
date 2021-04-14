@@ -5,6 +5,7 @@ export type Course = {
   startDate: string;
   endDate: string;
   description: string;
+  shortDescription: string;
   restriction: number;
   isSelected: boolean;
   category: string; 

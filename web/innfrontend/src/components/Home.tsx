@@ -7,7 +7,7 @@ import { CourseContext } from "../store/CourseContext";
 import Progression from "./Progression";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
-import { Accordion, Checkbox, Icon } from "semantic-ui-react";
+import { Accordion, Card, Checkbox, Grid, Icon } from "semantic-ui-react";
 import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import CourseAccordion from "./CourseAccordion";
 
@@ -54,11 +54,7 @@ const Home = () => {
             (e.restriction === 2 && box2) ||
             (e.restriction === 3 && box3))
       )
-      .map((course: any) => (
-        <Col>
-          <CourseCard {...course}></CourseCard>
-        </Col>
-      ));
+      .map((course: any) => <CourseCard {...course}></CourseCard>);
   }
 
   return (
@@ -113,7 +109,9 @@ const Home = () => {
             Arbeidsrettet {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            <Row>{filteredCourses("Arbeidsrettet")}</Row>
+            <Card.Group itemsPerRow={4}>
+              {filteredCourses("Arbeidsrettet")}
+            </Card.Group>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}

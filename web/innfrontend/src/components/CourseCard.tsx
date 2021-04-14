@@ -1,8 +1,15 @@
 import React, { Component, FC, useContext, useState } from "react";
 import { CourseContext } from "../store/CourseContext";
-import Modal from "react-bootstrap/Modal";
 import { render } from "@testing-library/react";
-import { Card, Icon, Button, Checkbox, Label } from "semantic-ui-react";
+import {
+  Card,
+  Icon,
+  Button,
+  Checkbox,
+  Label,
+  Modal,
+  Header,
+} from "semantic-ui-react";
 
 interface IProps {
   id: number;
@@ -10,6 +17,7 @@ interface IProps {
   startDate: string;
   endDate: string;
   description: string;
+  shortDescription: string;
   restriction: number;
   isSelected: boolean;
   category: string;
@@ -18,19 +26,20 @@ interface IProps {
 function setColor(modul?: number) {
   switch (modul) {
     case 1:
-      return "#f6d66b";
+      return "yellow";
     case 2:
-      return "#49bf65";
+      return "green";
     case 3:
-      return "#eb6859";
+      return "red";
     default:
-      return "grey";
+      return "teal";
   }
 }
 
 const CourseCard: FC<IProps> = (props) => {
   const courseContext = useContext(CourseContext);
   const [show, setShow] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   let newCourseList = courseContext?.state.courseList;
 
@@ -55,32 +64,52 @@ const CourseCard: FC<IProps> = (props) => {
 
   return (
     <div>
-      <Card>
-        <Card.Header header={props.title} />
-        <Card.Content description={props.description} />
+      <Card style={{ margin: "1.2em" }}>
+        <Card.Content>
+          <Card.Header>
+            {props.title}
+            <Label
+              color={setColor(props.restriction)}
+              style={{ float: "right", margin: 4 }}
+            >
+              Spor {props.restriction}
+            </Label>
+          </Card.Header>
+          <Card.Meta>{props.category}</Card.Meta>
+          <Card.Description>{props.shortDescription}</Card.Description>
+        </Card.Content>
         <Card.Content extra>
-          <Label color="orange">Spor {props.restriction}</Label>
-          <Button label="Velg tiltak"></Button>
+          <div className="ui two buttons">
+            <Modal
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+              open={open}
+              trigger={<Button>Mer informasjon</Button>}
+            >
+              <Modal.Header>{props.title}</Modal.Header>
+              <Modal.Content>
+                <Modal.Description>
+                  <Header>{props.category}</Header>
+                  <p>{props.description}</p>
+                </Modal.Description>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="black" onClick={() => setOpen(false)}>
+                  Gå tilbake
+                </Button>
+                <Button
+                  content="Legg til dette tiltaket"
+                  labelPosition="right"
+                  icon="checkmark"
+                  onClick={() => setOpen(false)}
+                  positive
+                />
+              </Modal.Actions>
+            </Modal>
+            <Checkbox toggle label="Velg" basic color="red"></Checkbox>
+          </div>
         </Card.Content>
       </Card>
-      <Modal
-        centered
-        show={show}
-        onHide={() => setShow(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            {props.title}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h2>{props.category}</h2>
-          <p>{props.description}</p>
-          <p>Spor {props.restriction}</p>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };
