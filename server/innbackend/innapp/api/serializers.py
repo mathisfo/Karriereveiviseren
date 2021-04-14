@@ -10,7 +10,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ('url', 'id', 'title', 'startDate', 'endDate',
-                  'description', 'shortDescription', 'restriction', 'category')
+                  'description', 'shortDescription', 'restriction', 'category', 'classroom')
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):

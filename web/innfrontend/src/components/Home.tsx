@@ -7,9 +7,10 @@ import { CourseContext } from "../store/CourseContext";
 import Progression from "./Progression";
 import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
-import { Accordion, Card, Checkbox, Grid, Icon } from "semantic-ui-react";
+import { Accordion, Card, Checkbox, Grid, Icon, Segment } from "semantic-ui-react";
 import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import CourseAccordion from "./CourseAccordion";
+import MyCourses from "./MyCourses";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
@@ -58,12 +59,8 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <h2>Mitt introduksjonsprogram </h2>
-
-      <Progression />
-
-      <Container>
+    <Grid columns={2} relaxed='very'>
+      <Grid.Column>
         <h2> Tiltak </h2>
         <Container>
           <Row md={2}>
@@ -72,16 +69,20 @@ const Home = () => {
                 checked={box1}
                 label="Spor 1"
                 onClick={() => setBox1(!box1)}
+                style={{marginRight: "1em"}}
+                
               />
               <Checkbox
                 checked={box2}
                 label="Spor 2"
                 onClick={() => setBox2(!box2)}
+                style={{marginRight: "1em"}}
               />
               <Checkbox
                 checked={box3}
                 label="Spor 3"
                 onClick={() => setBox3(!box3)}
+                style={{marginRight: "2em"}}
               />
             </Col>
             <Col>
@@ -103,6 +104,7 @@ const Home = () => {
           <Accordion.Title
             active={activeIndex === 1}
             onClick={(e) => handleClick(1)}
+            style={{fontSize: 18}}
           >
             <Icon name="dropdown" />
             <Icon name="briefcase" />
@@ -116,6 +118,7 @@ const Home = () => {
           <Accordion.Title
             active={activeIndex === 2}
             onClick={(e) => handleClick(2)}
+            style={{fontSize: 18}}
           >
             <Icon name="dropdown" />
             <Icon name="graduation cap" />
@@ -127,6 +130,7 @@ const Home = () => {
           <Accordion.Title
             active={activeIndex === 3}
             onClick={(e) => handleClick(3)}
+            style={{fontSize: 18}}
           >
             <Icon name="dropdown" />
             <Icon name="users" />
@@ -136,8 +140,14 @@ const Home = () => {
             <Row>{filteredCourses("Samfunnsrettet")}</Row>
           </Accordion.Content>
         </Accordion>
-      </Container>
-    </div>
+
+    </Grid.Column>
+      <Grid.Column>
+      <h2> Valgte tiltak </h2>
+      <MyCourses />
+      </Grid.Column>
+      </Grid>
+    
   );
 };
 
