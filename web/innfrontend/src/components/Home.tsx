@@ -64,9 +64,9 @@ const Home = () => {
   return (
     <div>
       <h2>Mitt introduksjonsprogram </h2>
-      <Container>
-        <Progression />
-      </Container>
+
+      <Progression />
+
       <Container>
         <h2> Tiltak </h2>
         <Container>
@@ -109,8 +109,8 @@ const Home = () => {
             onClick={(e) => handleClick(1)}
           >
             <Icon name="dropdown" />
-            Arbeidsrettet {"   "}
             <Icon name="briefcase" />
+            Arbeidsrettet {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
             <Row>{filteredCourses("Arbeidsrettet")}</Row>
@@ -120,7 +120,8 @@ const Home = () => {
             onClick={(e) => handleClick(2)}
           >
             <Icon name="dropdown" />
-            Utdanningsrettet <Icon name="graduation cap" />
+            <Icon name="graduation cap" />
+            Utdanningsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
             <Row>{filteredCourses("Utdanningsrettet")}</Row>
@@ -130,13 +131,13 @@ const Home = () => {
             onClick={(e) => handleClick(3)}
           >
             <Icon name="dropdown" />
-            Samfunnsrettet <Icon name="users" />
+            <Icon name="users" />
+            Samfunnsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
             <Row>{filteredCourses("Samfunnsrettet")}</Row>
           </Accordion.Content>
         </Accordion>
-        <CourseAccordion courseList={courseContext?.state.courseList}  />
       </Container>
     </div>
   );

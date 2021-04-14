@@ -1,9 +1,8 @@
 import React, { Component, FC, useContext, useState } from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import { CourseContext } from "../store/CourseContext";
 import Modal from "react-bootstrap/Modal";
 import { render } from "@testing-library/react";
+import { Card, Icon, Button, Checkbox, Label } from "semantic-ui-react";
 
 interface IProps {
   id: number;
@@ -56,24 +55,13 @@ const CourseCard: FC<IProps> = (props) => {
 
   return (
     <div>
-      <Card
-        style={{
-          width: "20rem",
-          height: "8rem",
-          background: setColor(props.restriction),
-          margin: "1cm",
-          padding: "0.5rem",
-        }}
-      >
-        <Card.Title>{props.title}</Card.Title>
-        <Card.Body>
-          <Button variant="primary" onClick={() => setShow(true)}>
-            Mer informasjon
-          </Button>{" "}
-          <Button variant="primary" onClick={selectCard}>
-            Velg
-          </Button>
-        </Card.Body>
+      <Card>
+        <Card.Header header={props.title} />
+        <Card.Content description={props.description} />
+        <Card.Content extra>
+          <Label color="orange">Spor {props.restriction}</Label>
+          <Button label="Velg tiltak"></Button>
+        </Card.Content>
       </Card>
       <Modal
         centered
