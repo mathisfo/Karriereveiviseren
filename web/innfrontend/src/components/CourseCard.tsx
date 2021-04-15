@@ -1,8 +1,17 @@
-import React, { Component, FC, useContext } from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import React, { FC, useContext, useState } from "react";
 import { CourseContext } from "../store/CourseContext";
-
+import {
+  Card,
+  Button,
+  Checkbox,
+  Label,
+  Modal,
+  Header,
+} from "semantic-ui-react";
+import { Icon } from "@iconify/react";
+import googleClassroom from "@iconify-icons/mdi/google-classroom";
+import "../App.css";
+import { Link } from "react-router-dom";
 
 interface IProps {
   id: number;
@@ -10,25 +19,30 @@ interface IProps {
   startDate: string;
   endDate: string;
   description: string;
+  shortDescription: string;
   restriction: number;
   isSelected: boolean;
+  category: string;
+  classroom: string;
 }
 
 function setColor(modul?: number) {
   switch (modul) {
     case 1:
-      return "#f6d66b";
+      return "yellow";
     case 2:
-      return "#49bf65";
+      return "green";
     case 3:
-      return "#eb6859";
+      return "red";
     default:
-      return "grey";
+      return "teal";
   }
 }
 
 const CourseCard: FC<IProps> = (props) => {
   const courseContext = useContext(CourseContext);
+  const [show, setShow] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   let newCourseList = courseContext?.state.courseList;
 
@@ -49,23 +63,83 @@ const CourseCard: FC<IProps> = (props) => {
     }
   }
 
+  function openTab() {
+    window.open(props.classroom);
+  }
+
   return (
     <div>
-      <Card
-        style={{
-          width: "18rem",
-          background: setColor(props.restriction),
-          margin: "1cm",
-        }}
-      >
-        <Card.Body>
-          <Card.Title>{props.title}</Card.Title>
-          <Card.Text>{props.description}</Card.Text>
-          <Button variant="primary">Mer informasjon</Button>
-          <Button variant="primary" onClick={selectCard}>
-            Select
-          </Button>
-        </Card.Body>
+      <Card style={{ margin: "1.2em" }}>
+        <Card.Content>
+          <Card.Header>
+            {props.title}
+
+            <Label
+              color={setColor(props.restriction)}
+              style={{ float: "right", margin: 4 }}
+            >
+              {" "}
+              Spor {props.restriction}{" "}
+            </Label>
+          </Card.Header>
+          <Card.Meta>{props.category}</Card.Meta>
+        </Card.Content>
+        <Card.Content extra>
+          <div className="ui two buttons">
+            <Modal
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+              open={open}
+              trigger={
+                <Button style={{ marginRight: "1em" }}>Mer informasjon</Button>
+              }
+              size="tiny"
+            >
+              <Modal.Header>
+                {props.title}
+                <Button target color="blue" floated="right" size="tiny">
+                  <Link
+                    className="link"
+                    to="googleClassroom"
+                    target="_blank"
+                    onClick={openTab}
+                  >
+                    <Icon icon={googleClassroom} width="1.7em" color="white" />{" "}
+                    Google Classroom
+                  </Link>
+                </Button>
+              </Modal.Header>
+              <Modal.Content>
+                <Modal.Description>
+                  <Header>{props.category}</Header>
+                  <p>{props.shortDescription}</p>
+                  <p>{props.description}</p>
+                </Modal.Description>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  content="Gå tilbake"
+                  color="black"
+                  icon="arrow left"
+                  onClick={() => setOpen(false)}
+                ></Button>
+                <Button
+                  content="Velg dette tiltaket"
+                  labelPosition="right"
+                  icon="checkmark"
+                  onClick={() => selectCard()}
+                  positive
+                />
+              </Modal.Actions>
+            </Modal>
+            <Checkbox
+              toggle
+              label="Velg"
+              basic
+              onChange={() => selectCard()}
+            ></Checkbox>
+          </div>
+        </Card.Content>
       </Card>
     </div>
   );

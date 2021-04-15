@@ -54,11 +54,19 @@ const Progression = () => {
     });
   }, []);
 
+/*
+  if (diagramData.length = 8) {
+    return (
+      <div> Legg til kurs i listen under for å se din progresjon. </div>
+    )}
+  else {  
+*/
   return (
+    
     <div>
       <Chart
         width={"100%"}
-        height={"1200px"}
+        height={"300px"}
         chartType="Gantt"
         // TODO: Replace loader with loading wheel/bar
         loader={<div>Laster inn Gantt diagram...</div>}
@@ -87,5 +95,7 @@ const Progression = () => {
     </div>
   );
 };
-
+// TODO heihei
 export default Progression;
+
+

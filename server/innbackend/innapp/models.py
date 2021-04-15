@@ -1,5 +1,13 @@
 from django.db import models
 from django.utils.timezone import now
+from django.core.validators import MinValueValidator
+
+
+class Category(models.Model):
+    category = models.CharField('kategori', max_length=100, default="")
+
+    def __str__(self):
+        return self.category
 
 
 class Course(models.Model):
@@ -9,9 +17,15 @@ class Course(models.Model):
     endDate = models.DateTimeField('slutt dato', default=now)
     description = models.TextField('beskrivelse')
     # when restriction is 0, there is no restriction
-    restriction = models.IntegerField('spor', default=0)
+    shortDescription = models.CharField(
+        'kort beskrivelse', max_length=150, default="")
+    restriction = models.IntegerField('spor', validators=[
+        MinValueValidator(0)
+    ], default=0)
     # if we move to postgres, we can use arrayfield here
     #other = models.ArrayField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    classroom = models.CharField('link', max_length=150, default="")
 
     def __str__(self):
         return self.title

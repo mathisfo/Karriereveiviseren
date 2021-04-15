@@ -5,8 +5,10 @@ export type Course = {
   startDate: string;
   endDate: string;
   description: string;
+  shortDescription: string;
   restriction: number;
   isSelected: boolean;
+  category: string; 
 };
 
 // Course Context
@@ -25,7 +27,6 @@ interface ISuccess {
   type: "API_SUCCESS";
   payload: Array<Course>;
 }
-
 interface IError {
   type: "API_ERROR";
   payload: string;
