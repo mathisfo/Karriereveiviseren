@@ -1,9 +1,9 @@
 import React, { FC, useContext } from "react";
-import { Accordion } from "semantic-ui-react";
+import { Accordion, Grid } from "semantic-ui-react";
 import { Course } from "../store/CourseContext/types";
 import { CategoryContext } from "../store/CategoryContext";
-import { Row, Col } from "react-bootstrap";
 import CourseCard from "./CourseCard";
+
 
 interface IProps {
   courseList: any
@@ -26,12 +26,12 @@ const CourseAccordion:FC<IProps> = (props) => {
         <div>
           <Accordion.Title onClick={(e) => handleClick(categoryContext?.state.categoryList.indexOf(category))}>{category.category}</Accordion.Title>
           <Accordion.Content active={activeIndex === categoryContext?.state.categoryList.indexOf(category)} >
-          <Row>{props.courseList
+          <Grid.Row>{props.courseList
             .map((course: any) =>(
-            <Col>
+            <Grid.Column>
             <CourseCard {...course}></CourseCard>
-            </Col>
-          ))}</Row>
+            </Grid.Column>
+          ))}</Grid.Row>
           </Accordion.Content>
         </div>
       ))}

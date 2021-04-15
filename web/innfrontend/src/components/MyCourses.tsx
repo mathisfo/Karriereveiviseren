@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
-import { Accordion, Icon } from "semantic-ui-react";
+import { Accordion, Icon, Label } from "semantic-ui-react";
 
 const MyCourses = () => {
   const courseContext = useContext(CourseContext);
@@ -18,6 +18,7 @@ const MyCourses = () => {
 
   return (
     <div>
+    {/*}
       <Container>
         <Row>
           {courseContext?.state.courseList.map((course: any) =>
@@ -31,6 +32,8 @@ const MyCourses = () => {
           )}
         </Row>
       </Container>
+            */}
+      
       <Container>
         <Accordion fluid styled>
           {courseContext?.state.courseList.map((course: any) =>
@@ -53,6 +56,7 @@ const MyCourses = () => {
                   }
                 >
                   {course.description}
+
                 </Accordion.Content>
               </div>
             ) : (

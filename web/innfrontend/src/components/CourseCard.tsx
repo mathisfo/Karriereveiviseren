@@ -1,15 +1,17 @@
-import React, { Component, FC, useContext, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { CourseContext } from "../store/CourseContext";
-import { render } from "@testing-library/react";
 import {
   Card,
-  Icon,
   Button,
   Checkbox,
   Label,
   Modal,
   Header,
 } from "semantic-ui-react";
+import { Icon } from "@iconify/react";
+import googleClassroom from "@iconify-icons/mdi/google-classroom";
+import "../App.css";
+import { Link } from "react-router-dom";
 
 interface IProps {
   id: number;
@@ -21,6 +23,7 @@ interface IProps {
   restriction: number;
   isSelected: boolean;
   category: string;
+  classroom: string;
 }
 
 function setColor(modul?: number) {
@@ -60,7 +63,9 @@ const CourseCard: FC<IProps> = (props) => {
     }
   }
 
-  console.log(props.category);
+  function openTab() {
+    window.open(props.classroom);
+  }
 
   return (
     <div>
@@ -68,15 +73,16 @@ const CourseCard: FC<IProps> = (props) => {
         <Card.Content>
           <Card.Header>
             {props.title}
+
             <Label
               color={setColor(props.restriction)}
               style={{ float: "right", margin: 4 }}
             >
-              Spor {props.restriction}
+              {" "}
+              Spor {props.restriction}{" "}
             </Label>
           </Card.Header>
           <Card.Meta>{props.category}</Card.Meta>
-          <Card.Description>{props.shortDescription}</Card.Description>
         </Card.Content>
         <Card.Content extra>
           <div className="ui two buttons">
@@ -84,29 +90,54 @@ const CourseCard: FC<IProps> = (props) => {
               onClose={() => setOpen(false)}
               onOpen={() => setOpen(true)}
               open={open}
-              trigger={<Button>Mer informasjon</Button>}
+              trigger={
+                <Button style={{ marginRight: "1em" }}>Mer informasjon</Button>
+              }
+              size="tiny"
             >
-              <Modal.Header>{props.title}</Modal.Header>
+              <Modal.Header>
+                {props.title}
+                <Button target color="blue" floated="right" size="tiny">
+                  <Link
+                    className="link"
+                    to="googleClassroom"
+                    target="_blank"
+                    onClick={openTab}
+                  >
+                    <Icon icon={googleClassroom} width="1.7em" color="white" />{" "}
+                    Google Classroom
+                  </Link>
+                </Button>
+              </Modal.Header>
               <Modal.Content>
                 <Modal.Description>
                   <Header>{props.category}</Header>
+                  <p>{props.shortDescription}</p>
                   <p>{props.description}</p>
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>
-                <Button color="black" onClick={() => setOpen(false)}>
-                  Gå tilbake
-                </Button>
                 <Button
-                  content="Legg til dette tiltaket"
+                  content="Gå tilbake"
+                  color="black"
+                  icon="arrow left"
+                  onClick={() => setOpen(false)}
+                ></Button>
+                <Button
+                  content="Velg dette tiltaket"
                   labelPosition="right"
                   icon="checkmark"
-                  onClick={() => setOpen(false)}
+                  onClick={() => selectCard()}
                   positive
                 />
               </Modal.Actions>
             </Modal>
-            <Checkbox toggle label="Velg" basic color="red"></Checkbox>
+            <Checkbox
+              toggle
+              label="Velg"
+              basic
+              onChange={() => selectCard()}
+            ></Checkbox>
           </div>
         </Card.Content>
       </Card>
