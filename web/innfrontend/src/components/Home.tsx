@@ -1,15 +1,21 @@
-import React, { useContext, useState, Component, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
 import { CourseContext } from "../store/CourseContext";
-import Progression from "./Progression";
 import { FormControl, InputGroup } from "react-bootstrap";
-import { Search } from "react-bootstrap-icons";
-import { Accordion, Button, Card, Checkbox, Container, Grid, Icon, Segment } from "semantic-ui-react";
+import {
+  Accordion,
+  Button,
+  Card,
+  Checkbox,
+  Container,
+  Grid,
+  Icon,
+} from "semantic-ui-react";
 import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
-import CourseAccordion from "./CourseAccordion";
 import MyCourses from "./MyCourses";
+import axios from "axios";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
@@ -21,16 +27,18 @@ const Home = () => {
     // Need conditional render because of possible null in courseContext
     // Have not found a fix for this if we are going with the reducer instead of state
     categoryContext?.dispatch({ type: "API_REQUEST" });
-    fetch("http://127.0.0.1:8000/api/category/")
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          categoryContext?.dispatch({ type: "API_SUCCESS", payload: result });
-        },
-        (error) => {
-          categoryContext?.dispatch({ type: "API_ERROR", payload: error });
-        }
-      );
+    axios.get("http://localhost:8000/api/category/", { withCredentials: true }).then(
+      (result: any) => {
+        console.log(result);
+        categoryContext?.dispatch({
+          type: "API_SUCCESS",
+          payload: result.data,
+        });
+      },
+      (error) => {
+        categoryContext?.dispatch({ type: "API_ERROR", payload: error });
+      }
+    );
   }, []);
 
   const [box1, setBox1] = useState(false);
@@ -59,8 +67,28 @@ const Home = () => {
 
   console.log(courseContext);
 
+  useEffect(() => {
+    // Need conditional render because of possible null in courseContext
+    // Have not found a fix for this if we are going with the reducer instead of state
+    courseContext?.dispatch({ type: "API_REQUEST" });
+    axios
+      .get("http://localhost:8000/api/course/", { withCredentials: true })
+      .then(
+        (result: any) => {
+          console.log(result);
+          courseContext?.dispatch({
+            type: "API_SUCCESS",
+            payload: result.data,
+          });
+        },
+        (error) => {
+          courseContext?.dispatch({ type: "API_ERROR", payload: error });
+        }
+      );
+  }, []);
+
   return (
-    <Grid columns={2} relaxed='very'>
+    <Grid columns={2} relaxed="very">
       <Grid.Column>
         <h2> Tiltak </h2>
         <Container>
@@ -70,20 +98,19 @@ const Home = () => {
                 checked={box1}
                 label="Spor 1"
                 onClick={() => setBox1(!box1)}
-                style={{marginRight: "1em"}}
-                
+                style={{ marginRight: "1em" }}
               />
               <Checkbox
                 checked={box2}
                 label="Spor 2"
                 onClick={() => setBox2(!box2)}
-                style={{marginRight: "1em"}}
+                style={{ marginRight: "1em" }}
               />
               <Checkbox
                 checked={box3}
                 label="Spor 3"
                 onClick={() => setBox3(!box3)}
-                style={{marginRight: "2em"}}
+                style={{ marginRight: "2em" }}
               />
             </Col>
             <Col>
@@ -105,7 +132,7 @@ const Home = () => {
           <Accordion.Title
             active={activeIndex === 1}
             onClick={(e) => handleClick(1)}
-            style={{fontSize: 18}}
+            style={{ fontSize: 18 }}
           >
             <Icon name="dropdown" />
             <Icon name="briefcase" />
@@ -119,7 +146,7 @@ const Home = () => {
           <Accordion.Title
             active={activeIndex === 2}
             onClick={(e) => handleClick(2)}
-            style={{fontSize: 18}}
+            style={{ fontSize: 18 }}
           >
             <Icon name="dropdown" />
             <Icon name="graduation cap" />
@@ -131,7 +158,7 @@ const Home = () => {
           <Accordion.Title
             active={activeIndex === 3}
             onClick={(e) => handleClick(3)}
-            style={{fontSize: 18}}
+            style={{ fontSize: 18 }}
           >
             <Icon name="dropdown" />
             <Icon name="users" />
@@ -141,14 +168,12 @@ const Home = () => {
             <Row>{filteredCourses("Samfunnsrettet")}</Row>
           </Accordion.Content>
         </Accordion>
-
-    </Grid.Column>
-      <Grid.Column>
-      <h2> Valgte tiltak </h2>
-      <MyCourses />
       </Grid.Column>
-      </Grid>
-    
+      <Grid.Column>
+        <h2> Valgte tiltak </h2>
+        <MyCourses />
+      </Grid.Column>
+    </Grid>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
@@ -9,20 +9,26 @@ import Home from "./components/Home";
 import MyCourses from "./components/MyCourses";
 import Progression from "./components/Progression";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
+import GoogleSocialAuth from "./components/GoogleSocialAuth";
+import axios from "axios";
 
 function App() {
   const courseContext = useContext(CourseContext);
-
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     // Need conditional render because of possible null in courseContext
     // Have not found a fix for this if we are going with the reducer instead of state
     courseContext?.dispatch({ type: "API_REQUEST" });
-    fetch("http://127.0.0.1:8000/api/course/")
-      .then((res) => res.json())
+    axios
+      .get("http://localhost:8000/api/course/", { withCredentials: true })
       .then(
-        (result) => {
-          courseContext?.dispatch({ type: "API_SUCCESS", payload: result });
+        (result: any) => {
+          console.log(result);
+          courseContext?.dispatch({
+            type: "API_SUCCESS",
+            payload: result.data,
+          });
         },
         (error) => {
           courseContext?.dispatch({ type: "API_ERROR", payload: error });
@@ -39,28 +45,25 @@ function App() {
 
   return (
     <BrowserRouter>
-      {true ? (
-        <div>
-          <TopNavigator></TopNavigator>
-          <Container className="p-3">
-            <div>
-              <Switch>
-                <Route exact path="/home">
-                  <Home />
-                </Route>
-                <Route exact path="/courses">
-                  <MyCourses />
-                </Route>
-                <Route exact path="/progression">
-                  <Progression />
-                </Route>
-              </Switch>
-            </div>
-          </Container>
-        </div>
-      ) : (
-        <GoogleAuth />
-      )}
+      <GoogleSocialAuth />
+      <div>
+        <TopNavigator></TopNavigator>
+        <Container className="p-3">
+          <div>
+            <Switch>
+              <Route exact path="/home">
+                <Home />
+              </Route>
+              <Route exact path="/courses">
+                <MyCourses />
+              </Route>
+              <Route exact path="/progression">
+                <Progression />
+              </Route>
+            </Switch>
+          </div>
+        </Container>
+      </div>
     </BrowserRouter>
   );
 }
