@@ -19,11 +19,15 @@ function App() {
     // Need conditional render because of possible null in courseContext
     // Have not found a fix for this if we are going with the reducer instead of state
     courseContext?.dispatch({ type: "API_REQUEST" });
-    axios.get("http://127.0.0.1:8000/api/course/", /*{withCredentials: true}*/)
+    axios
+      .get("http://localhost/api/course/" /*{ withCredentials: true }*/)
       .then(
         (result: any) => {
           console.log(result);
-          courseContext?.dispatch({ type: "API_SUCCESS", payload: result.data });
+          courseContext?.dispatch({
+            type: "API_SUCCESS",
+            payload: result.data,
+          });
         },
         (error) => {
           courseContext?.dispatch({ type: "API_ERROR", payload: error });
@@ -38,34 +42,30 @@ function App() {
     return getKey === true && getKey != null;
   }
 
-    return (
-      <BrowserRouter>
+  return (
+    <BrowserRouter>
       <GoogleSocialAuth />
-        {!getStorage() ? (
+      <div>
+        <TopNavigator></TopNavigator>
+        <Container className="p-3">
           <div>
-            <TopNavigator></TopNavigator>
-            <Container className="p-3">
-              <div>
-                <Switch>
-                  <Route exact path="/home">
-                    <Home />
-                  </Route>
-                  <Route exact path="/courses">
-                    <MyCourses />
-                  </Route>
-                  <Route exact path="/progression">
-                    <Progression />
-                  </Route>
-                </Switch>
-              </div>
-            </Container>
+            <Switch>
+              <Route exact path="/home">
+                <Home />
+              </Route>
+              <Route exact path="/courses">
+                <MyCourses />
+              </Route>
+              <Route exact path="/progression">
+                <Progression />
+              </Route>
+            </Switch>
           </div>
-        ) : (
-          <Landing handleClick={() => setShowSite(!showSite)} />
-        )}
-      </BrowserRouter>
-    );
-  }
+        </Container>
+      </div>
+    </BrowserRouter>
+  );
+}
 
 export default () => (
   <CourseProvider>

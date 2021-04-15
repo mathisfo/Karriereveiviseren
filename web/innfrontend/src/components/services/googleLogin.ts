@@ -5,7 +5,8 @@ const googleLogin = async (accesstoken: any) => {
     "http://localhost:8000/login/",
     {
       access_token: accesstoken,
-    },{withCredentials: true},
+    },
+    { withCredentials: true }
   );
   console.log("service res:");
   console.log(res);

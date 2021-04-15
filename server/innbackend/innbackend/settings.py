@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 from corsheaders.defaults import default_headers
 
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
     # Rest framework
     'rest_framework',
     'rest_framework.authtoken',
@@ -69,11 +70,11 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 
 REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'innapp'
+JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
 
 SITE_ID = 2
 
-
-from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
@@ -118,10 +119,6 @@ REST_FRAMEWORK = {
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ),
 }
-
-REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'innapp'
-JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
 
 ROOT_URLCONF = 'innbackend.urls'
 

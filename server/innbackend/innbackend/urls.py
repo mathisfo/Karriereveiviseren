@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('innapp.api.urls')),
-    path('login/', GoogleLogin.as_view(), name='google_login')
+    path('login/', GoogleLogin.as_view(), name='google_login'),
+    path('auth/', include('dj_rest_auth.urls')),
 ]

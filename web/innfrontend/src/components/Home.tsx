@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
 import { CourseContext } from "../store/CourseContext";
-import axios from 'axios';
+import axios from "axios";
 
 const Home = () => {
   const courseContext = useContext(CourseContext);
@@ -13,11 +13,15 @@ const Home = () => {
     // Need conditional render because of possible null in courseContext
     // Have not found a fix for this if we are going with the reducer instead of state
     courseContext?.dispatch({ type: "API_REQUEST" });
-    axios.get("http://127.0.0.1:8000/api/course/", {withCredentials: true})
+    axios
+      .get("http://localhost:8000/api/course/", { withCredentials: true })
       .then(
         (result: any) => {
           console.log(result);
-          courseContext?.dispatch({ type: "API_SUCCESS", payload: result.data });
+          courseContext?.dispatch({
+            type: "API_SUCCESS",
+            payload: result.data,
+          });
         },
         (error) => {
           courseContext?.dispatch({ type: "API_ERROR", payload: error });

@@ -1,7 +1,16 @@
+import axios from "axios";
 import React from "react";
 import GoogleLogin from "react-google-login";
 
 import googleLogin from "./services/googleLogin";
+
+const test = async () => {
+  let userInfo = await axios.get("http://localhost:8000/auth/user/", {
+    withCredentials: true,
+  });
+  console.log(userInfo);
+  return userInfo;
+};
 
 const GoogleSocialAuth = () => {
   const responseGoogle = async (response: any) => {
@@ -10,6 +19,7 @@ const GoogleSocialAuth = () => {
     console.log(googleResponse);
     console.log("response:");
     console.log(response);
+    let userInfo = test();
   };
 
   return (
