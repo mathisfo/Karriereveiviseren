@@ -1,13 +1,12 @@
 import React, { useContext, useState, Component, useEffect } from "react";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
 import { CourseContext } from "../store/CourseContext";
 import Progression from "./Progression";
-import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap";
+import { FormControl, InputGroup } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
-import { Accordion, Card, Checkbox, Grid, Icon, Segment } from "semantic-ui-react";
+import { Accordion, Button, Card, Checkbox, Container, Grid, Icon, Segment } from "semantic-ui-react";
 import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import CourseAccordion from "./CourseAccordion";
 import MyCourses from "./MyCourses";
@@ -92,8 +91,8 @@ const Home = () => {
                   onChange={(e) => setInput(e.target.value)}
                 />
                 <InputGroup.Append>
-                  <Button>
-                    <Search></Search>
+                  <Button primary size="tiny">
+                    <Icon name="search"></Icon>
                   </Button>
                 </InputGroup.Append>
               </InputGroup>
