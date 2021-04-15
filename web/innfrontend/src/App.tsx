@@ -2,7 +2,8 @@ import React, { useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
-import Landing from "./components/Landing";
+
+import GoogleAuth from "./components/GoogleAuth";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import MyCourses from "./components/MyCourses";
@@ -38,7 +39,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {!getStorage() ? (
+      {true ? (
         <div>
           <TopNavigator></TopNavigator>
           <Container className="p-3">
@@ -58,7 +59,7 @@ function App() {
           </Container>
         </div>
       ) : (
-        <Landing handleClick={() => setShowSite(!showSite)} />
+        <GoogleAuth />
       )}
     </BrowserRouter>
   );

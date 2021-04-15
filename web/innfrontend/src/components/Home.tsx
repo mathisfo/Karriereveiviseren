@@ -57,6 +57,8 @@ const Home = () => {
       .map((course: any) => <CourseCard {...course}></CourseCard>);
   }
 
+  console.log(courseContext);
+
   return (
     <div>
       <h2>Mitt introduksjonsprogram </h2>
