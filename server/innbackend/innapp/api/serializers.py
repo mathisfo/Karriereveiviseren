@@ -6,16 +6,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 
-class CourseSerializer(serializers.ModelSerializer):
-    category = serializers.CharField(
-        source="category.category", read_only=True)
-
-    class Meta:
-        model = Course
-        fields = ('url', 'id', 'title', 'startDate', 'endDate',
-                  'description', 'shortDescription', 'restriction', 'category', 'classroom')
-
-
 class userPreferenceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserPreference
@@ -30,7 +20,21 @@ class UserSerializer(serializers.ModelSerializer):
                   'password', 'is_superuser')
 
 
+class CourseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Course
+        fields = ('url', 'id', 'title', 'startDate', 'endDate',
+                  'description', 'shortDescription', 'restriction', 'category', 'classroom')
+
+
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
+
+    #course = CourseSerializer(read_only=True, many=True)
+
+    def create(self, validated_data):
+        return Category.objects.create(**validated_data)
+
     class Meta:
         model = Category
         fields = ('url', 'id', 'category')

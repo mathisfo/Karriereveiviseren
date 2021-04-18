@@ -12,6 +12,7 @@ import { Icon } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 interface IProps {
   id: number;
@@ -60,6 +61,20 @@ const CourseCard: FC<IProps> = (props) => {
         type: "COURSE_SELECT",
         payload: newCourseList,
       });
+
+      //TODO: Delete this
+      axios.put(
+        "http://localhost:8000/api/userpreferences/1/",
+        {
+          selected: [
+            "http://localhost:8000/api/course/2/",
+            "http://localhost:8000/api/course/3/",
+          ],
+        },
+        {
+          withCredentials: true,
+        }
+      );
     }
   }
 

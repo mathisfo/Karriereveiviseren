@@ -8,7 +8,7 @@ export type Course = {
   shortDescription: string;
   restriction: number;
   isSelected: boolean;
-  category: string; 
+  category: number; 
 };
 
 // Course Context

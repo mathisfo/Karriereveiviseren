@@ -11,9 +11,13 @@ import Progression from "./components/Progression";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
 import GoogleSocialAuth from "./components/GoogleSocialAuth";
 import axios from "axios";
+import CategoryProvider, {
+  CategoryContext,
+} from "./store/CategoryContext/CategoryProvider";
 
 function App() {
   const courseContext = useContext(CourseContext);
+  const categoryContext = useContext(CategoryContext);
   const [login, setLogin] = useState(false);
 
   useEffect(() => {
@@ -24,7 +28,6 @@ function App() {
       .get("http://localhost:8000/api/course/", { withCredentials: true })
       .then(
         (result: any) => {
-          console.log(result);
           courseContext?.dispatch({
             type: "API_SUCCESS",
             payload: result.data,
@@ -36,7 +39,28 @@ function App() {
       );
   }, []);
 
+  useEffect(() => {
+    // Need conditional render because of possible null in courseContext
+    // Have not found a fix for this if we are going with the reducer instead of state
+    categoryContext?.dispatch({ type: "API_REQUEST" });
+    axios
+      .get("http://localhost:8000/api/category/", { withCredentials: true })
+      .then(
+        (result: any) => {
+          categoryContext?.dispatch({
+            type: "API_SUCCESS",
+            payload: result.data,
+          });
+        },
+        (error) => {
+          categoryContext?.dispatch({ type: "API_ERROR", payload: error });
+        }
+      );
+  }, []);
+
   const [showSite, setShowSite] = React.useState(false);
+
+  console.log(categoryContext?.state.categoryList);
 
   function getStorage() {
     const getKey = JSON.parse(localStorage.getItem("LandingKey")!);
@@ -70,6 +94,8 @@ function App() {
 
 export default () => (
   <CourseProvider>
-    <App />
+    <CategoryProvider>
+      <App />
+    </CategoryProvider>
   </CourseProvider>
 );

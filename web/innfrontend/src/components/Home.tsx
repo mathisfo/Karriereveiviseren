@@ -21,25 +21,6 @@ const Home = () => {
   const courseContext = useContext(CourseContext);
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const categoryContext = useContext(CategoryContext);
-
-  useEffect(() => {
-    // Need conditional render because of possible null in courseContext
-    // Have not found a fix for this if we are going with the reducer instead of state
-    categoryContext?.dispatch({ type: "API_REQUEST" });
-    axios.get("http://localhost:8000/api/category/", { withCredentials: true }).then(
-      (result: any) => {
-        console.log(result);
-        categoryContext?.dispatch({
-          type: "API_SUCCESS",
-          payload: result.data,
-        });
-      },
-      (error) => {
-        categoryContext?.dispatch({ type: "API_ERROR", payload: error });
-      }
-    );
-  }, []);
 
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
@@ -51,7 +32,7 @@ const Home = () => {
     setActiveIndex(newIndex);
   }
 
-  function filteredCourses(categoryType: string) {
+  function filteredCourses(categoryType: number) {
     return courseContext?.state.courseList
       .filter(
         (e) =>
@@ -64,28 +45,6 @@ const Home = () => {
       )
       .map((course: any) => <CourseCard {...course}></CourseCard>);
   }
-
-  console.log(courseContext);
-
-  useEffect(() => {
-    // Need conditional render because of possible null in courseContext
-    // Have not found a fix for this if we are going with the reducer instead of state
-    courseContext?.dispatch({ type: "API_REQUEST" });
-    axios
-      .get("http://localhost:8000/api/course/", { withCredentials: true })
-      .then(
-        (result: any) => {
-          console.log(result);
-          courseContext?.dispatch({
-            type: "API_SUCCESS",
-            payload: result.data,
-          });
-        },
-        (error) => {
-          courseContext?.dispatch({ type: "API_ERROR", payload: error });
-        }
-      );
-  }, []);
 
   return (
     <Grid columns={2} relaxed="very">
@@ -139,9 +98,7 @@ const Home = () => {
             Arbeidsrettet {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            <Card.Group itemsPerRow={4}>
-              {filteredCourses("Arbeidsrettet")}
-            </Card.Group>
+            <Card.Group itemsPerRow={4}>{filteredCourses(4)}</Card.Group>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}
@@ -153,7 +110,7 @@ const Home = () => {
             Utdanningsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            <Row>{filteredCourses("Utdanningsrettet")}</Row>
+            <Row>{filteredCourses(5)}</Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 3}
@@ -165,7 +122,7 @@ const Home = () => {
             Samfunnsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
-            <Row>{filteredCourses("Samfunnsrettet")}</Row>
+            <Row>{filteredCourses(6)}</Row>
           </Accordion.Content>
         </Accordion>
       </Grid.Column>
