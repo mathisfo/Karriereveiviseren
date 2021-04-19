@@ -18,11 +18,14 @@ const MyCourses = () => {
   const courseContext = useContext(CourseContext);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+
   function handleClick(index: number) {
     setActiveIndex(index);
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   }
+
+  
 
   return (
     <div>
@@ -50,9 +53,9 @@ const MyCourses = () => {
                 <Accordion.Title
                   active={
                     activeIndex ===
-                    courseContext.state.courseList.indexOf(course.title)
+                    courseContext.state.courseList.indexOf(course)
                   }
-                  onClick={(e) => handleClick(1)}
+                  onClick={(e) => handleClick(courseContext.state.courseList.indexOf(course))}
                 >
                   <Icon name="dropdown" />
                   {course.title}
@@ -60,7 +63,7 @@ const MyCourses = () => {
                 <Accordion.Content
                   active={
                     activeIndex ===
-                    courseContext.state.courseList.indexOf(course.title)
+                    courseContext.state.courseList.indexOf(course)
                   }
                 >
                   {course.description}

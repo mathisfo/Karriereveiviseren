@@ -82,6 +82,23 @@ const CourseCard: FC<IProps> = (props) => {
     window.open(props.classroom);
   }
 
+  function renderLink() {
+    if (props.classroom != "") {
+      return (
+        <Button target color="blue" floated="right" size="tiny">
+          <Link
+          className="link"
+          to="googleClassroom"
+          target="_blank"
+          onClick={openTab}
+        >
+          <Icon icon={googleClassroom} width="1.7em" color="white" />{" "}
+          Google Classroom
+        </Link>
+        </Button> )
+      
+  }}
+
   return (
     <div>
       <Card style={{ margin: "1.2em" }}>
@@ -112,17 +129,7 @@ const CourseCard: FC<IProps> = (props) => {
             >
               <Modal.Header>
                 {props.title}
-                <Button target color="blue" floated="right" size="tiny">
-                  <Link
-                    className="link"
-                    to="googleClassroom"
-                    target="_blank"
-                    onClick={openTab}
-                  >
-                    <Icon icon={googleClassroom} width="1.7em" color="white" />{" "}
-                    Google Classroom
-                  </Link>
-                </Button>
+                {renderLink()}
               </Modal.Header>
               <Modal.Content>
                 <Modal.Description>
