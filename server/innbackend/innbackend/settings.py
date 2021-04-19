@@ -74,7 +74,7 @@ REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'innapp'
 JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
 
-SITE_ID = 2
+SITE_ID = 3
 
 
 SIMPLE_JWT = {
