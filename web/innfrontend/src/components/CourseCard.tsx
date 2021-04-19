@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { CourseContext } from "../store/CourseContext";
 import {
   Card,
@@ -13,6 +13,7 @@ import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { EIDRM } from "node:constants";
 
 interface IProps {
   id: number;
@@ -47,30 +48,45 @@ const CourseCard: FC<IProps> = (props) => {
 
   let newCourseList = courseContext?.state.courseList;
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/userpreferences/6/", {
+        withCredentials: true,
+      })
+      .then((result: any) => {
+        newCourseList?.forEach((e) => {
+          console.log(e.url);
+
+          if (result.data.selected.find((element: any) => element === e.url)) {
+            e.isSelected = true;
+          }
+        });
+      });
+  });
+
   // This should not be this complicated
   // TODO: Find a better way to handle this
   function selectCard() {
     newCourseList = newCourseList?.map((course) => {
-      if (course.id == props.id) {
+      if (course.id === props.id) {
         course.isSelected = !course.isSelected;
       }
       return course;
     });
+
     if (newCourseList) {
       courseContext?.dispatch({
         type: "COURSE_SELECT",
         payload: newCourseList,
       });
 
-      //TODO: Delete this
       axios.put(
-        "http://localhost:8000/api/userpreferences/1/",
+        "http://localhost:8000/api/userpreferences/6/",
         {
-          selected: [
-            "http://localhost:8000/api/course/2/",
-            "http://localhost:8000/api/course/3/",
-          ],
+          user: "http://127.0.0.1:8000/api/users/1/",
+          selected: newCourseList.filter((e) => e.isSelected).map((e) => e.url),
         },
+
         {
           withCredentials: true,
         }
@@ -148,9 +164,9 @@ const CourseCard: FC<IProps> = (props) => {
               </Modal.Actions>
             </Modal>
             <Checkbox
-              toggle
               label="Velg"
               basic
+              checked={props.isSelected}
               onChange={() => selectCard()}
             ></Checkbox>
           </div>

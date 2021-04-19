@@ -58,9 +58,8 @@ function App() {
       );
   }, []);
 
-  const [showSite, setShowSite] = React.useState(false);
 
-  console.log(categoryContext?.state.categoryList);
+  const [showSite, setShowSite] = React.useState(false);
 
   function getStorage() {
     const getKey = JSON.parse(localStorage.getItem("LandingKey")!);

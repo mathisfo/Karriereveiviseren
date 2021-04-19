@@ -1,6 +1,7 @@
 // TODO: change startDate and endDate from string to date
 export type Course = {
   id: number;
+  url: string;
   title: string;
   startDate: string;
   endDate: string;
