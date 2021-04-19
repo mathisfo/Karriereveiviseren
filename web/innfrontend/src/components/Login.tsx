@@ -1,6 +1,4 @@
 import React, { FC } from "react";
-import { Container, Form, Row, Col } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, useGoogleLogin } from 'react-google-login';
 
 const clientId = '777211810427-ouu1bvkg7mv0233rlsm7acjmmcs6s91b.apps.googleusercontent.com';

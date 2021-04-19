@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import { CourseContext } from "../store/CourseContext";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
 import {
   Accordion,
   Button,
+  Container,
   Header,
   Icon,
   Label,

@@ -1,20 +1,37 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import logo from "../statics/imdi-logo.svg";
-import { PersonCircle } from "react-bootstrap-icons";
-import Button from "react-bootstrap/Button";
 import { Link, NavLink, Router } from "react-router-dom";
 import "../TopNavigator.css";
 import Logout from "./Logout";
+import { Icon, Menu } from "semantic-ui-react";
 
 const TopNavigator = () => {
+  const [activeItem, setActiveItem] = React.useState("home");
+
   function resetStorage() {
     localStorage.setItem("LandingKey", "true");
     window.location.reload();
   }
 
   return (
+    <Menu tabular>
+    <Menu.Item 
+      as={ Link } 
+      name='Hjem' 
+      to='home' 
+      active={activeItem === 'home'} 
+      onClick={() => setActiveItem('home')}>
+  </Menu.Item>
+  <Menu.Item as={ Link } name='Mine aktiviteter' to='courses' active={activeItem === 'courses'}  onClick={() => setActiveItem('courses')}>
+  </Menu.Item>
+  <Menu.Item as={ Link } name='Mitt introduksjonsprogram' to='progression' active={activeItem === 'progression'}  onClick={() => setActiveItem('progression')}>
+  </Menu.Item>
+  <Menu.Item position="right">
+  <Logout />
+  </Menu.Item>
+    </Menu>
+
+/*
+
     <Navbar bg="light" expand="lg">
       <Navbar.Brand>INN</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -61,6 +78,7 @@ const TopNavigator = () => {
         <Logout />
       </Navbar.Collapse>
     </Navbar>
+    */
   );
 };
 

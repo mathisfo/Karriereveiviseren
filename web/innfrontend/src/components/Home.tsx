@@ -1,17 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
 import { CourseContext } from "../store/CourseContext";
-import { FormControl, InputGroup } from "react-bootstrap";
 import {
   Accordion,
   Button,
   Card,
   Checkbox,
   Container,
+  Form,
   Grid,
   Icon,
+  Input,
 } from "semantic-ui-react";
 import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import MyCourses from "./MyCourses";
@@ -51,8 +50,8 @@ const Home = () => {
       <Grid.Column>
         <h2> Tiltak </h2>
         <Container>
-          <Row md={2}>
-            <Col>
+          <Grid.Row md={2}>
+            <Grid.Column>
               <Checkbox
                 checked={box1}
                 label="Spor 1"
@@ -71,21 +70,11 @@ const Home = () => {
                 onClick={() => setBox3(!box3)}
                 style={{ marginRight: "2em" }}
               />
-            </Col>
-            <Col>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Søk..."
-                  onChange={(e) => setInput(e.target.value)}
-                />
-                <InputGroup.Append>
-                  <Button primary size="tiny">
-                    <Icon name="search"></Icon>
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Col>
-          </Row>
+            </Grid.Column>
+            <Grid.Column>
+              <Input icon='search' placeholder='Search...' onChange={(e: any) => setInput(e.target.value)}/>
+            </Grid.Column>
+          </Grid.Row>
         </Container>
         <Accordion fluid styled>
           <Accordion.Title
@@ -110,7 +99,7 @@ const Home = () => {
             Utdanningsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            <Row>{filteredCourses(5)}</Row>
+            <Grid.Row>{filteredCourses(5)}</Grid.Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 3}
@@ -122,7 +111,7 @@ const Home = () => {
             Samfunnsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
-            <Row>{filteredCourses(6)}</Row>
+            <Grid.Row>{filteredCourses(6)}</Grid.Row>
           </Accordion.Content>
         </Accordion>
       </Grid.Column>
