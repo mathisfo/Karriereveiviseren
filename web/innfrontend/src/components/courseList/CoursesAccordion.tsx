@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
-import CourseCard from "./CourseCard";
-import { CourseContext } from "../store/CourseContext";
+import CourseCard from "../CourseCard";
+import { CourseContext } from "../../store/CourseContext";
 import { FormControl, InputGroup } from "react-bootstrap";
 import {
   Accordion,
@@ -13,11 +13,11 @@ import {
   Grid,
   Icon,
 } from "semantic-ui-react";
-import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
-import MyCourses from "./MyCourses";
+import CategoryProvider, { CategoryContext } from "../../store/CategoryContext";
+import MyCourses from "../myCourses/UserCoursesAccordion";
 import axios from "axios";
 
-const Home = () => {
+const CoursesAccordion = () => {
   const courseContext = useContext(CourseContext);
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -179,6 +179,6 @@ const Home = () => {
 
 export default () => (
   <CategoryProvider>
-    <Home />
+    <CoursesAccordion />
   </CategoryProvider>
 );

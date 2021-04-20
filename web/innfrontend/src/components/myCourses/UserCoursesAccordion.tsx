@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { CourseContext } from "../store/CourseContext";
+import { CourseContext } from "../../store/CourseContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
-import CourseCard from "./CourseCard";
+import CourseCard from "../CourseCard";
 import { Accordion, Icon, Label } from "semantic-ui-react";
 
-const MyCourses = () => {
+const UserCoursesAccordion = () => {
   const courseContext = useContext(CourseContext);
   const [activeIndex, setActiveIndex] = React.useState(0);
   function handleClick(index: number) {
@@ -69,4 +69,4 @@ const MyCourses = () => {
   );
 };
 
-export default MyCourses;
+export default UserCoursesAccordion;

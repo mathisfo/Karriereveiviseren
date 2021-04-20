@@ -2,12 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
-
-import GoogleAuth from "./components/GoogleAuth";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Home from "./components/Home";
-import MyCourses from "./components/MyCourses";
-import Progression from "./components/Progression";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import CourseList from "./components/courseList/";
+import MyCourses from "./components/myCourses/";
+import Progression from "./components/progression/";
 import CourseProvider, { CourseContext } from "./store/CourseContext/";
 import GoogleSocialAuth from "./components/GoogleSocialAuth";
 import axios from "axios";
@@ -52,7 +50,7 @@ function App() {
           <div>
             <Switch>
               <Route exact path="/home">
-                <Home />
+                <CourseList />
               </Route>
               <Route exact path="/courses">
                 <MyCourses />

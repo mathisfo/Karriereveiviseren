@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Chart from "react-google-charts";
-import { CourseContext } from "../store/CourseContext";
-import { Course } from "../store/CourseContext/types";
+import { CourseContext } from "../../store/CourseContext";
+import { Course } from "../../store/CourseContext/types";
 
 const prepareChartData = (course: Course) => {
   let selectedCourse = [];
@@ -29,7 +29,7 @@ interface IDiagramConst {
 // TODO: make custom type prettier
 type ChartTypes = Array<IDiagramConst> | Array<string | number | Date | null>;
 
-const Progression = () => {
+const CoursesChart = () => {
   const diagramData: Array<ChartTypes> = [
     [
       { type: "string", label: "Task ID" },
@@ -96,6 +96,6 @@ const Progression = () => {
   );
 };
 // TODO heihei
-export default Progression;
+export default CoursesChart;
 
 
