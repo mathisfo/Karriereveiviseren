@@ -13,6 +13,8 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../store/redux/store";
+import { courseSlice } from "../store/slices/courseSlice";
+import { Course } from "../store/interfaces/Course";
 
 interface IProps {
   id: number;
@@ -40,17 +42,15 @@ function setColor(modul?: number) {
   }
 }
 
-const CourseCard: FC<IProps> = (props) => {
+const CourseCard: FC<Course> = (props) => {
   const dispatch = useAppDispatch();
-  const courses = useSelector((state: AppState) => state.courses.courseList);
-  const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
 
 
   // This should not be this complicated
   // TODO: Find a better way to handle this
   function selectCard() {
-   console.log("This function remains to be implemented."); 
+    dispatch(courseSlice.actions.selectCourse(props));
   }
 
   function openTab() {

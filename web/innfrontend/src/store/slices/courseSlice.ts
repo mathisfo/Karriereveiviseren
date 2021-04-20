@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Course } from "../interfaces/Course";
 import { CourseState } from "../types/CourseState";
 
-
 export const courseSlice = createSlice({
   name: "course-slice",
   initialState: {
@@ -12,16 +11,13 @@ export const courseSlice = createSlice({
   reducers: {
     setCourses: (state: CourseState, action: PayloadAction<CourseState>) => ({
       courseList: action.payload.courseList,
-      }),
-    selectCourse: {
-      reducer: (state, action: PayloadAction<Course>) => {
-        state.courseList.map(course => {if(course == action.payload) {
-          course.isSelected = !course.isSelected
-        }})
-      },
-      prepare: (course: Course) => {
-        return { payload: course }
-      }
-    }
+    }),
+    selectCourse: (state: CourseState, action: PayloadAction<Course>) => {
+      state.courseList.map((course) => {
+        if (course.id == action.payload.id) {
+          course.isSelected = !course.isSelected;
+        }
+      });
+    },
   },
 });
