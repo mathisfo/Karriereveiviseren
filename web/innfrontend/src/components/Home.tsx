@@ -46,12 +46,12 @@ const Home = () => {
   }
 
   return (
-    <Grid columns={2} relaxed="very">
-      <Grid.Column>
+    <Grid stackable columns={2} relaxed>
+      <Grid.Column width={10}>
         <h2> Tiltak </h2>
-        <Container>
+        
           <Grid.Row md={2}>
-            <Grid.Column>
+            
               <Checkbox
                 checked={box1}
                 label="Spor 1"
@@ -70,12 +70,9 @@ const Home = () => {
                 onClick={() => setBox3(!box3)}
                 style={{ marginRight: "2em" }}
               />
-            </Grid.Column>
-            <Grid.Column>
-              <Input icon='search' placeholder='Search...' onChange={(e: any) => setInput(e.target.value)}/>
-            </Grid.Column>
+              <Input style={{marginBottom: "0.2em"}} icon='search' placeholder='Search...' onChange={(e: any) => setInput(e.target.value)}/>
           </Grid.Row>
-        </Container>
+        
         <Accordion fluid styled>
           <Accordion.Title
             active={activeIndex === 1}
@@ -87,7 +84,7 @@ const Home = () => {
             Arbeidsrettet {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            <Card.Group itemsPerRow={4}>{filteredCourses(4)}</Card.Group>
+          <Grid.Row>{filteredCourses(4)}</Grid.Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}
@@ -115,7 +112,7 @@ const Home = () => {
           </Accordion.Content>
         </Accordion>
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column width={6}>
         <h2> Valgte tiltak </h2>
         <MyCourses />
       </Grid.Column>

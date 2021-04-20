@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink, Router } from "react-router-dom";
 import "../TopNavigator.css";
 import Logout from "./Logout";
-import { Icon, Menu } from "semantic-ui-react";
+import { Grid, Icon, Menu } from "semantic-ui-react";
 
 const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("home");
@@ -13,8 +13,8 @@ const TopNavigator = () => {
   }
 
   return (
-    <Menu tabular>
-    <Menu.Item 
+    <Menu tabular stackable>
+        <Menu.Item 
       as={ Link } 
       name='Hjem' 
       to='home' 
