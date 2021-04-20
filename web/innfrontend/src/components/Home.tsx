@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
-import { CourseContext } from "../store/CourseContext";
 import { FormControl, InputGroup } from "react-bootstrap";
 import {
   Accordion,
@@ -13,37 +12,51 @@ import {
   Grid,
   Icon,
 } from "semantic-ui-react";
-import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import MyCourses from "./MyCourses";
 import axios from "axios";
+import { AppState, useAppDispatch } from "../store/redux/store";
+import { useSelector } from "react-redux";
+import { courseSlice } from "../store/slices/courseSlice";
+import { categorySlice } from "../store/slices/categorySlice";
 
 const Home = () => {
-  const courseContext = useContext(CourseContext);
+  const dispatch = useAppDispatch();
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+  const categories = useSelector(
+    (state: AppState) => state.categories.categoryList
+  );
+  const [error, setError] = useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const categoryContext = useContext(CategoryContext);
-
-  useEffect(() => {
-    // Need conditional render because of possible null in courseContext
-    // Have not found a fix for this if we are going with the reducer instead of state
-    categoryContext?.dispatch({ type: "API_REQUEST" });
-    axios.get("http://localhost:8000/api/category/", { withCredentials: true }).then(
-      (result: any) => {
-        console.log(result);
-        categoryContext?.dispatch({
-          type: "API_SUCCESS",
-          payload: result.data,
-        });
-      },
-      (error) => {
-        categoryContext?.dispatch({ type: "API_ERROR", payload: error });
-      }
-    );
-  }, []);
-
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
+
+  const fetchCourses = async () => {
+    axios
+      .get("http://localhost:8000/api/course/", { withCredentials: true })
+      .then(
+        (response) => {
+          dispatch(courseSlice.actions.setCourses({courseList: response.data}));
+        },
+        (error) => {
+          setError(error);
+        }
+      );
+  };
+
+  const fetchCategories = async () => {
+    axios
+      .get("http://localhost:8000/api/category/", { withCredentials: true })
+      .then(
+        (response) => {
+          dispatch(categorySlice.actions.setCategory({categoryList: response.data}));
+        },
+        (error) => {
+          setError(error);
+        }
+      );
+  };
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -52,7 +65,8 @@ const Home = () => {
   }
 
   function filteredCourses(categoryType: string) {
-    return courseContext?.state.courseList
+    if(courses) {
+    return courses
       .filter(
         (e) =>
           e.category === categoryType &&
@@ -63,29 +77,14 @@ const Home = () => {
             (e.restriction === 3 && box3))
       )
       .map((course: any) => <CourseCard {...course}></CourseCard>);
+    }
   }
 
-  console.log(courseContext);
 
   useEffect(() => {
-    // Need conditional render because of possible null in courseContext
-    // Have not found a fix for this if we are going with the reducer instead of state
-    courseContext?.dispatch({ type: "API_REQUEST" });
-    axios
-      .get("http://localhost:8000/api/course/", { withCredentials: true })
-      .then(
-        (result: any) => {
-          console.log(result);
-          courseContext?.dispatch({
-            type: "API_SUCCESS",
-            payload: result.data,
-          });
-        },
-        (error) => {
-          courseContext?.dispatch({ type: "API_ERROR", payload: error });
-        }
-      );
-  }, []);
+    fetchCategories();
+    fetchCourses();
+  }, [])
 
   return (
     <Grid columns={2} relaxed="very">
@@ -177,8 +176,4 @@ const Home = () => {
   );
 };
 
-export default () => (
-  <CategoryProvider>
-    <Home />
-  </CategoryProvider>
-);
+export default Home;

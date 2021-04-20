@@ -1,13 +1,11 @@
-import React, { useContext, useState } from "react";
-import { CourseContext } from "../store/CourseContext";
+import React from "react";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Row";
-import CourseCard from "./CourseCard";
 import { Accordion, Icon, Label } from "semantic-ui-react";
+import { useSelector } from "react-redux";
+import { AppState } from "../store/redux/store";
 
 const MyCourses = () => {
-  const courseContext = useContext(CourseContext);
+  const courses = useSelector((state: AppState) => state.courses.courseList);
   const [activeIndex, setActiveIndex] = React.useState(0);
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -18,31 +16,15 @@ const MyCourses = () => {
 
   return (
     <div>
-    {/*}
-      <Container>
-        <Row>
-          {courseContext?.state.courseList.map((course: any) =>
-            course.isSelected ? (
-              <Col>
-                <CourseCard {...course}></CourseCard>
-              </Col>
-            ) : (
-              <></>
-            )
-          )}
-        </Row>
-      </Container>
-            */}
-      
       <Container>
         <Accordion fluid styled>
-          {courseContext?.state.courseList.map((course: any) =>
+          {courses.map((course: any) =>
             course.isSelected ? (
               <div>
                 <Accordion.Title
                   active={
                     activeIndex ===
-                    courseContext.state.courseList.indexOf(course.title)
+                    courses.indexOf(course.title)
                   }
                   onClick={(e) => handleClick(1)}
                 >
@@ -52,7 +34,7 @@ const MyCourses = () => {
                 <Accordion.Content
                   active={
                     activeIndex ===
-                    courseContext.state.courseList.indexOf(course.title)
+                    courses.indexOf(course.title)
                   }
                 >
                   {course.description}

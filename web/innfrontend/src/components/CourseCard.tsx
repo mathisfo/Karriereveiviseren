@@ -1,5 +1,4 @@
 import React, { FC, useContext, useState } from "react";
-import { CourseContext } from "../store/CourseContext";
 import {
   Card,
   Button,
@@ -12,6 +11,8 @@ import { Icon } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AppState, useAppDispatch } from "../store/redux/store";
 
 interface IProps {
   id: number;
@@ -40,27 +41,16 @@ function setColor(modul?: number) {
 }
 
 const CourseCard: FC<IProps> = (props) => {
-  const courseContext = useContext(CourseContext);
+  const dispatch = useAppDispatch();
+  const courses = useSelector((state: AppState) => state.courses.courseList);
   const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
 
-  let newCourseList = courseContext?.state.courseList;
 
   // This should not be this complicated
   // TODO: Find a better way to handle this
   function selectCard() {
-    newCourseList = newCourseList?.map((course) => {
-      if (course.id == props.id) {
-        course.isSelected = !course.isSelected;
-      }
-      return course;
-    });
-    if (newCourseList) {
-      courseContext?.dispatch({
-        type: "COURSE_SELECT",
-        payload: newCourseList,
-      });
-    }
+   console.log("This function remains to be implemented."); 
   }
 
   function openTab() {
