@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-import { gapi } from "gapi-script";
 
 import googleLogin from "./services/googleLogin";
 
@@ -10,7 +9,7 @@ const test = async () => {
     withCredentials: true,
   });
   console.log(userInfo);
-  return userInfo;
+  return userInfo.data;
 };
 
 const GoogleSocialAuth = () => {
@@ -23,19 +22,17 @@ const GoogleSocialAuth = () => {
     let userInfo = test();
   };
 
-const logout = async() => {
-  let res = await axios.post("http://localhost:8000/allauth/logout/", {withCredentials: true,});
-  
-  const auth2 = gapi.auth2.getAuthInstance();
-  console.log(auth2);
-
-  if (auth2 != null) {
-    auth2.signOut().then(
-         auth2.disconnect().then(console.log('LOGOUT SUCCESSFUL'))
-     )
-}
-
-}
+  const logout = async () => {
+    let userInfo = await test()
+      .then(async (userinfo) => {
+        console.log(userinfo)
+        let res = await axios.post(
+          "http://localhost:8000/dj-rest-auth/logout/",
+          { userinfo },
+          { withCredentials: true }
+        );
+      });
+  };
 
   return (
     <div className="Login">
@@ -47,11 +44,10 @@ const logout = async() => {
         onFailure={responseGoogle}
       />
       <GoogleLogout
-          clientId="268749028652-1da4v4e8hq7ddrjfg9ac4tt5e9h9cu6b.apps.googleusercontent.com"
-          buttonText='LOGOUT FROM GOOGLE'
-          onLogoutSuccess={logout}
-        >
-        </GoogleLogout>
+        clientId="268749028652-1da4v4e8hq7ddrjfg9ac4tt5e9h9cu6b.apps.googleusercontent.com"
+        buttonText="LOGOUT FROM GOOGLE"
+        onLogoutSuccess={logout}
+      ></GoogleLogout>
       <button onClick={logout}>Logout</button>
     </div>
   );
