@@ -58,6 +58,25 @@ function App() {
       );
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:8000/api/userpreferences/12/",
+
+        {
+          withCredentials: true,
+        }
+      )
+      .then((result: any) => {
+        courseContext?.state.courseList.forEach((e) => {
+          console.log(e.url);
+
+          if (result.data.selected.find((element: any) => element === e.url)) {
+            e.isSelected = true;
+          }
+        });
+      });
+  });
 
   const [showSite, setShowSite] = React.useState(false);
 

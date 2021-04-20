@@ -13,7 +13,6 @@ import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { EIDRM } from "node:constants";
 
 interface IProps {
   id: number;
@@ -48,22 +47,6 @@ const CourseCard: FC<IProps> = (props) => {
 
   let newCourseList = courseContext?.state.courseList;
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/userpreferences/6/", {
-        withCredentials: true,
-      })
-      .then((result: any) => {
-        newCourseList?.forEach((e) => {
-          console.log(e.url);
-
-          if (result.data.selected.find((element: any) => element === e.url)) {
-            e.isSelected = true;
-          }
-        });
-      });
-  });
-
   // This should not be this complicated
   // TODO: Find a better way to handle this
   function selectCard() {
@@ -75,23 +58,24 @@ const CourseCard: FC<IProps> = (props) => {
     });
 
     if (newCourseList) {
+      console.log(newCourseList);
       courseContext?.dispatch({
         type: "COURSE_SELECT",
         payload: newCourseList,
       });
-
-      axios.put(
-        "http://localhost:8000/api/userpreferences/6/",
-        {
-          user: "http://127.0.0.1:8000/api/users/1/",
-          selected: newCourseList.filter((e) => e.isSelected).map((e) => e.url),
-        },
-
-        {
-          withCredentials: true,
-        }
-      );
     }
+
+    axios.put(
+      "http://localhost:8000/api/userpreferences/12/",
+      {
+        user: "http://127.0.0.1:8000/api/users/1/",
+        selected: newCourseList?.filter((e) => e.isSelected).map((e) => e.url),
+      },
+
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   function openTab() {

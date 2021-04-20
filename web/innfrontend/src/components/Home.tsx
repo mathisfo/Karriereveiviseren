@@ -10,8 +10,11 @@ import {
   Card,
   Checkbox,
   Container,
+  Divider,
   Grid,
+  Header,
   Icon,
+  Segment,
 } from "semantic-ui-react";
 import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import MyCourses from "./MyCourses";
@@ -49,7 +52,7 @@ const Home = () => {
   return (
     <Grid columns={2} relaxed="very">
       <Grid.Column>
-        <h2> Tiltak </h2>
+        <h2> Velg Aktiviter </h2>
         <Container>
           <Row md={2}>
             <Col>
@@ -87,44 +90,21 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
-        <Accordion fluid styled>
-          <Accordion.Title
-            active={activeIndex === 1}
-            onClick={(e) => handleClick(1)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="briefcase" />
-            Arbeidsrettet {"   "}
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
-            <Card.Group itemsPerRow={4}>{filteredCourses(4)}</Card.Group>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 2}
-            onClick={(e) => handleClick(2)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="graduation cap" />
-            Utdanningsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 2}>
-            <Row>{filteredCourses(5)}</Row>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 3}
-            onClick={(e) => handleClick(3)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="users" />
-            Samfunnsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 3}>
-            <Row>{filteredCourses(6)}</Row>
-          </Accordion.Content>
-        </Accordion>
+        <Segment>
+          <Header as="h2">Arbeidsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(4)}
+        </Segment>
+        <Segment>
+          <Header as="h2">Utdanningsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(5)}
+        </Segment>
+        <Segment>
+          <Header as="h2">Samfunnsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(6)}
+        </Segment>
       </Grid.Column>
       <Grid.Column>
         <h2> Valgte tiltak </h2>
