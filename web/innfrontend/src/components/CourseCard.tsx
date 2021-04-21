@@ -60,7 +60,7 @@ const CourseCard: FC<Course> = (props) => {
 
   return (
     <div>
-      <Card style={{ margin: "1.2em" }}>
+      <Card style={{ margin: "1.2em" }} data-cy="courseCard">
         <Card.Content>
           <Card.Header>
             {props.title}
@@ -82,12 +82,12 @@ const CourseCard: FC<Course> = (props) => {
               onOpen={() => setOpen(true)}
               open={open}
               trigger={
-                <Button style={{ marginRight: "1em" }}>Mer informasjon</Button>
+                <Button style={{ marginRight: "1em" }} data-cy="infoButton">Mer informasjon</Button>
               }
               size="tiny"
             >
               <Modal.Header>
-                {props.title}
+                <p>{props.title}</p>
                 <Button target color="blue" floated="right" size="tiny">
                   <Link
                     className="link"

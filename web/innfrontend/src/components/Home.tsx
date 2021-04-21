@@ -95,7 +95,7 @@ const Home = () => {
   return (
     <Grid columns={2} relaxed="very">
       <Grid.Column>
-        <h2> Velg Aktiviter </h2>
+        <h2> Velg Aktiviteter </h2>
         <Container>
           <Row md={2}>
             <Col>

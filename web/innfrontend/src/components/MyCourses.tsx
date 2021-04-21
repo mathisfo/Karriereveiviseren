@@ -78,7 +78,7 @@ const MyCourses = () => {
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
           open={open}
-          trigger={<Button>Legg til et tiltak</Button>}
+          trigger={<Button data-cy="addButton">Legg til et tiltak</Button>}
         >
           <Modal.Header>Legg til et Tiltak</Modal.Header>
           <Modal.Content>

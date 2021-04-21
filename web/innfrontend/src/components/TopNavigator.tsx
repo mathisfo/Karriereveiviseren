@@ -14,7 +14,7 @@ const TopNavigator = () => {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" data-cy="Navbar">
       <Navbar.Brand>INN</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -23,6 +23,7 @@ const TopNavigator = () => {
             <NavLink
               className="navbar-item"
               activeClassName="is-active"
+              data-cy="homeLink"
               to="/home"
               activeStyle={{
                 fontWeight: "bold",
@@ -34,6 +35,7 @@ const TopNavigator = () => {
             <NavLink
               className="navbar-item"
               activeClassName="is-active"
+              data-cy="coursesLink"
               to="/courses"
               activeStyle={{
                 fontWeight: "bold",
