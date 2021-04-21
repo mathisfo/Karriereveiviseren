@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import {
   Card,
   Button,
@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../store/redux/store";
 import { courseSlice } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
+import axios from "axios";
 
 interface IProps {
   id: number;
@@ -123,9 +124,9 @@ const CourseCard: FC<Course> = (props) => {
               </Modal.Actions>
             </Modal>
             <Checkbox
-              toggle
               label="Velg"
               basic
+              checked={props.isSelected}
               onChange={() => selectCard()}
             ></Checkbox>
           </div>

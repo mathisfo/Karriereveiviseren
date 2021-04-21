@@ -12,6 +12,10 @@ export const courseSlice = createSlice({
     setCourses: (state: CourseState, action: PayloadAction<CourseState>) => ({
       courseList: action.payload.courseList,
     }),
+    addCourse: (state: CourseState, action: PayloadAction<Course>) => ({
+      
+      courseList: [...state.courseList, action.payload]
+    }),
     selectCourse: (state: CourseState, action: PayloadAction<Course>) => {
       state.courseList.map((course) => {
         if (course.id == action.payload.id) {

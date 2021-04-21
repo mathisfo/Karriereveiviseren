@@ -9,8 +9,11 @@ import {
   Card,
   Checkbox,
   Container,
+  Divider,
   Grid,
+  Header,
   Icon,
+  Segment,
 } from "semantic-ui-react";
 import MyCourses from "./MyCourses";
 import axios from "axios";
@@ -37,7 +40,9 @@ const Home = () => {
       .get("http://localhost:8000/api/course/", { withCredentials: true })
       .then(
         (response) => {
-          dispatch(courseSlice.actions.setCourses({courseList: response.data}));
+          dispatch(
+            courseSlice.actions.setCourses({ courseList: response.data })
+          );
         },
         (error) => {
           setError(error);
@@ -50,7 +55,9 @@ const Home = () => {
       .get("http://localhost:8000/api/category/", { withCredentials: true })
       .then(
         (response) => {
-          dispatch(categorySlice.actions.setCategory({categoryList: response.data}));
+          dispatch(
+            categorySlice.actions.setCategory({ categoryList: response.data })
+          );
         },
         (error) => {
           setError(error);
@@ -64,32 +71,31 @@ const Home = () => {
     setActiveIndex(newIndex);
   }
 
-  function filteredCourses(categoryType: string) {
-    if(courses) {
-    return courses
-      .filter(
-        (e) =>
-          e.category === categoryType &&
-          e.title.toLowerCase().includes(input) &&
-          ((!box1 && !box2 && !box3) ||
-            (e.restriction === 1 && box1) ||
-            (e.restriction === 2 && box2) ||
-            (e.restriction === 3 && box3))
-      )
-      .map((course: any) => <CourseCard {...course}></CourseCard>);
+  function filteredCourses(categoryType: number) {
+    if (courses) {
+      return courses
+        .filter(
+          (e) =>
+            e.category === categoryType &&
+            e.title.toLowerCase().includes(input) &&
+            ((!box1 && !box2 && !box3) ||
+              (e.restriction === 1 && box1) ||
+              (e.restriction === 2 && box2) ||
+              (e.restriction === 3 && box3))
+        )
+        .map((course: any) => <CourseCard {...course}></CourseCard>);
     }
   }
-
 
   useEffect(() => {
     fetchCategories();
     fetchCourses();
-  }, [])
+  }, []);
 
   return (
     <Grid columns={2} relaxed="very">
       <Grid.Column>
-        <h2> Tiltak </h2>
+        <h2> Velg Aktiviter </h2>
         <Container>
           <Row md={2}>
             <Col>
@@ -127,46 +133,21 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
-        <Accordion fluid styled>
-          <Accordion.Title
-            active={activeIndex === 1}
-            onClick={(e) => handleClick(1)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="briefcase" />
-            Arbeidsrettet {"   "}
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
-            <Card.Group itemsPerRow={4}>
-              {filteredCourses("Arbeidsrettet")}
-            </Card.Group>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 2}
-            onClick={(e) => handleClick(2)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="graduation cap" />
-            Utdanningsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 2}>
-            <Row>{filteredCourses("Utdanningsrettet")}</Row>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 3}
-            onClick={(e) => handleClick(3)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="users" />
-            Samfunnsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 3}>
-            <Row>{filteredCourses("Samfunnsrettet")}</Row>
-          </Accordion.Content>
-        </Accordion>
+        <Segment>
+          <Header as="h2">Arbeidsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(1)}
+        </Segment>
+        <Segment>
+          <Header as="h2">Utdanningsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(2)}
+        </Segment>
+        <Segment>
+          <Header as="h2">Samfunnsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(4)}
+        </Segment>
       </Grid.Column>
       <Grid.Column>
         <h2> Valgte tiltak </h2>

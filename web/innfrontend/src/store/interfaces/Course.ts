@@ -7,7 +7,7 @@ export interface Course {
   shortDescription: string;
   restriction: number;
   isSelected: boolean;
-  category: string;
+  category: number;
   classroom: string;
   url: string;
 }

@@ -1,21 +1,48 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import { Accordion, Icon, Label } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { AppState } from "../store/redux/store";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Row";
+import CourseCard from "./CourseCard";
+import {
+  Accordion,
+  Button,
+  Header,
+  Icon,
+  Label,
+  Modal,
+} from "semantic-ui-react";
+import SubmitCourseForm from "./SubmitCourseForm";
 
 const MyCourses = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
   function handleClick(index: number) {
     setActiveIndex(index);
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   }
 
-
   return (
     <div>
+      {/*}
+      <Container>
+        <Row>
+          {courseContext?.state.courseList.map((course: any) =>
+            course.isSelected ? (
+              <Col>
+                <CourseCard {...course}></CourseCard>
+              </Col>
+            ) : (
+              <></>
+            )
+          )}
+        </Row>
+      </Container>
+            */}
+
       <Container>
         <Accordion fluid styled>
           {courses.map((course: any) =>
@@ -38,7 +65,6 @@ const MyCourses = () => {
                   }
                 >
                   {course.description}
-
                 </Accordion.Content>
               </div>
             ) : (
@@ -46,6 +72,31 @@ const MyCourses = () => {
             )
           )}
         </Accordion>
+      </Container>
+      <Container>
+        <Modal
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button>Legg til et tiltak</Button>}
+        >
+          <Modal.Header>Legg til et Tiltak</Modal.Header>
+          <Modal.Content>
+            <SubmitCourseForm />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="black" onClick={() => setOpen(false)}>
+              Gå tilbake
+            </Button>
+            <Button
+              content="Lagre tiltak"
+              labelPosition="right"
+              icon="checkmark"
+              onClick={() => setOpen(false)}
+              positive
+            />
+          </Modal.Actions>
+        </Modal>
       </Container>
     </div>
   );
