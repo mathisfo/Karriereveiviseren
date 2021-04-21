@@ -1,6 +1,7 @@
 from innapp.models import Course
 from userpreferences.models import UserPreference
 from innapp.models import Course, Category
+from userpreferences.models import OwnCourse
 
 from rest_framework import serializers
 from django.contrib.auth.models import User
@@ -9,7 +10,7 @@ from django.contrib.auth.models import User
 class userPreferenceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserPreference
-        fields = ('url', 'id', 'user', 'selected')
+        fields = ('url', 'id', 'user', 'selected', 'selectedOwn')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -26,6 +27,16 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ('url', 'id', 'title', 'startDate', 'endDate',
                   'description', 'shortDescription', 'restriction', 'category', 'classroom')
+
+
+class OwnCourseSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        return OwnCourse.objects.create(**validated_data)
+
+    class Meta:
+        model = OwnCourse
+        fields = ('url', 'id', 'user', 'title', 'startDate', 'endDate',
+                  'description', 'shortDescription', 'goal')
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):

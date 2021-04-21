@@ -51,7 +51,7 @@ const TopNavigator = () => {
               }}
               exact
             >
-              Mitt introduksjonsprogram
+              Min plan
             </NavLink>
           </Navbar.Text>
         </Nav>

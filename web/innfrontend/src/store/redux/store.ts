@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { courseSlice } from "../slices/courseSlice";
 import { categorySlice } from "../slices/categorySlice";
+import { ownCourseSlice } from "../slices/ownCourseSlice";
 
 export const store = configureStore({
   reducer: {
     courses: courseSlice.reducer,
     categories: categorySlice.reducer,
+    owncourses: ownCourseSlice.reducer,
   }
 })
 

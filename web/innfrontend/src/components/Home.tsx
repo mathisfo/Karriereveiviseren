@@ -146,12 +146,8 @@ const Home = () => {
         <Segment>
           <Header as="h2">Samfunnsrettet</Header>
           <Divider clearing />
-          {filteredCourses(4)}
+          {filteredCourses(3)}
         </Segment>
-      </Grid.Column>
-      <Grid.Column>
-        <h2> Valgte tiltak </h2>
-        <MyCourses />
       </Grid.Column>
     </Grid>
   );
