@@ -5,11 +5,13 @@ describe("Home page renders", () => {
     });
   });
 
+
 describe("Navbar renders", () => {
   it("renders navbar", () => {
     cy.get("[data-cy=Navbar]").contains("INN").should('be.visible')
   });
 });
+
 
 describe("User can add a course", () => {
   it("works", () => {
@@ -25,10 +27,11 @@ describe("User can add a course", () => {
     cy.get('input[name="classroom"]').type("https://gitlab.stud.idi.ntnu.no/inn01")
     cy.get('button').contains('Lagre tiltak').click();
     cy.get("[data-cy=Navbar]").get("[data-cy=homeLink]").click()
-    cy.get("[data-cy=courseCard").contains("My course").should('exist');
+    cy.get("[data-cy=courseCard]").contains("My course").should('exist');
     
   });
 });
+
 
 describe("User can access more information about the course", () => {
   it("works", () => {
@@ -38,5 +41,34 @@ describe("User can access more information about the course", () => {
   });
 });
 
-describe("User can select a course and add it to their course list")
 
+describe("User can select a course and add it to their course list", () => {
+  it("works", () => {
+    cy.get("[data-cy=checkbox]").first().click();
+    cy.get("[data-cy=accordion]").should('exist');
+  });
+});
+
+describe("User can search for a course", () => {
+  it("works", () => {
+    cy.get("input[name=searchbar]").type('My course') 
+    cy.get("[data-cy=courseHeader").each((item) => {
+    cy.wrap(item).contains("My course")
+    })
+  })
+})
+
+
+describe("User can filter on restriction", () => {
+  it("works", () => {
+    cy.get("[data-cy=checkbox2]").click()
+    
+    cy.get("[data-cy=courseHeader").each((item) => {
+    cy.wrap(item).contains("Spor 2")
+      
+    })
+
+  })
+})
+
+  

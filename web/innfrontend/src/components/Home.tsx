@@ -13,6 +13,7 @@ import {
   Grid,
   Header,
   Icon,
+  Input,
   Segment,
 } from "semantic-ui-react";
 import MyCourses from "./MyCourses";
@@ -77,7 +78,7 @@ const Home = () => {
         .filter(
           (e) =>
             e.category === categoryType &&
-            e.title.toLowerCase().includes(input) &&
+            e.title.toLowerCase().includes(input.toLowerCase()) &&
             ((!box1 && !box2 && !box3) ||
               (e.restriction === 1 && box1) ||
               (e.restriction === 2 && box2) ||
@@ -98,7 +99,7 @@ const Home = () => {
         <h2> Velg Aktiviteter </h2>
         <Container>
           <Row md={2}>
-            <Col>
+           
               <Checkbox
                 checked={box1}
                 label="Spor 1"
@@ -110,6 +111,7 @@ const Home = () => {
                 label="Spor 2"
                 onClick={() => setBox2(!box2)}
                 style={{ marginRight: "1em" }}
+                data-cy="checkbox2"
               />
               <Checkbox
                 checked={box3}
@@ -117,20 +119,7 @@ const Home = () => {
                 onClick={() => setBox3(!box3)}
                 style={{ marginRight: "2em" }}
               />
-            </Col>
-            <Col>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Søk..."
-                  onChange={(e) => setInput(e.target.value)}
-                />
-                <InputGroup.Append>
-                  <Button primary size="tiny">
-                    <Icon name="search"></Icon>
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Col>
+            <Input name="searchbar" style={{marginBottom: "0.2em"}} icon='search' placeholder='Search...' onChange={(e: any) => setInput(e.target.value)}/>
           </Row>
         </Container>
         <Segment>

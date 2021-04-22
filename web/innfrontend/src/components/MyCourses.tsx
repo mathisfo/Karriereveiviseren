@@ -44,7 +44,7 @@ const MyCourses = () => {
             */}
 
       <Container>
-        <Accordion fluid styled>
+        <Accordion fluid styled >
           {courses.map((course: any) =>
             course.isSelected ? (
               <div>
@@ -54,6 +54,7 @@ const MyCourses = () => {
                     courses.indexOf(course.title)
                   }
                   onClick={(e) => handleClick(1)}
+                  data-cy="accordion"
                 >
                   <Icon name="dropdown" />
                   {course.title}

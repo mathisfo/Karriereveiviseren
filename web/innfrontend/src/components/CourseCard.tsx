@@ -62,7 +62,7 @@ const CourseCard: FC<Course> = (props) => {
     <div>
       <Card style={{ margin: "1.2em" }} data-cy="courseCard">
         <Card.Content>
-          <Card.Header>
+          <Card.Header data-cy="courseHeader">
             {props.title}
 
             <Label
@@ -94,9 +94,10 @@ const CourseCard: FC<Course> = (props) => {
                     to="googleClassroom"
                     target="_blank"
                     onClick={openTab}
+                    
                   >
                     <Icon icon={googleClassroom} width="1.7em" color="white" />{" "}
-                    Google Classroom
+                   Google Classroom
                   </Link>
                 </Button>
               </Modal.Header>
@@ -124,10 +125,12 @@ const CourseCard: FC<Course> = (props) => {
               </Modal.Actions>
             </Modal>
             <Checkbox
+              
               label="Velg"
               basic
               checked={props.isSelected}
               onChange={() => selectCard()}
+              data-cy="checkbox"
             ></Checkbox>
           </div>
         </Card.Content>
