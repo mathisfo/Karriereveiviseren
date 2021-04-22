@@ -4,6 +4,9 @@ import GoogleLogin from "react-google-login";
 
 import googleLogin from "./services/googleLogin";
 
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 const test = async () => {
   let userInfo = await axios.get("http://localhost:8000/auth/user/", {
     withCredentials: true,
