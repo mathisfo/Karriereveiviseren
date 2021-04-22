@@ -1,6 +1,4 @@
 from django.contrib import admin
-from .models import UserPreference, OwnCourse
+from .models import UserPreference
 # Register your models here.
-
-admin.site.register(OwnCourse)
 admin.site.register(UserPreference)

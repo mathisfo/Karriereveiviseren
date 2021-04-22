@@ -77,8 +77,6 @@ JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
 SITE_ID = 3
 
 
-
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
@@ -128,7 +126,7 @@ ROOT_URLCONF = 'innbackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['userAuth/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

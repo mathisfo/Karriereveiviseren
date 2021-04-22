@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import CourseViewSet, UserViewSet, CategoryViewSet, UserPreferenceViewSet, OwnCourseViewSet
+from innapp.api.views import CourseViewSet, UserViewSet, CategoryViewSet, UserPreferenceViewSet, OwnCourseViewSet
 
 router = DefaultRouter()
 router.register(r'course', CourseViewSet)

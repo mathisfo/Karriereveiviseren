@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/', include('innapp.api.urls')),
     path('token-auth/', obtain_jwt_token),
     path('userAuth/', include('userAuth.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
     #path('', TemplateView.as_view(template_name="index.html")),
     path('rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
     path('login/', GoogleLogin.as_view(), name='google_login'),

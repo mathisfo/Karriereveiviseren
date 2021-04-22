@@ -14,7 +14,8 @@ class UserPreference(models.Model):
     selected = models.ManyToManyField(Course, blank=True, default=[])
     # owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
-    selectedOwn = models.ManyToManyField(OwnCourse, blank=True, default=[])
+    selectedOwn = models.ManyToManyField(
+        OwnCourse, blank=False, default=[])
 
     def __str__(self):
 

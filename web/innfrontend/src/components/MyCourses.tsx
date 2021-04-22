@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import { useSelector } from "react-redux";
 import { AppState } from "../store/redux/store";
-import CourseCard from "./CourseCard";
+
 import {
   Accordion,
   Button,
+  Card,
   Grid,
   Header,
   Icon,
@@ -14,12 +15,18 @@ import {
 } from "semantic-ui-react";
 import SubmitCourseForm from "./SubmitCourseForm";
 import axios from "axios";
-import { ownCourseSlice } from '../store/slices/ownCourseSlice';
+import { ownCourseSlice } from "../store/slices/ownCourseSlice";
+import { Course } from "../store/interfaces/Course";
+import { OwnCourse } from "../store/interfaces/OwnCourse";
 
 const MyCourses = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
+  const owncourses = useSelector(
+    (state: AppState) => state.owncourses.ownCourseList
+  );
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+
   function handleClick(index: number) {
     setActiveIndex(index);
     const newIndex = activeIndex === index ? -1 : index;
@@ -31,15 +38,19 @@ const MyCourses = () => {
       .get("http://localhost:8000/api/owncourse/", { withCredentials: true })
       .then(
         (response) => {
-          dispatch(
-            ownCourseSlice.actions.setOwnCourses({ ownCourseList: response.data })
-          );
+          ownCourseSlice.actions.setOwnCourses({
+            ownCourseList: response.data,
+          });
         },
         (error) => {
           setError(error);
         }
       );
   };
+
+  useEffect(() => {
+    fetchOwnCourses();
+  }, []);
 
   return (
     <div>
@@ -72,7 +83,6 @@ const MyCourses = () => {
         <Grid.Column>
           <Container>
             <Header h1>Egendefinerte Aktivteter</Header>
-            <Accordion></Accordion>
           </Container>
         </Grid.Column>
       </Grid>
@@ -81,11 +91,13 @@ const MyCourses = () => {
 };
 
 export default MyCourses;
-function dispatch(arg0: { payload: import("../store/types/CourseState").CourseState; type: string; }) {
-  throw new Error('Function not implemented.');
+function dispatch(arg0: {
+  payload: import("../store/types/CourseState").CourseState;
+  type: string;
+}) {
+  throw new Error("Function not implemented.");
 }
 
 function setError(error: any) {
-  throw new Error('Function not implemented.');
+  throw new Error("Function not implemented.");
 }
-

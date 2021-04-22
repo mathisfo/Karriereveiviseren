@@ -44,7 +44,7 @@ class Course(models.Model):
     # if we move to postgres, we can use arrayfield here
     # other = models.ArrayField()
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="category1")
+        Category, on_delete=models.PROTECT, related_name="category1")
     classroom = models.CharField('link', max_length=150, default="")
 
     def __str__(self):

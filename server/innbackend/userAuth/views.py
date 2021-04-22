@@ -23,7 +23,7 @@ def current_user(request):
     """
     Determine the current user by their token, and return their data
     """
-
+    print("USER ID" + str(request.user.id))
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
 
@@ -49,7 +49,7 @@ def registerPage(request):
 
 def loginPage(request):
     if request.user.is_authenticated:
-        return redirect('localhost:3000')
+        return redirect('/api')
     else:
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -59,7 +59,7 @@ def loginPage(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('localhost:3000')
+                return redirect('/api')
             else:
                 messages.info(request, 'Username OR password is incorrect')
 
