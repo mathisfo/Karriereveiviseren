@@ -1,8 +1,10 @@
 import axios from "axios";
 import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-
 import googleLogin from "./services/googleLogin";
+ 
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 const test = async () => {
   let userInfo = await axios.get("http://localhost:8000/dj-rest-auth/user/", {
@@ -28,7 +30,7 @@ const GoogleSocialAuth = () => {
         console.log(userinfo)
         let res = await axios.post(
           "http://localhost:8000/dj-rest-auth/logout/",
-          { userinfo },
+          {},
           { withCredentials: true }
         );
       });
