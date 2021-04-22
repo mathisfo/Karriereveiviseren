@@ -42,7 +42,7 @@ class OwnCourseViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     # TODO filter() should only provide the current user
-    queryset = OwnCourse.objects.filter(user=2).order_by('id')
+    queryset = OwnCourse.objects.filter().order_by('id')
 
 
 class UserPreferenceViewSet(viewsets.ModelViewSet):

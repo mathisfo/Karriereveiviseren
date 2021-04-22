@@ -3,7 +3,7 @@ import GoogleLogin from "react-google-login";
 
 const GoogleAuth = () => {
   const googleResponse = (response: any) => {
-    console.log(response);
+    //console.log(response);
   };
 
   const clientId =

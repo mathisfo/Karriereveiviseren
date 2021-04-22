@@ -37,7 +37,7 @@ const Home = () => {
 
   const fetchCourses = async () => {
     axios
-      .get("http://localhost:8000/api/course/", { withCredentials: true })
+      .get("api/course/", { withCredentials: true })
       .then(
         (response) => {
           dispatch(
@@ -52,7 +52,7 @@ const Home = () => {
 
   const fetchCategories = async () => {
     axios
-      .get("http://localhost:8000/api/category/", { withCredentials: true })
+      .get("api/category/", { withCredentials: true })
       .then(
         (response) => {
           dispatch(

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import { useSelector } from "react-redux";
-import { AppState } from "../store/redux/store";
+import { AppState, useAppDispatch } from "../store/redux/store";
 
 import {
   Accordion,
@@ -26,6 +26,7 @@ const MyCourses = () => {
   );
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -34,18 +35,19 @@ const MyCourses = () => {
   }
 
   const fetchOwnCourses = async () => {
-    axios
-      .get("http://localhost:8000/api/owncourse/", { withCredentials: true })
-      .then(
-        (response) => {
+    axios.get("api/owncourse/", { withCredentials: true }).then(
+      (response) => {
+        dispatch(
           ownCourseSlice.actions.setOwnCourses({
             ownCourseList: response.data,
-          });
-        },
-        (error) => {
-          setError(error);
-        }
-      );
+          })
+        );
+        console.log(response.data);
+      },
+      (error) => {
+        setError(error);
+      }
+    );
   };
 
   useEffect(() => {
@@ -83,6 +85,11 @@ const MyCourses = () => {
         <Grid.Column>
           <Container>
             <Header h1>Egendefinerte Aktivteter</Header>
+            <Container>
+              {owncourses.map((e: OwnCourse) => (
+                <Header>{e.title}</Header>
+              ))}
+            </Container>
           </Container>
         </Grid.Column>
       </Grid>
