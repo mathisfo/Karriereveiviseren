@@ -57,9 +57,6 @@ const TopNavigator = () => {
           </Navbar.Text>
         </Nav>
       </Navbar.Collapse>
-      <Navbar.Collapse className="justify-content-end">
-        <Logout />
-      </Navbar.Collapse>
     </Navbar>
   );
 };

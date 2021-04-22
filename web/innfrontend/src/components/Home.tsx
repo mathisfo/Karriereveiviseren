@@ -27,7 +27,7 @@ const Home = () => {
     // Need conditional render because of possible null in courseContext
     // Have not found a fix for this if we are going with the reducer instead of state
     categoryContext?.dispatch({ type: "API_REQUEST" });
-    axios.get("http://localhost:8000/api/category/", { withCredentials: true }).then(
+    axios.get("api/category/", { withCredentials: true }).then(
       (result: any) => {
         console.log(result);
         categoryContext?.dispatch({
@@ -72,7 +72,7 @@ const Home = () => {
     // Have not found a fix for this if we are going with the reducer instead of state
     courseContext?.dispatch({ type: "API_REQUEST" });
     axios
-      .get("http://localhost:8000/api/course/", { withCredentials: true })
+      .get("api/course/", { withCredentials: true })
       .then(
         (result: any) => {
           console.log(result);

@@ -19,23 +19,15 @@ class GoogleLogin(SocialLoginView):
   #callback_url = "http://localhost:3000"
   client_class = OAuth2Client
 
+"""
 class Logout(APIView):
   #permission_classes = [AllowAny]
-  """
-  def post(self, request):
-    
-    response = HttpResponse("http://localhost:3000/")
-    response.delete_cookie("innapp")
-    response.delete_cookie("user_refresh_token")
-    response.delete_cookie("sessionid")
-    return response
-  """
   def post(self, request):
     return self.logout(request)
 
   def logout(self, request):
     try:
-      print(request.user)
+      print(request.user.id)
       #access_token = SocialToken.objects.get(account__user=request.user, account__provider='google') 
       #print(access_token)
     except (AttributeError, ObjectDoesNotExist):
@@ -43,3 +35,4 @@ class Logout(APIView):
 
 
     return Response({"success": _("Successfully logged out.")}, status=status.HTTP_200_OK)
+"""

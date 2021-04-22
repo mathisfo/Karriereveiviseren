@@ -21,7 +21,7 @@ function App() {
     // Have not found a fix for this if we are going with the reducer instead of state
     courseContext?.dispatch({ type: "API_REQUEST" });
     axios
-      .get("http://localhost:8000/api/course/", { withCredentials: true })
+      .get("api/course/", { withCredentials: true })
       .then(
         (result: any) => {
           console.log(result);
