@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CourseCard from "./CourseCard";
+import CourseCard from "../CourseCard";
 import { FormControl, InputGroup } from "react-bootstrap";
 import {
   Accordion,
@@ -14,14 +14,14 @@ import {
   Input,
   Segment,
 } from "semantic-ui-react";
-import MyCourses from "./MyCourses";
+import MyCourses from "../userCourses/UserCourseAccordion";
 import axios from "axios";
-import { AppState, useAppDispatch } from "../store/redux/store";
+import { AppState, useAppDispatch } from "../../store/redux/store";
 import { useSelector } from "react-redux";
-import { courseSlice } from "../store/slices/courseSlice";
-import { categorySlice } from "../store/slices/categorySlice";
+import { courseSlice } from "../../store/slices/courseSlice";
+import { categorySlice } from "../../store/slices/categorySlice";
 
-const Home = () => {
+const CourseAccordion = () => {
   const dispatch = useAppDispatch();
   const courses = useSelector((state: AppState) => state.courses.courseList);
   const categories = useSelector(
@@ -35,33 +35,27 @@ const Home = () => {
   const [box3, setBox3] = useState(false);
 
   const fetchCourses = async () => {
-    axios
-      .get("api/course/", { withCredentials: true })
-      .then(
-        (response) => {
-          dispatch(
-            courseSlice.actions.setCourses({ courseList: response.data })
-          );
-        },
-        (error) => {
-          setError(error);
-        }
-      );
+    axios.get("api/course/", { withCredentials: true }).then(
+      (response) => {
+        dispatch(courseSlice.actions.setCourses({ courseList: response.data }));
+      },
+      (error) => {
+        setError(error);
+      }
+    );
   };
 
   const fetchCategories = async () => {
-    axios
-      .get("api/category/", { withCredentials: true })
-      .then(
-        (response) => {
-          dispatch(
-            categorySlice.actions.setCategory({ categoryList: response.data })
-          );
-        },
-        (error) => {
-          setError(error);
-        }
-      );
+    axios.get("api/category/", { withCredentials: true }).then(
+      (response) => {
+        dispatch(
+          categorySlice.actions.setCategory({ categoryList: response.data })
+        );
+      },
+      (error) => {
+        setError(error);
+      }
+    );
   };
 
   function handleClick(index: number) {
@@ -95,30 +89,34 @@ const Home = () => {
     <Grid stackable columns={2} relaxed>
       <Grid.Column width={10}>
         <h2> Tiltak </h2>
-        
-          <Grid.Row md={2}>
-            
-              <Checkbox
-                checked={box1}
-                label="Spor 1"
-                onClick={() => setBox1(!box1)}
-                style={{ marginRight: "1em" }}
-              />
-              <Checkbox
-                checked={box2}
-                label="Spor 2"
-                onClick={() => setBox2(!box2)}
-                style={{ marginRight: "1em" }}
-              />
-              <Checkbox
-                checked={box3}
-                label="Spor 3"
-                onClick={() => setBox3(!box3)}
-                style={{ marginRight: "2em" }}
-              />
-              <Input style={{marginBottom: "0.2em"}} icon='search' placeholder='Search...' onChange={(e: any) => setInput(e.target.value)}/>
-          </Grid.Row>
-        
+
+        <Grid.Row md={2}>
+          <Checkbox
+            checked={box1}
+            label="Spor 1"
+            onClick={() => setBox1(!box1)}
+            style={{ marginRight: "1em" }}
+          />
+          <Checkbox
+            checked={box2}
+            label="Spor 2"
+            onClick={() => setBox2(!box2)}
+            style={{ marginRight: "1em" }}
+          />
+          <Checkbox
+            checked={box3}
+            label="Spor 3"
+            onClick={() => setBox3(!box3)}
+            style={{ marginRight: "2em" }}
+          />
+          <Input
+            style={{ marginBottom: "0.2em" }}
+            icon="search"
+            placeholder="Search..."
+            onChange={(e: any) => setInput(e.target.value)}
+          />
+        </Grid.Row>
+
         <Accordion fluid styled>
           <Accordion.Title
             active={activeIndex === 1}
@@ -130,7 +128,7 @@ const Home = () => {
             Arbeidsrettet {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-          <Grid.Row>{filteredCourses(4)}</Grid.Row>
+            <Grid.Row>{filteredCourses(4)}</Grid.Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}
@@ -166,4 +164,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default CourseAccordion;

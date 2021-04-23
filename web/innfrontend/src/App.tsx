@@ -4,9 +4,9 @@ import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from "./components/Home";
-import MyCourses from "./components/MyCourses";
-import Progression from "./components/Progression";
+import CourseList from "./components/courseList/";
+import UserCourses from "./components/userCourses/";
+import Progression from "./components/progression/";
 import GoogleSocialAuth from "./components/GoogleSocialAuth";
 import { Provider } from "react-redux";
 import { store } from "./store/redux/store";
@@ -21,11 +21,11 @@ function App() {
           <Container className="p-3">
             <div>
               <Switch>
-                <Route exact path="/home">
-                  <Home />
-                </Route>
                 <Route exact path="/courses">
-                  <MyCourses />
+                  <CourseList />
+                </Route>
+                <Route exact path="/mycourses">
+                  <UserCourses />
                 </Route>
                 <Route exact path="/progression">
                   <Progression />

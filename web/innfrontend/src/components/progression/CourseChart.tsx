@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Chart from "react-google-charts";
 import { useSelector } from "react-redux";
-import { Course } from "../store/interfaces/Course";
-import { AppState } from "../store/redux/store";
+import { Course } from "../../store/interfaces/Course";
+import { AppState } from "../../store/redux/store";
 
 const prepareChartData = (course: Course) => {
   let selectedCourse = [];
@@ -16,7 +16,10 @@ const prepareChartData = (course: Course) => {
     new Date(course.startDate),
     new Date(course.endDate),
     null,
-    Math.min(100,Math.round((currentTime - startDate) / (endDate-startDate)*100)),
+    Math.min(
+      100,
+      Math.round(((currentTime - startDate) / (endDate - startDate)) * 100)
+    ),
     null
   );
   return selectedCourse;
@@ -30,7 +33,7 @@ interface IDiagramConst {
 // TODO: make custom type prettier
 type ChartTypes = Array<IDiagramConst> | Array<string | number | Date | null>;
 
-const Progression = () => {
+const CourseChart = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
   const diagramData: Array<ChartTypes> = [
     [
@@ -54,7 +57,7 @@ const Progression = () => {
     });
   }, []);
 
-/*
+  /*
   if (diagramData.length = 8) {
     return (
       <div> Legg til kurs i listen under for å se din progresjon. </div>
@@ -62,7 +65,6 @@ const Progression = () => {
   else {  
 */
   return (
-    
     <div>
       <Chart
         width={"100%"}
@@ -74,21 +76,23 @@ const Progression = () => {
         options={{
           gantt: {
             trackHeight: 40,
-            palette: [{
-              "color": "#edc642",
-              "dark": "#a38a36",
-              "light": "#f6d66b"
-            },
-            {
-              "color": "#eb6859",
-              "dark": "#a52714",
-              "light": "#f4c7c3"
-            },
-            {
-              "color": "#49bf65",
-              "dark": "#3a9951",
-              "light": "#fce8b2"
-            }]
+            palette: [
+              {
+                color: "#edc642",
+                dark: "#a38a36",
+                light: "#f6d66b",
+              },
+              {
+                color: "#eb6859",
+                dark: "#a52714",
+                light: "#f4c7c3",
+              },
+              {
+                color: "#49bf65",
+                dark: "#3a9951",
+                light: "#fce8b2",
+              },
+            ],
           },
         }}
       />
@@ -96,6 +100,4 @@ const Progression = () => {
   );
 };
 // TODO heihei
-export default Progression;
-
-
+export default CourseChart;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import { useSelector } from "react-redux";
-import { AppState, useAppDispatch } from "../store/redux/store";
+import { AppState, useAppDispatch } from "../../store/redux/store";
 
 import {
   Accordion,
@@ -13,13 +13,13 @@ import {
   Label,
   Modal,
 } from "semantic-ui-react";
-import SubmitCourseForm from "./SubmitCourseForm";
+import SubmitCourseForm from "../SubmitCourseForm";
 import axios from "axios";
-import { ownCourseSlice } from "../store/slices/ownCourseSlice";
-import { Course } from "../store/interfaces/Course";
-import { OwnCourse } from "../store/interfaces/OwnCourse";
+import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
+import { Course } from "../../store/interfaces/Course";
+import { OwnCourse } from "../../store/interfaces/OwnCourse";
 
-const MyCourses = () => {
+const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
   const owncourses = useSelector(
     (state: AppState) => state.owncourses.ownCourseList
@@ -97,8 +97,7 @@ const MyCourses = () => {
   );
 };
 
-export default MyCourses;
+export default UserCourseAccordion;
 function setError(error: any) {
-  throw new Error('Function not implemented.');
+  throw new Error("Function not implemented.");
 }
-

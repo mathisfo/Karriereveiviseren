@@ -4,23 +4,23 @@ import "../TopNavigator.css";
 import { Grid, Icon, Menu } from "semantic-ui-react";
 
 const TopNavigator = () => {
-  const [activeItem, setActiveItem] = React.useState("home");
+  const [activeItem, setActiveItem] = React.useState("courses");
 
   return (
     <Menu tabular stackable>
       <Menu.Item
         as={Link}
-        name="Hjem"
-        to="home"
-        active={activeItem === "home"}
-        onClick={() => setActiveItem("home")}
+        name="Aktiviteter"
+        to="courses"
+        active={activeItem === "courses"}
+        onClick={() => setActiveItem("courses")}
       ></Menu.Item>
       <Menu.Item
         as={Link}
         name="Mine aktiviteter"
-        to="courses"
-        active={activeItem === "courses"}
-        onClick={() => setActiveItem("courses")}
+        to="mycourses"
+        active={activeItem === "mycourses"}
+        onClick={() => setActiveItem("mycourses")}
       ></Menu.Item>
       <Menu.Item
         as={Link}
