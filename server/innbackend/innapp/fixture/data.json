@@ -1,0 +1,103 @@
+[ 
+    {
+        "fields": {
+            "title":"Course 1",
+            "startDate":"2021-03-29T16:31:00Z",
+            "endDate":"2021-05-01T16:31:00Z",
+            "description":"Course 1 desc",
+            "shortDescription":"Course 1 shortdesc",
+            "restriction":1,
+            "category":1,
+            "classroom":"https://www.nrk.no/"
+        },
+        "model": "innapp.Course",
+        "pk": 1
+    },
+
+    {
+        "fields": {
+            "title":"Course 2",
+            "startDate":"2021-03-29T16:31:00Z",
+            "endDate":"2021-05-01T16:31:00Z",
+            "description":"Course desc",
+            "shortDescription":"Course shortdesc",
+            "restriction":1,
+            "category":1,
+            "classroom":"https://www.nrk.no/"
+        },
+        "model": "innapp.Course",
+        "pk": 2
+    },
+
+    {
+        "fields": {
+            "title":"Course 3",
+            "startDate":"2021-03-29T16:31:00Z",
+            "endDate":"2021-05-01T16:31:00Z",
+            "description":"Course desc",
+            "shortDescription":"Course shortdesc",
+            "restriction":1,
+            "category":1,
+            "classroom":"https://www.nrk.no/"
+        },
+        "model": "innapp.Course",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "title":"Course 4",
+            "startDate":"2021-03-29T16:31:00Z",
+            "endDate":"2021-05-01T16:31:00Z",
+            "description":"Course desc",
+            "shortDescription":"Course shortdesc",
+            "restriction":1,
+            "category":1,
+            "classroom":"https://www.nrk.no/"
+        },
+        "model": "innapp.Course",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "title":"Course 5",
+            "startDate":"2021-03-29T16:31:00Z",
+            "endDate":"2021-05-01T16:31:00Z",
+            "description":"Course desc",
+            "shortDescription":"Course shortdesc",
+            "restriction":1,
+            "category":1,
+            "classroom":"https://www.nrk.no/"
+        },
+        "model": "innapp.Course",
+        "pk": 5
+    },
+
+    {
+        "fields": {
+            "user": 1,
+            "title": "OwnCourse 1",
+            "startDate": "2021-04-22T16:40:00Z",
+            "endDate": "2021-05-09T16:40:00Z",
+            "description": "owncourse desc",
+            "shortDescription": "owncourse shortdesc",
+            "goal": "mål"
+            },
+        "model": "innapp.OwnCourse",
+        "pk": 1
+    },
+
+    {
+        "fields": {
+            "user": 1,
+            "title": "OwnCourse 2",
+            "startDate": "2021-04-22T16:40:00Z",
+            "endDate": "2021-05-09T16:40:00Z",
+            "description": "owncourse desc",
+            "shortDescription": "owncourse shortdesc",
+            "goal": "mål"
+            },
+        "model": "innapp.OwnCourse",
+        "pk": 2
+    }
+
+]

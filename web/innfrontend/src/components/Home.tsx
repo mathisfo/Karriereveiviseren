@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Row";
 import CourseCard from "./CourseCard";
-import { CourseContext } from "../store/CourseContext";
 import { FormControl, InputGroup } from "react-bootstrap";
 import {
   Accordion,
@@ -10,40 +9,61 @@ import {
   Card,
   Checkbox,
   Container,
+  Divider,
   Grid,
+  Header,
   Icon,
+  Segment,
 } from "semantic-ui-react";
-import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import MyCourses from "./MyCourses";
 import axios from "axios";
+import { AppState, useAppDispatch } from "../store/redux/store";
+import { useSelector } from "react-redux";
+import { courseSlice } from "../store/slices/courseSlice";
+import { categorySlice } from "../store/slices/categorySlice";
 
 const Home = () => {
-  const courseContext = useContext(CourseContext);
+  const dispatch = useAppDispatch();
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+  const categories = useSelector(
+    (state: AppState) => state.categories.categoryList
+  );
+  const [error, setError] = useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const categoryContext = useContext(CategoryContext);
-
-  useEffect(() => {
-    // Need conditional render because of possible null in courseContext
-    // Have not found a fix for this if we are going with the reducer instead of state
-    categoryContext?.dispatch({ type: "API_REQUEST" });
-    axios.get("http://localhost:8000/api/category/", { withCredentials: true }).then(
-      (result: any) => {
-        console.log(result);
-        categoryContext?.dispatch({
-          type: "API_SUCCESS",
-          payload: result.data,
-        });
-      },
-      (error) => {
-        categoryContext?.dispatch({ type: "API_ERROR", payload: error });
-      }
-    );
-  }, []);
-
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
+
+  const fetchCourses = async () => {
+    axios
+      .get("api/course/", { withCredentials: true })
+      .then(
+        (response) => {
+          dispatch(
+            courseSlice.actions.setCourses({ courseList: response.data })
+          );
+        },
+        (error) => {
+          setError(error);
+        }
+      );
+  };
+
+  const fetchCategories = async () => {
+    axios
+      .get("api/category/", { withCredentials: true })
+      .then(
+        (response) => {
+          dispatch(
+            categorySlice.actions.setCategory({ categoryList: response.data })
+          );
+        },
+        (error) => {
+          setError(error);
+        }
+      );
+  };
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -51,46 +71,31 @@ const Home = () => {
     setActiveIndex(newIndex);
   }
 
-  function filteredCourses(categoryType: string) {
-    return courseContext?.state.courseList
-      .filter(
-        (e) =>
-          e.category === categoryType &&
-          e.title.toLowerCase().includes(input) &&
-          ((!box1 && !box2 && !box3) ||
-            (e.restriction === 1 && box1) ||
-            (e.restriction === 2 && box2) ||
-            (e.restriction === 3 && box3))
-      )
-      .map((course: any) => <CourseCard {...course}></CourseCard>);
+  function filteredCourses(categoryType: number) {
+    if (courses) {
+      return courses
+        .filter(
+          (e) =>
+            e.category === categoryType &&
+            e.title.toLowerCase().includes(input) &&
+            ((!box1 && !box2 && !box3) ||
+              (e.restriction === 1 && box1) ||
+              (e.restriction === 2 && box2) ||
+              (e.restriction === 3 && box3))
+        )
+        .map((course: any) => <CourseCard {...course}></CourseCard>);
+    }
   }
 
-  console.log(courseContext);
-
   useEffect(() => {
-    // Need conditional render because of possible null in courseContext
-    // Have not found a fix for this if we are going with the reducer instead of state
-    courseContext?.dispatch({ type: "API_REQUEST" });
-    axios
-      .get("http://localhost:8000/api/course/", { withCredentials: true })
-      .then(
-        (result: any) => {
-          console.log(result);
-          courseContext?.dispatch({
-            type: "API_SUCCESS",
-            payload: result.data,
-          });
-        },
-        (error) => {
-          courseContext?.dispatch({ type: "API_ERROR", payload: error });
-        }
-      );
+    fetchCategories();
+    fetchCourses();
   }, []);
 
   return (
     <Grid columns={2} relaxed="very">
       <Grid.Column>
-        <h2> Tiltak </h2>
+        <h2> Velg Aktiviter </h2>
         <Container>
           <Row md={2}>
             <Col>
@@ -128,57 +133,24 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
-        <Accordion fluid styled>
-          <Accordion.Title
-            active={activeIndex === 1}
-            onClick={(e) => handleClick(1)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="briefcase" />
-            Arbeidsrettet {"   "}
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
-            <Card.Group itemsPerRow={4}>
-              {filteredCourses("Arbeidsrettet")}
-            </Card.Group>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 2}
-            onClick={(e) => handleClick(2)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="graduation cap" />
-            Utdanningsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 2}>
-            <Row>{filteredCourses("Utdanningsrettet")}</Row>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 3}
-            onClick={(e) => handleClick(3)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="users" />
-            Samfunnsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 3}>
-            <Row>{filteredCourses("Samfunnsrettet")}</Row>
-          </Accordion.Content>
-        </Accordion>
-      </Grid.Column>
-      <Grid.Column>
-        <h2> Valgte tiltak </h2>
-        <MyCourses />
+        <Segment>
+          <Header as="h2">Arbeidsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(1)}
+        </Segment>
+        <Segment>
+          <Header as="h2">Utdanningsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(2)}
+        </Segment>
+        <Segment>
+          <Header as="h2">Samfunnsrettet</Header>
+          <Divider clearing />
+          {filteredCourses(3)}
+        </Segment>
       </Grid.Column>
     </Grid>
   );
 };
 
-export default () => (
-  <CategoryProvider>
-    <Home />
-  </CategoryProvider>
-);
+export default Home;

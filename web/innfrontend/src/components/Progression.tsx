@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import Chart from "react-google-charts";
-import { CourseContext } from "../store/CourseContext";
-import { Course } from "../store/CourseContext/types";
+import { useSelector } from "react-redux";
+import { Course } from "../store/interfaces/Course";
+import { AppState } from "../store/redux/store";
 
 const prepareChartData = (course: Course) => {
   let selectedCourse = [];
@@ -30,6 +31,7 @@ interface IDiagramConst {
 type ChartTypes = Array<IDiagramConst> | Array<string | number | Date | null>;
 
 const Progression = () => {
+  const courses = useSelector((state: AppState) => state.courses.courseList);
   const diagramData: Array<ChartTypes> = [
     [
       { type: "string", label: "Task ID" },
@@ -43,10 +45,8 @@ const Progression = () => {
     ],
   ];
 
-  const courseContext = useContext(CourseContext);
-
   useEffect(() => {
-    courseContext?.state.courseList.map((course) => {
+    courses.map((course) => {
       if (course.isSelected) {
         let selectedCourse = prepareChartData(course);
         diagramData.push(selectedCourse);
