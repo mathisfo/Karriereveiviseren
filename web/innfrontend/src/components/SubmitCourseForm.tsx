@@ -1,14 +1,21 @@
 import axios from "axios";
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Button, Checkbox, Dropdown, Form, Input } from "semantic-ui-react";
-import { CategoryContext } from "../store/CategoryContext/";
+import { Course } from "../store/interfaces/Course";
+import { useAppDispatch, AppState } from "../store/redux/store";
+import { courseSlice } from "../store/slices/courseSlice";
 
 const SubmitCourseForm = (e: any) => {
-  const categoryContext = useContext(CategoryContext);
+  const dispatch = useAppDispatch();
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+  const categories = useSelector(
+    (state: AppState) => state.categories.categoryList
+  );
 
-  function handleSubmit(e: any) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
-
+    //TODO: Better way to do this
     const title = e.target.elements.title.value;
     const startDate = e.target.elements.startDate.value;
     const endDate = e.target.elements.endDate.value;
@@ -18,20 +25,24 @@ const SubmitCourseForm = (e: any) => {
     const category = e.target.elements.category.value;
     const classroom = e.target.elements.classroom.value;
 
-    axios.post(
-      "http://localhost:8000/api/course/",
-      {
-        title: title,
-        startDate: startDate,
-        endDate: endDate,
-        description: description,
-        shortDescription: shortDescription,
-        restriction: restriction,
-        category: category,
-        classroom: classroom,
-      },
-      { withCredentials: true }
-    );
+    let response = await axios
+      .post(
+        "http://localhost:8000/api/course/",
+        {
+          title: title,
+          startDate: startDate,
+          endDate: endDate,
+          description: description,
+          shortDescription: shortDescription,
+          restriction: restriction,
+          category: category,
+          classroom: classroom,
+        },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        dispatch(courseSlice.actions.addCourse(result.data));
+      });
   }
   return (
     <Form onSubmit={(e) => handleSubmit(e)}>
@@ -60,7 +71,7 @@ const SubmitCourseForm = (e: any) => {
         <Input type="text" name="restriction" />
       </Form.Field>
       <Form.Field label="Kategori" control="select" name="category">
-        {categoryContext?.state.categoryList.map((e) => (
+        {categories.map((e) => (
           <option value={e.id}>{e.category}</option>
         ))}
       </Form.Field>

@@ -1,7 +1,7 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
+import { useSelector } from "react-redux";
 import { Accordion, Grid } from "semantic-ui-react";
-import { Course } from "../store/CourseContext/types";
-import { CategoryContext } from "../store/CategoryContext";
+import { AppState } from "../store/redux/store";
 import CourseCard from "./CourseCard";
 
 
@@ -11,7 +11,9 @@ interface IProps {
 
 const CourseAccordion:FC<IProps> = (props) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const categoryContext = useContext(CategoryContext);
+  const categories = useSelector(
+    (state: AppState) => state.categories.categoryList
+  );
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -22,10 +24,10 @@ const CourseAccordion:FC<IProps> = (props) => {
 
   return (
     <Accordion fluid styled>
-      {categoryContext?.state.categoryList.map((category: any) => (
+      {categories.map((category: any) => (
         <div>
-          <Accordion.Title onClick={(e) => handleClick(categoryContext?.state.categoryList.indexOf(category))}>{category.category}</Accordion.Title>
-          <Accordion.Content active={activeIndex === categoryContext?.state.categoryList.indexOf(category)} >
+          <Accordion.Title onClick={(e) => handleClick(categories.indexOf(category))}>{category.category}</Accordion.Title>
+          <Accordion.Content active={activeIndex === categories.indexOf(category)} >
           <Grid.Row>{props.courseList
             .map((course: any) =>(
             <Grid.Column>

@@ -1,21 +1,32 @@
-import React, { useContext, useState } from "react";
-import { CourseContext } from "../store/CourseContext";
-import CourseCard from "./CourseCard";
+import React, { useEffect } from "react";
+import Container from "react-bootstrap/Container";
+import { useSelector } from "react-redux";
+import { AppState, useAppDispatch } from "../store/redux/store";
+
 import {
   Accordion,
   Button,
-  Container,
+  Card,
+  Grid,
   Header,
   Icon,
   Label,
   Modal,
 } from "semantic-ui-react";
 import SubmitCourseForm from "./SubmitCourseForm";
+import axios from "axios";
+import { ownCourseSlice } from "../store/slices/ownCourseSlice";
+import { Course } from "../store/interfaces/Course";
+import { OwnCourse } from "../store/interfaces/OwnCourse";
 
 const MyCourses = () => {
-  const courseContext = useContext(CourseContext);
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+  const owncourses = useSelector(
+    (state: AppState) => state.owncourses.ownCourseList
+  );
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -23,83 +34,71 @@ const MyCourses = () => {
     setActiveIndex(newIndex);
   }
 
-  
+  const fetchOwnCourses = async () => {
+    axios.get("api/owncourse/", { withCredentials: true }).then(
+      (response) => {
+        dispatch(
+          ownCourseSlice.actions.setOwnCourses({
+            ownCourseList: response.data,
+          })
+        );
+        console.log(response.data);
+      },
+      (error) => {
+        setError(error);
+      }
+    );
+  };
+
+  useEffect(() => {
+    fetchOwnCourses();
+  }, []);
 
   return (
     <div>
-      {/*}
-      <Container>
-        <Row>
-          {courseContext?.state.courseList.map((course: any) =>
-            course.isSelected ? (
-              <Col>
-                <CourseCard {...course}></CourseCard>
-              </Col>
-            ) : (
-              <></>
-            )
-          )}
-        </Row>
-      </Container>
-            */}
-
-      <Container>
-        <Accordion fluid styled>
-          {courseContext?.state.courseList.map((course: any) =>
-            course.isSelected ? (
-              <div>
-                <Accordion.Title
-                  active={
-                    activeIndex ===
-                    courseContext.state.courseList.indexOf(course)
-                  }
-                  onClick={(e) => handleClick(courseContext.state.courseList.indexOf(course))}
-                >
-                  <Icon name="dropdown" />
-                  {course.title}
-                </Accordion.Title>
-                <Accordion.Content
-                  active={
-                    activeIndex ===
-                    courseContext.state.courseList.indexOf(course)
-                  }
-                >
-                  {course.description}
-                </Accordion.Content>
-              </div>
-            ) : (
-              <></>
-            )
-          )}
-        </Accordion>
-      </Container>
-      <Container>
-        <Modal
-          onClose={() => setOpen(false)}
-          onOpen={() => setOpen(true)}
-          open={open}
-          trigger={<Button>Legg til et tiltak</Button>}
-        >
-          <Modal.Header>Legg til et Tiltak</Modal.Header>
-          <Modal.Content>
-            <SubmitCourseForm />
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color="black" onClick={() => setOpen(false)}>
-              Gå tilbake
-            </Button>
-            <Button
-              content="Lagre tiltak"
-              labelPosition="right"
-              icon="checkmark"
-              onClick={() => setOpen(false)}
-              positive
-            />
-          </Modal.Actions>
-        </Modal>
-      </Container>
+      <Grid columns={2} relaxed="very">
+        <Grid.Column>
+          <Header h1>INN Aktiviteter</Header>
+          <Accordion fluid styled>
+            {courses.map((course: any) =>
+              course.isSelected ? (
+                <div>
+                  <Accordion.Title
+                    active={activeIndex === courses.indexOf(course.title)}
+                    onClick={(e) => handleClick(1)}
+                  >
+                    <Icon name="dropdown" />
+                    {course.title}
+                  </Accordion.Title>
+                  <Accordion.Content
+                    active={activeIndex === courses.indexOf(course.title)}
+                  >
+                    {course.description}
+                  </Accordion.Content>
+                </div>
+              ) : (
+                <></>
+              )
+            )}
+          </Accordion>
+        </Grid.Column>
+        <Grid.Column>
+          <Container>
+            <Header h1>Egendefinerte Aktivteter</Header>
+            <Container>
+              {owncourses.map((e: OwnCourse) => (
+                <Header>{e.title}</Header>
+              ))}
+            </Container>
+          </Container>
+        </Grid.Column>
+      </Grid>
     </div>
   );
 };
 
 export default MyCourses;
+function setError(error: any) {
+  throw new Error('Function not implemented.');
+}
+

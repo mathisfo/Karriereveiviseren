@@ -1,29 +1,68 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CourseCard from "./CourseCard";
-import { CourseContext } from "../store/CourseContext";
+import { FormControl, InputGroup } from "react-bootstrap";
 import {
   Accordion,
   Button,
   Card,
   Checkbox,
   Container,
-  Form,
+  Divider,
   Grid,
+  Header,
   Icon,
   Input,
+  Segment,
 } from "semantic-ui-react";
-import CategoryProvider, { CategoryContext } from "../store/CategoryContext/";
 import MyCourses from "./MyCourses";
 import axios from "axios";
+import { AppState, useAppDispatch } from "../store/redux/store";
+import { useSelector } from "react-redux";
+import { courseSlice } from "../store/slices/courseSlice";
+import { categorySlice } from "../store/slices/categorySlice";
 
 const Home = () => {
-  const courseContext = useContext(CourseContext);
+  const dispatch = useAppDispatch();
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+  const categories = useSelector(
+    (state: AppState) => state.categories.categoryList
+  );
+  const [error, setError] = useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
-
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
+
+  const fetchCourses = async () => {
+    axios
+      .get("api/course/", { withCredentials: true })
+      .then(
+        (response) => {
+          dispatch(
+            courseSlice.actions.setCourses({ courseList: response.data })
+          );
+        },
+        (error) => {
+          setError(error);
+        }
+      );
+  };
+
+  const fetchCategories = async () => {
+    axios
+      .get("api/category/", { withCredentials: true })
+      .then(
+        (response) => {
+          dispatch(
+            categorySlice.actions.setCategory({ categoryList: response.data })
+          );
+        },
+        (error) => {
+          setError(error);
+        }
+      );
+  };
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -32,18 +71,25 @@ const Home = () => {
   }
 
   function filteredCourses(categoryType: number) {
-    return courseContext?.state.courseList
-      .filter(
-        (e) =>
-          e.category === categoryType &&
-          e.title.toLowerCase().includes(input) &&
-          ((!box1 && !box2 && !box3) ||
-            (e.restriction === 1 && box1) ||
-            (e.restriction === 2 && box2) ||
-            (e.restriction === 3 && box3))
-      )
-      .map((course: any) => <CourseCard {...course}></CourseCard>);
+    if (courses) {
+      return courses
+        .filter(
+          (e) =>
+            e.category === categoryType &&
+            e.title.toLowerCase().includes(input) &&
+            ((!box1 && !box2 && !box3) ||
+              (e.restriction === 1 && box1) ||
+              (e.restriction === 2 && box2) ||
+              (e.restriction === 3 && box3))
+        )
+        .map((course: any) => <CourseCard {...course}></CourseCard>);
+    }
   }
+
+  useEffect(() => {
+    fetchCategories();
+    fetchCourses();
+  }, []);
 
   return (
     <Grid stackable columns={2} relaxed>
@@ -120,8 +166,4 @@ const Home = () => {
   );
 };
 
-export default () => (
-  <CategoryProvider>
-    <Home />
-  </CategoryProvider>
-);
+export default Home;

@@ -66,15 +66,13 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
 SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'innapp'
 JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
-
-SITE_ID = 2
+SITE_ID = 4
 
 
 SIMPLE_JWT = {
@@ -99,8 +97,6 @@ MIDDLEWARE = [
 
 ALLOWED_HOSTS = ['*']
 
-# Following lines are used for CORS stuff. DEV ONLY!
-#CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
@@ -126,7 +122,7 @@ ROOT_URLCONF = 'innbackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['userAuth/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

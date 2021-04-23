@@ -1,5 +1,4 @@
-import React, { FC, useContext, useState } from "react";
-import { CourseContext } from "../store/CourseContext";
+import React, { FC, useContext, useEffect, useState } from "react";
 import {
   Card,
   Button,
@@ -13,6 +12,10 @@ import { Icon as Iconify } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AppState, useAppDispatch } from "../store/redux/store";
+import { courseSlice } from "../store/slices/courseSlice";
+import { Course } from "../store/interfaces/Course";
 import axios from "axios";
 
 interface IProps {
@@ -41,42 +44,15 @@ function setColor(modul?: number) {
   }
 }
 
-const CourseCard: FC<IProps> = (props) => {
-  const courseContext = useContext(CourseContext);
-  const [show, setShow] = useState(false);
+const CourseCard: FC<Course> = (props) => {
+  const dispatch = useAppDispatch();
   const [open, setOpen] = React.useState(false);
 
-  let newCourseList = courseContext?.state.courseList;
 
   // This should not be this complicated
   // TODO: Find a better way to handle this
   function selectCard() {
-    newCourseList = newCourseList?.map((course) => {
-      if (course.id == props.id) {
-        course.isSelected = !course.isSelected;
-      }
-      return course;
-    });
-    if (newCourseList) {
-      courseContext?.dispatch({
-        type: "COURSE_SELECT",
-        payload: newCourseList,
-      });
-
-      //TODO: Delete this
-      axios.put(
-        "http://localhost:8000/api/userpreferences/1/",
-        {
-          selected: [
-            "http://localhost:8000/api/course/2/",
-            "http://localhost:8000/api/course/3/",
-          ],
-        },
-        {
-          withCredentials: true,
-        }
-      );
-    }
+    dispatch(courseSlice.actions.selectCourse(props));
   }
 
   function openTab() {
@@ -156,9 +132,9 @@ const CourseCard: FC<IProps> = (props) => {
               </Modal.Actions>
             </Modal>
             <Checkbox
-              toggle
               label="Velg"
               basic
+              checked={props.isSelected}
               onChange={() => selectCard()}
             ></Checkbox>
           </div>
