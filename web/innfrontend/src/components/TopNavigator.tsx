@@ -1,62 +1,36 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import logo from "../statics/imdi-logo.svg";
-import { PersonCircle } from "react-bootstrap-icons";
-import Button from "react-bootstrap/Button";
 import { Link, NavLink, Router } from "react-router-dom";
 import "../TopNavigator.css";
+import { Grid, Icon, Menu } from "semantic-ui-react";
 
 const TopNavigator = () => {
-  function resetStorage() {
-    localStorage.setItem("LandingKey", "true");
-    window.location.reload();
-  }
+  const [activeItem, setActiveItem] = React.useState("home");
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand>INN</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Navbar.Text>
-            <NavLink
-              className="navbar-item"
-              activeClassName="is-active"
-              to="/home"
-              activeStyle={{
-                fontWeight: "bold",
-              }}
-              exact
-            >
-              Hjem
-            </NavLink>
-            <NavLink
-              className="navbar-item"
-              activeClassName="is-active"
-              to="/courses"
-              activeStyle={{
-                fontWeight: "bold",
-              }}
-              exact
-            >
-              Mine aktiviteter
-            </NavLink>
-            <NavLink
-              className="navbar-item"
-              activeClassName="is-active"
-              to="/progression"
-              activeStyle={{
-                fontWeight: "bold",
-              }}
-              exact
-            >
-              Min plan
-            </NavLink>
-          </Navbar.Text>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <Menu tabular stackable>
+      <Menu.Item
+        as={Link}
+        name="Hjem"
+        to="home"
+        active={activeItem === "home"}
+        onClick={() => setActiveItem("home")}
+      ></Menu.Item>
+      <Menu.Item
+        as={Link}
+        name="Mine aktiviteter"
+        to="courses"
+        active={activeItem === "courses"}
+        onClick={() => setActiveItem("courses")}
+      ></Menu.Item>
+      <Menu.Item
+        as={Link}
+        name="Mitt introduksjonsprogram"
+        to="progression"
+        active={activeItem === "progression"}
+        onClick={() => setActiveItem("progression")}
+      ></Menu.Item>
+      
+    </Menu>
   );
 };
 

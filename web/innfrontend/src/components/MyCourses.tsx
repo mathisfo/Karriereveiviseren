@@ -98,13 +98,7 @@ const MyCourses = () => {
 };
 
 export default MyCourses;
-function dispatch(arg0: {
-  payload: import("../store/types/CourseState").CourseState;
-  type: string;
-}) {
-  throw new Error("Function not implemented.");
+function setError(error: any) {
+  throw new Error('Function not implemented.');
 }
 
-function setError(error: any) {
-  throw new Error("Function not implemented.");
-}

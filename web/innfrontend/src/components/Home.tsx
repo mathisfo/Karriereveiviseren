@@ -1,6 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Row";
+import React, { useState, useEffect } from "react";
 import CourseCard from "./CourseCard";
 import { FormControl, InputGroup } from "react-bootstrap";
 import {
@@ -13,6 +11,7 @@ import {
   Grid,
   Header,
   Icon,
+  Input,
   Segment,
 } from "semantic-ui-react";
 import MyCourses from "./MyCourses";
@@ -93,12 +92,12 @@ const Home = () => {
   }, []);
 
   return (
-    <Grid columns={2} relaxed="very">
-      <Grid.Column>
-        <h2> Velg Aktiviter </h2>
-        <Container>
-          <Row md={2}>
-            <Col>
+    <Grid stackable columns={2} relaxed>
+      <Grid.Column width={10}>
+        <h2> Tiltak </h2>
+        
+          <Grid.Row md={2}>
+            
               <Checkbox
                 checked={box1}
                 label="Spor 1"
@@ -117,37 +116,51 @@ const Home = () => {
                 onClick={() => setBox3(!box3)}
                 style={{ marginRight: "2em" }}
               />
-            </Col>
-            <Col>
-              <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Søk..."
-                  onChange={(e) => setInput(e.target.value)}
-                />
-                <InputGroup.Append>
-                  <Button primary size="tiny">
-                    <Icon name="search"></Icon>
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Col>
-          </Row>
-        </Container>
-        <Segment>
-          <Header as="h2">Arbeidsrettet</Header>
-          <Divider clearing />
-          {filteredCourses(1)}
-        </Segment>
-        <Segment>
-          <Header as="h2">Utdanningsrettet</Header>
-          <Divider clearing />
-          {filteredCourses(2)}
-        </Segment>
-        <Segment>
-          <Header as="h2">Samfunnsrettet</Header>
-          <Divider clearing />
-          {filteredCourses(3)}
-        </Segment>
+              <Input style={{marginBottom: "0.2em"}} icon='search' placeholder='Search...' onChange={(e: any) => setInput(e.target.value)}/>
+          </Grid.Row>
+        
+        <Accordion fluid styled>
+          <Accordion.Title
+            active={activeIndex === 1}
+            onClick={(e) => handleClick(1)}
+            style={{ fontSize: 18 }}
+          >
+            <Icon name="dropdown" />
+            <Icon name="briefcase" />
+            Arbeidsrettet {"   "}
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 1}>
+          <Grid.Row>{filteredCourses(4)}</Grid.Row>
+          </Accordion.Content>
+          <Accordion.Title
+            active={activeIndex === 2}
+            onClick={(e) => handleClick(2)}
+            style={{ fontSize: 18 }}
+          >
+            <Icon name="dropdown" />
+            <Icon name="graduation cap" />
+            Utdanningsrettet
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 2}>
+            <Grid.Row>{filteredCourses(5)}</Grid.Row>
+          </Accordion.Content>
+          <Accordion.Title
+            active={activeIndex === 3}
+            onClick={(e) => handleClick(3)}
+            style={{ fontSize: 18 }}
+          >
+            <Icon name="dropdown" />
+            <Icon name="users" />
+            Samfunnsrettet
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 3}>
+            <Grid.Row>{filteredCourses(6)}</Grid.Row>
+          </Accordion.Content>
+        </Accordion>
+      </Grid.Column>
+      <Grid.Column width={6}>
+        <h2> Valgte tiltak </h2>
+        <MyCourses />
       </Grid.Column>
     </Grid>
   );

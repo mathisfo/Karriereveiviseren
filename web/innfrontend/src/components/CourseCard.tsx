@@ -3,11 +3,12 @@ import {
   Card,
   Button,
   Checkbox,
+  Icon,
   Label,
   Modal,
   Header,
 } from "semantic-ui-react";
-import { Icon } from "@iconify/react";
+import { Icon as Iconify } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
@@ -58,9 +59,26 @@ const CourseCard: FC<Course> = (props) => {
     window.open(props.classroom);
   }
 
+  function renderLink() {
+    if (props.classroom != "") {
+      return (
+        <Button target color="blue" floated="right" size="tiny">
+          <Link
+          className="link"
+          to="googleClassroom"
+          target="_blank"
+          onClick={openTab}
+        >
+          <Iconify icon={googleClassroom} width="1.7em" color="white" />{" "}
+          Google Classroom
+        </Link>
+        </Button> )
+      
+  }}
+
   return (
     <div>
-      <Card style={{ margin: "1.2em" }}>
+      <Card style={{ margin: "1.2em" }} centered>
         <Card.Content>
           <Card.Header>
             {props.title}
@@ -82,23 +100,13 @@ const CourseCard: FC<Course> = (props) => {
               onOpen={() => setOpen(true)}
               open={open}
               trigger={
-                <Button style={{ marginRight: "1em" }}>Mer informasjon</Button>
+                 <Button fluid basic color='black' content='Black' style={{marginRight: "1em"}}><Icon name="info circle"/></Button>
               }
               size="tiny"
             >
               <Modal.Header>
                 {props.title}
-                <Button target color="blue" floated="right" size="tiny">
-                  <Link
-                    className="link"
-                    to="googleClassroom"
-                    target="_blank"
-                    onClick={openTab}
-                  >
-                    <Icon icon={googleClassroom} width="1.7em" color="white" />{" "}
-                    Google Classroom
-                  </Link>
-                </Button>
+                {renderLink()}
               </Modal.Header>
               <Modal.Content>
                 <Modal.Description>
