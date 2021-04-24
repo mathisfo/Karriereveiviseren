@@ -102,7 +102,7 @@ export const userSlice = createSlice({
     builder.addCase(logoutUser.fulfilled, (state) => {
       state.user.email = "";
       state.user.name = "";
-      return state;
+      window.location.reload();
     });
     builder.addCase(logoutUser.rejected, (state, { payload }) => {
       if (payload) console.error(payload);
