@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink, Router } from "react-router-dom";
 import "../TopNavigator.css";
 import { Grid, Icon, Menu } from "semantic-ui-react";
+import GoogleAuthLogout from "./GoogleAuthentication/GoogleAuthLogout";
 
 const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("courses");
@@ -29,7 +30,7 @@ const TopNavigator = () => {
         active={activeItem === "progression"}
         onClick={() => setActiveItem("progression")}
       ></Menu.Item>
-      
+      <GoogleAuthLogout />
     </Menu>
   );
 };

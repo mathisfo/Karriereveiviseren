@@ -49,8 +49,6 @@ const CourseCard: FC<Course> = (props) => {
   const [open, setOpen] = React.useState(false);
 
 
-  // This should not be this complicated
-  // TODO: Find a better way to handle this
   function selectCard() {
     dispatch(courseSlice.actions.selectCourse(props));
   }
