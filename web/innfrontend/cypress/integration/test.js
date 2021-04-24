@@ -1,10 +1,10 @@
+
 describe("Home page renders", () => {
     it("renders page", () => {
-      cy.visit("http://localhost:3000/home");
+      cy.visit("/home");
       cy.get("h2").contains("Velg Aktiviteter");
     });
   });
-
 
 describe("Navbar renders", () => {
   it("renders navbar", () => {
@@ -71,4 +71,29 @@ describe("User can filter on restriction", () => {
   })
 })
 
-  
+// test for confirming that we are getting a JSON response from the GET /api call 
+
+describe('test for API GET request', () => {
+  it('returns JSON', () => {
+    cy.visit('http://127.0.0.1:8000/api-auth/login/?next=/login/')
+    cy.get('input[name="username"]').type("admin")
+    cy.get('input[name="password"]').type("admin")
+    cy.get('input[name="submit"]').click()
+    cy.request('http://127.0.0.1:8000/api/')
+      .its('headers')
+      .its('content-type')
+      .should('include', 'application/json')
+  })
+})
+
+describe('test for API', () => {
+  it('loads 4 items', () => {
+    cy.visit('http://127.0.0.1:8000/api-auth/login/?next=/login/')
+    cy.get('input[name="username"]').type("admin")
+    cy.get('input[name="password"]').type("admin")
+    cy.get('input[name="submit"]').click()
+    cy.request('http://127.0.0.1:8000/api/')
+      .its('body')
+      .should('have.length', 4)
+  })
+})
