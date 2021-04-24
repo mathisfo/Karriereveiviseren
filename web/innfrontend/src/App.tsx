@@ -28,7 +28,6 @@ function App() {
                   <UserCourses />
                 </Route>
                 <Route exact path="/progression">
-                  <Progression />
                 </Route>
               </Switch>
             </div>

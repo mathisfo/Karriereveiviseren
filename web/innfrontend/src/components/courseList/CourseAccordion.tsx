@@ -20,6 +20,7 @@ import { AppState, useAppDispatch } from "../../store/redux/store";
 import { useSelector } from "react-redux";
 import { courseSlice } from "../../store/slices/courseSlice";
 import { categorySlice } from "../../store/slices/categorySlice";
+import CourseTimeline from "../progression/CourseTimeline";
 
 const CourseAccordion = () => {
   const dispatch = useAppDispatch();
@@ -86,7 +87,8 @@ const CourseAccordion = () => {
   }, []);
 
   return (
-    <Grid stackable columns={2} relaxed>
+    <Grid stackable relaxed>
+    <Grid.Row>
       <Grid.Column width={10}>
         <h2> Tiltak </h2>
 
@@ -128,7 +130,7 @@ const CourseAccordion = () => {
             Arbeidsrettet {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            <Grid.Row>{filteredCourses(4)}</Grid.Row>
+            <Grid.Row>{filteredCourses(1)}</Grid.Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}
@@ -140,7 +142,7 @@ const CourseAccordion = () => {
             Utdanningsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            <Grid.Row>{filteredCourses(5)}</Grid.Row>
+            <Grid.Row>{filteredCourses(2)}</Grid.Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 3}
@@ -152,7 +154,7 @@ const CourseAccordion = () => {
             Samfunnsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
-            <Grid.Row>{filteredCourses(6)}</Grid.Row>
+            <Grid.Row>{filteredCourses(3)}</Grid.Row>
           </Accordion.Content>
         </Accordion>
       </Grid.Column>
@@ -160,7 +162,14 @@ const CourseAccordion = () => {
         <h2> Valgte tiltak </h2>
         <MyCourses />
       </Grid.Column>
+      </Grid.Row>
+      <Grid.Row  stretched>
+      </Grid.Row>
+      <Grid.Row divided>
+        <CourseTimeline />
+      </Grid.Row>
     </Grid>
+    
   );
 };
 
