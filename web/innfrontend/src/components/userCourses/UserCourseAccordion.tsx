@@ -18,6 +18,7 @@ import axios from "axios";
 import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import { Course } from "../../store/interfaces/Course";
 import { OwnCourse } from "../../store/interfaces/OwnCourse";
+import CourseAccordion from "../courseList/CourseAccordion";
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -35,19 +36,14 @@ const UserCourseAccordion = () => {
   }
 
   const fetchOwnCourses = async () => {
-    axios.get("api/owncourse/", { withCredentials: true }).then(
-      (response) => {
-        dispatch(
-          ownCourseSlice.actions.setOwnCourses({
-            ownCourseList: response.data,
-          })
-        );
-        console.log(response.data);
-      },
-      (error) => {
-        setError(error);
-      }
-    );
+    axios.get("api/owncourse/", { withCredentials: true }).then((response) => {
+      dispatch(
+        ownCourseSlice.actions.setOwnCourses({
+          ownCourseList: response.data,
+        })
+      );
+      console.log(response.data);
+    });
   };
 
   useEffect(() => {
@@ -83,21 +79,56 @@ const UserCourseAccordion = () => {
           </Accordion>
         </Grid.Column>
         <Grid.Column>
-          <Container>
-            <Header h1>Egendefinerte Aktivteter</Header>
-            <Container>
-              {owncourses.map((e: OwnCourse) => (
-                <Header>{e.title}</Header>
-              ))}
-            </Container>
-          </Container>
+          <Accordion fluid styled>
+            <Header h1 ></Header>
+            {owncourses.map((owncourse: any) =>
+              owncourses.length > 0 ? (
+                <div>
+                  <Accordion.Title
+                    active={activeIndex === owncourses.indexOf(owncourse.title)}
+                    onClick={(e) => handleClick(1)}
+                  >
+                    <Icon name="dropdown" />
+                    {owncourse.title}
+                  </Accordion.Title>
+                  <Accordion.Content
+                    active={activeIndex === owncourses.indexOf(owncourse.title)}
+                  >
+                    {owncourse.description}
+                  </Accordion.Content>
+                </div>
+              ) : (
+                <></>
+              )
+            )}
+          </Accordion>
         </Grid.Column>
+        <Modal
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button>TRØKK INN NO COURSES</Button>}
+        >
+          <Modal.Content>
+            <SubmitCourseForm />
+          </Modal.Content>
+
+          <Modal.Actions>
+            <Button color="black" onClick={() => setOpen(false)}>
+              Nope
+            </Button>
+            <Button
+              content="Yep, that's me"
+              labelPosition="right"
+              icon="checkmark"
+              onClick={() => setOpen(false)}
+              positive
+            />
+          </Modal.Actions>
+        </Modal>
       </Grid>
     </div>
   );
 };
 
 export default UserCourseAccordion;
-function setError(error: any) {
-  throw new Error("Function not implemented.");
-}

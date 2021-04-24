@@ -6,6 +6,7 @@ import googleLogin from "./services/googleLogin";
 const GoogleSocialAuth = () => {
   const [authenticated, setAuthenticated] = useState(false);
 
+
   const responseGoogle = async (response: any) => {
     let googleResponse = await googleLogin(response.accessToken);
     if (googleResponse === 200) {
@@ -30,6 +31,7 @@ const GoogleSocialAuth = () => {
     });
     userInfo.status === 200 ? setAuthenticated(true) : setAuthenticated(false);
   };
+
 
   useEffect(() => {
     isLoggedIn();
@@ -56,3 +58,6 @@ const GoogleSocialAuth = () => {
 };
 
 export default GoogleSocialAuth;
+function setError(error: any) {
+  throw new Error("Function not implemented.");
+}

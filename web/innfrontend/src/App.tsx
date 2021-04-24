@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
@@ -10,6 +10,7 @@ import Progression from "./components/progression/";
 import GoogleSocialAuth from "./components/GoogleSocialAuth";
 import { Provider } from "react-redux";
 import { store } from "./store/redux/store";
+import Timeline from "react-timeline-semantic-ui"
 
 function App() {
   return (

@@ -34,17 +34,6 @@ const CourseAccordion = () => {
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
 
-  const fetchCourses = async () => {
-    axios.get("api/course/", { withCredentials: true }).then(
-      (response) => {
-        dispatch(courseSlice.actions.setCourses({ courseList: response.data }));
-      },
-      (error) => {
-        setError(error);
-      }
-    );
-  };
-
   const fetchCategories = async () => {
     axios.get("api/category/", { withCredentials: true }).then(
       (response) => {
@@ -82,7 +71,6 @@ const CourseAccordion = () => {
 
   useEffect(() => {
     fetchCategories();
-    fetchCourses();
   }, []);
 
   return (
@@ -128,7 +116,7 @@ const CourseAccordion = () => {
             Arbeidsrettet {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            <Grid.Row>{filteredCourses(4)}</Grid.Row>
+            <Grid.Row>{filteredCourses(1)}</Grid.Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}
@@ -140,7 +128,7 @@ const CourseAccordion = () => {
             Utdanningsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            <Grid.Row>{filteredCourses(5)}</Grid.Row>
+            <Grid.Row>{filteredCourses(2)}</Grid.Row>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 3}
@@ -152,7 +140,7 @@ const CourseAccordion = () => {
             Samfunnsrettet
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
-            <Grid.Row>{filteredCourses(6)}</Grid.Row>
+            <Grid.Row>{filteredCourses(3)}</Grid.Row>
           </Accordion.Content>
         </Accordion>
       </Grid.Column>
