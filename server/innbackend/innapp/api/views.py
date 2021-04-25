@@ -41,8 +41,11 @@ class OwnCourseViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
-    # TODO filter() should only provide the current user
-    queryset = OwnCourse.objects.filter().order_by('id')
+    queryset = OwnCourse.objects.all().order_by('id')
+    
+    # Makes sure that the /owncourses endpoint only gives owncourses to the logged in user
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
 
 
 class UserPreferenceViewSet(viewsets.ModelViewSet):

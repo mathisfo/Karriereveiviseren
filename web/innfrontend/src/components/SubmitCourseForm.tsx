@@ -24,6 +24,8 @@ const SubmitCourseForm = (e: any) => {
     const shortDescription = e.target.elements.shortDescription.value;
     const goal = e.target.elements.goal.value;
 
+
+
     let response = await axios
       .post(
         "api/owncourse/",

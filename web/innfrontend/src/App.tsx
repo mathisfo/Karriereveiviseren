@@ -7,7 +7,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CourseList from "./components/courseList/";
 import UserCourses from "./components/userCourses/";
 import Progression from "./components/progression/";
-import GoogleSocialAuth from "./components/GoogleSocialAuth";
 import Timeline from "react-timeline-semantic-ui"
 import { Provider, useSelector } from "react-redux";
 import { AppState, store, useAppDispatch } from "./store/redux/store";

@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class userPreferenceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserPreference
-        fields = ('url', 'id', 'user', 'selected', 'selectedOwn')
+        fields = ('url', 'id', 'user', 'selected')
 
 
 class UserSerializer(serializers.ModelSerializer):
