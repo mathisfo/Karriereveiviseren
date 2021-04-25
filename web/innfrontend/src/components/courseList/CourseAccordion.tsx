@@ -1,26 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CourseCard from "../CourseCard";
-import { FormControl, InputGroup } from "react-bootstrap";
-import {
-  Accordion,
-  Button,
-  Card,
-  Checkbox,
-  Container,
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Input,
-  Segment,
-} from "semantic-ui-react";
-import MyCourses from "../userCourses/UserCourseAccordion";
+import { Accordion, Checkbox, Grid, Icon, Input } from "semantic-ui-react";
 import axios from "axios";
 import { AppState, useAppDispatch } from "../../store/redux/store";
 import { useSelector } from "react-redux";
 import { courseSlice } from "../../store/slices/courseSlice";
 import { categorySlice } from "../../store/slices/categorySlice";
-import CourseTimeline from "../progression/CourseTimeline";
+import styles from "./CourseList.module.css";
 
 const CourseAccordion = () => {
   const dispatch = useAppDispatch();
@@ -87,89 +73,75 @@ const CourseAccordion = () => {
   }, []);
 
   return (
-    <Grid stackable relaxed>
-    <Grid.Row>
-      <Grid.Column width={10}>
-        <h2> Tiltak </h2>
+    <Grid.Column width={8}>
+      <h2> Tiltak </h2>
 
-        <Grid.Row md={2}>
-          <Checkbox
-            checked={box1}
-            label="Spor 1"
-            onClick={() => setBox1(!box1)}
-            style={{ marginRight: "1em" }}
-          />
-          <Checkbox
-            checked={box2}
-            label="Spor 2"
-            onClick={() => setBox2(!box2)}
-            style={{ marginRight: "1em" }}
-          />
-          <Checkbox
-            checked={box3}
-            label="Spor 3"
-            onClick={() => setBox3(!box3)}
-            style={{ marginRight: "2em" }}
-          />
-          <Input
-            style={{ marginBottom: "0.2em" }}
-            icon="search"
-            placeholder="Search..."
-            onChange={(e: any) => setInput(e.target.value)}
-          />
-        </Grid.Row>
+      <Grid.Row className={styles.checkboxRow} md={2}>
+        <Checkbox
+          checked={box1}
+          label="Spor 1"
+          onClick={() => setBox1(!box1)}
+          style={{ marginRight: "1em" }}
+        />
+        <Checkbox
+          checked={box2}
+          label="Spor 2"
+          onClick={() => setBox2(!box2)}
+          style={{ marginRight: "1em" }}
+        />
+        <Checkbox
+          checked={box3}
+          label="Spor 3"
+          onClick={() => setBox3(!box3)}
+          style={{ marginRight: "2em" }}
+        />
+        <Input
+          style={{ marginBottom: "0.2em" }}
+          icon="search"
+          placeholder="Search..."
+          onChange={(e: any) => setInput(e.target.value)}
+        />
+      </Grid.Row>
 
-        <Accordion fluid styled>
-          <Accordion.Title
-            active={activeIndex === 1}
-            onClick={(e) => handleClick(1)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="briefcase" />
-            Arbeidsrettet {"   "}
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
-            <Grid.Row>{filteredCourses(1)}</Grid.Row>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 2}
-            onClick={(e) => handleClick(2)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="graduation cap" />
-            Utdanningsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 2}>
-            <Grid.Row>{filteredCourses(2)}</Grid.Row>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 3}
-            onClick={(e) => handleClick(3)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="users" />
-            Samfunnsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 3}>
-            <Grid.Row>{filteredCourses(3)}</Grid.Row>
-          </Accordion.Content>
-        </Accordion>
-      </Grid.Column>
-      <Grid.Column width={6}>
-        <h2> Mine aktiviteter </h2>
-        <MyCourses />
-      </Grid.Column>
-      </Grid.Row>
-      <Grid.Row  stretched>
-      </Grid.Row>
-      <Grid.Row divided>
-        <CourseTimeline />
-      </Grid.Row>
-    </Grid>
-    
+      <Accordion fluid styled>
+        <Accordion.Title
+          active={activeIndex === 1}
+          onClick={(e) => handleClick(1)}
+          style={{ fontSize: 18 }}
+        >
+          <Icon name="dropdown" />
+          <Icon name="briefcase" />
+          Arbeidsrettet {"   "}
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 1}>
+          <Grid.Row>{filteredCourses(1)}</Grid.Row>
+        </Accordion.Content>
+        <Accordion.Title
+          active={activeIndex === 2}
+          onClick={(e) => handleClick(2)}
+          style={{ fontSize: 18 }}
+        >
+          <Icon name="dropdown" />
+          <Icon name="graduation cap" />
+          Utdanningsrettet
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 2}>
+          <Grid.Row>{filteredCourses(2)}</Grid.Row>
+        </Accordion.Content>
+        <Accordion.Title
+          active={activeIndex === 3}
+          onClick={(e) => handleClick(3)}
+          style={{ fontSize: 18 }}
+        >
+          <Icon name="dropdown" />
+          <Icon name="users" />
+          Samfunnsrettet
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 3}>
+          <Grid.Row>{filteredCourses(3)}</Grid.Row>
+        </Accordion.Content>
+      </Accordion>
+    </Grid.Column>
   );
 };
 

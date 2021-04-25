@@ -6,19 +6,16 @@ import { AppState, useAppDispatch } from "../../store/redux/store";
 import {
   Accordion,
   Button,
-  Card,
   Grid,
   Header,
   Icon,
-  Label,
   Modal,
 } from "semantic-ui-react";
 import SubmitCourseForm from "../SubmitCourseForm";
 import axios from "axios";
 import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
-import { Course } from "../../store/interfaces/Course";
 import { OwnCourse } from "../../store/interfaces/OwnCourse";
-import CourseList from "../courseList";
+
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -84,44 +81,48 @@ const UserCourseAccordion = () => {
           </Accordion>
         </Grid.Column>
         <Grid.Column>
-            <Header h1>Egendefinerte <Modal
+          <Header h1 floated="left">Egendefinerte </Header>
+          <Modal
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button primary circular animated='vertical' size="mini">
-            <Button.Content hidden>Legg til</Button.Content>
-            <Button.Content visible>
-              <Icon name='add' />
-            </Button.Content>
-          </Button>}
+            trigger={
+              <Button primary circular animated="vertical" size="small">
+                <Button.Content hidden>Legg til</Button.Content>
+                <Button.Content visible>
+                  <Icon name="add" />
+                </Button.Content>
+              </Button>
+            }
           >
             <Modal.Content>
               <SubmitCourseForm />
             </Modal.Content>
-  
+
             <Modal.Actions>
               <Button color="black" onClick={() => setOpen(false)}>
                 Gå tilbake
               </Button>
             </Modal.Actions>
-          </Modal></Header>
-            <Accordion fluid styled>
-            {owncourses.map((course: OwnCourse) => 
+          </Modal>
+
+          <Accordion fluid styled>
+            {owncourses.map((course: OwnCourse) => (
               <div>
-                  <Accordion.Title
-                    active={activeIndex === owncourses.indexOf(course)}
-                    onClick={(e) => handleClick(owncourses.indexOf(course))}
-                  >
-                    <Icon name="dropdown" />
-                    {course.title}
-                  </Accordion.Title>
-                  <Accordion.Content
-                    active={activeIndex === owncourses.indexOf(course)}
-                  >
-                    {course.description}
-                  </Accordion.Content>
-                  </div>
-              )}
+                <Accordion.Title
+                  active={activeIndex === owncourses.indexOf(course)}
+                  onClick={(e) => handleClick(owncourses.indexOf(course))}
+                >
+                  <Icon name="dropdown" />
+                  {course.title}
+                </Accordion.Title>
+                <Accordion.Content
+                  active={activeIndex === owncourses.indexOf(course)}
+                >
+                  {course.description}
+                </Accordion.Content>
+              </div>
+            ))}
           </Accordion>
         </Grid.Column>
       </Grid>
