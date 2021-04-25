@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import { Button, Checkbox, Dropdown, Form, Input } from "semantic-ui-react";
+import { Button, Checkbox, Dropdown, Form, Icon, Input } from "semantic-ui-react";
 import { Course } from "../store/interfaces/Course";
 import { useAppDispatch, AppState } from "../store/redux/store";
 import { courseSlice } from "../store/slices/courseSlice";
+import { ownCourseSlice } from "../store/slices/ownCourseSlice";
 
 const SubmitCourseForm = (e: any) => {
   const dispatch = useAppDispatch();
@@ -21,33 +22,30 @@ const SubmitCourseForm = (e: any) => {
     const endDate = e.target.elements.endDate.value;
     const description = e.target.elements.description.value;
     const shortDescription = e.target.elements.shortDescription.value;
-    const restriction = e.target.elements.restriction.value;
-    const category = e.target.elements.category.value;
-    const classroom = e.target.elements.classroom.value;
+    const goal = e.target.elements.goal.value;
 
     let response = await axios
       .post(
-        "http://localhost:8000/api/course/",
+        "api/owncourse/",
         {
+          user: 1,
           title: title,
           startDate: startDate,
           endDate: endDate,
           description: description,
           shortDescription: shortDescription,
-          restriction: restriction,
-          category: category,
-          classroom: classroom,
+          goal: goal,
         },
         { withCredentials: true }
       )
       .then((result) => {
-        dispatch(courseSlice.actions.addCourse(result.data));
+        dispatch(ownCourseSlice.actions.addOwnCourse(result.data));
       });
   }
   return (
     <Form onSubmit={(e) => handleSubmit(e)}>
       <Form.Field>
-        <label>Tiltak</label>
+        <label>Egen aktivitet</label>
         <Input placeholder="Tiltak" name="title" />
       </Form.Field>
       <Form.Field>
@@ -67,20 +65,12 @@ const SubmitCourseForm = (e: any) => {
         <Input type="text" name="shortDescription" />
       </Form.Field>
       <Form.Field>
-        <label htmlFor="">Spor</label>
-        <Input type="text" name="restriction" />
+        <label htmlFor="">Målsetning</label>
+        <Input type="text" name="goal" />
       </Form.Field>
-      <Form.Field label="Kategori" control="select" name="category">
-        {categories.map((e) => (
-          <option value={e.id}>{e.category}</option>
-        ))}
-      </Form.Field>
-      <Form.Field>
-        <label htmlFor="">Google Classroom</label>
-        <input type="text" name="classroom" />
-      </Form.Field>
-      <Button type="submit">Lagre</Button>
+      <Button content="Lagre" type="submit" positive>Lagre</Button>
     </Form>
+    
   );
 };
 

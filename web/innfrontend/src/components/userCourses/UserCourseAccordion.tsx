@@ -18,6 +18,7 @@ import axios from "axios";
 import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import { Course } from "../../store/interfaces/Course";
 import { OwnCourse } from "../../store/interfaces/OwnCourse";
+import CourseList from "../courseList";
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -58,20 +59,20 @@ const UserCourseAccordion = () => {
     <div>
       <Grid columns={2} relaxed="very">
         <Grid.Column>
-          <Header h1>INN Aktiviteter</Header>
+          <Header h1>INN</Header>
           <Accordion fluid styled>
             {courses.map((course: any) =>
               course.isSelected ? (
                 <div>
                   <Accordion.Title
-                    active={activeIndex === courses.indexOf(course.title)}
-                    onClick={(e) => handleClick(1)}
+                    active={activeIndex === courses.indexOf(course)}
+                    onClick={(e) => handleClick(courses.indexOf(course))}
                   >
                     <Icon name="dropdown" />
                     {course.title}
                   </Accordion.Title>
                   <Accordion.Content
-                    active={activeIndex === courses.indexOf(course.title)}
+                    active={activeIndex === courses.indexOf(course)}
                   >
                     {course.description}
                   </Accordion.Content>
@@ -83,14 +84,45 @@ const UserCourseAccordion = () => {
           </Accordion>
         </Grid.Column>
         <Grid.Column>
-          <Container>
-            <Header h1>Egendefinerte Aktivteter</Header>
-            <Container>
-              {owncourses.map((e: OwnCourse) => (
-                <Header>{e.title}</Header>
-              ))}
-            </Container>
-          </Container>
+            <Header h1>Egendefinerte <Modal
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={<Button primary circular animated='vertical' size="mini">
+            <Button.Content hidden>Legg til</Button.Content>
+            <Button.Content visible>
+              <Icon name='add' />
+            </Button.Content>
+          </Button>}
+          >
+            <Modal.Content>
+              <SubmitCourseForm />
+            </Modal.Content>
+  
+            <Modal.Actions>
+              <Button color="black" onClick={() => setOpen(false)}>
+                Gå tilbake
+              </Button>
+            </Modal.Actions>
+          </Modal></Header>
+            <Accordion fluid styled>
+            {owncourses.map((course: OwnCourse) => 
+              <div>
+                  <Accordion.Title
+                    active={activeIndex === owncourses.indexOf(course)}
+                    onClick={(e) => handleClick(owncourses.indexOf(course))}
+                  >
+                    <Icon name="dropdown" />
+                    {course.title}
+                  </Accordion.Title>
+                  <Accordion.Content
+                    active={activeIndex === owncourses.indexOf(course)}
+                  >
+                    {course.description}
+                  </Accordion.Content>
+                  </div>
+              )}
+          </Accordion>
         </Grid.Column>
       </Grid>
     </div>

@@ -7,6 +7,14 @@ import { AppState } from "../../store/redux/store";
 
 const CourseTimeline = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
+  const owncourses = useSelector(
+    (state: AppState) => state.owncourses.ownCourseList
+  );
+
+  const filteredCourses = courses.filter((course) => course.isSelected)
+
+  const allCourses = [...filteredCourses, ...owncourses]
+
   const monthNames = [
     "januar",
     "februar",
@@ -71,10 +79,18 @@ const CourseTimeline = () => {
     }
   }
 
+  function setTag(course: Course) {
+    if (course.restriction) {
+      return ["Spor " + course.restriction]
+    }
+    else {  
+      return ["Egendefinert"]
+    }
+  }
+
   return (
     <Container>
-      {courses
-        .filter((course) => course.isSelected)
+      {allCourses
         .sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
         .map((course: any, index: number) => (
           <Timeline
@@ -82,9 +98,15 @@ const CourseTimeline = () => {
             icon={setIcon(course.category)}
             title={course.title}
             time={convertTime(course.startDate)}
-            description={course.shortDescription}
+            description={
+              course.shortDescription +
+              ".   Fra " +
+              convertTime(course.startDate) +
+              " til " +
+              convertTime(course.endDate)
+            }
             color={setColor(course.restriction)}
-            tags={["Spor " + course.restriction.toString()]}
+            tags={setTag(course)}
             lineHeight={4}
           />
         ))}

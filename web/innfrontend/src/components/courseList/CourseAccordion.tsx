@@ -159,7 +159,7 @@ const CourseAccordion = () => {
         </Accordion>
       </Grid.Column>
       <Grid.Column width={6}>
-        <h2> Valgte tiltak </h2>
+        <h2> Mine aktiviteter </h2>
         <MyCourses />
       </Grid.Column>
       </Grid.Row>
