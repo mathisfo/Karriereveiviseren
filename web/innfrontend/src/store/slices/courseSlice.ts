@@ -33,20 +33,19 @@ export const courseSlice = createSlice({
           
           course.isSelected = !course.isSelected;
 
-
-            axios.put(
-              "api/userpreferences/1/",
-              {
-                user: "http://127.0.0.1:8000/api/users/1/",
-                selected: selectedCoursesURL,
-              },
-        
-              {
-                withCredentials: true,
-              }
-            );
         }
       });
+      axios.put(
+        "api/userpreferences/1/",
+        {
+          user: "http://127.0.0.1:8000/api/users/1/",
+          selected: selectedCoursesURL,
+        },
+  
+        {
+          withCredentials: true,
+        }
+      );
     },
   },
 });
