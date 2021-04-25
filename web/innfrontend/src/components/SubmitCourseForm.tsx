@@ -14,6 +14,8 @@ const SubmitCourseForm = (e: any) => {
     (state: AppState) => state.categories.categoryList
   );
 
+  const user = useSelector((state: AppState) => state.user.user);
+
   async function handleSubmit(e: any) {
     e.preventDefault();
     //TODO: Better way to do this
@@ -24,13 +26,11 @@ const SubmitCourseForm = (e: any) => {
     const shortDescription = e.target.elements.shortDescription.value;
     const goal = e.target.elements.goal.value;
 
-
-
     let response = await axios
       .post(
         "api/owncourse/",
         {
-          user: 1,
+          user: user.id,
           title: title,
           startDate: startDate,
           endDate: endDate,
