@@ -4,15 +4,26 @@ import CourseList from "../courseList";
 import Progression from "../progression";
 import UserCourses from "../userCourses";
 
+
+// TODO: adjust style based on props from parent. If self-contained
+// make adjustments based on larger width
+
 const Home = () => {
   return (
     <div>
-      <Grid stackable relaxed>
+      <Grid columns={2}>
         <Grid.Row>
-          <CourseList />
-          <UserCourses />
+          <Grid.Column>
+            <CourseList isExpanded={false} />
+          </Grid.Column>
+          <Grid.Column>
+            <UserCourses isExpanded={false} />
+          </Grid.Column>
         </Grid.Row>
-        <Progression />
+        <Grid.Row></Grid.Row>
+        <Grid.Row>
+          <Progression isExpanded={false} />
+        </Grid.Row>
       </Grid>
     </div>
   );
