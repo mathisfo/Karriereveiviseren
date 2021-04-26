@@ -67,6 +67,7 @@ const UserCourseAccordion = () => {
                   <Accordion.Title
                     active={activeIndex === courses.indexOf(course)}
                     onClick={(e) => handleClick(courses.indexOf(course))}
+                    data-cy="innaccordion"
                   >
                     <Icon name="dropdown" />
                     {course.title}
@@ -88,7 +89,7 @@ const UserCourseAccordion = () => {
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button primary circular animated='vertical' size="mini">
+            trigger={<Button primary circular animated='vertical' size="mini" data-cy="addButton">
             <Button.Content hidden>Legg til</Button.Content>
             <Button.Content visible>
               <Icon name='add' />
@@ -111,6 +112,7 @@ const UserCourseAccordion = () => {
                   <Accordion.Title
                     active={activeIndex === owncourses.indexOf(course)}
                     onClick={(e) => handleClick(owncourses.indexOf(course))}
+                    data-cy="accordionTitle"
                   >
                     <Icon name="dropdown" />
                     {course.title}

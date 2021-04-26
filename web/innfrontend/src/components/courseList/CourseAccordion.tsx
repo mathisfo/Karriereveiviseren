@@ -71,7 +71,7 @@ const CourseAccordion = () => {
         .filter(
           (e) =>
             e.category === categoryType &&
-            e.title.toLowerCase().includes(input) &&
+            e.title.toLowerCase().includes(input.toLowerCase()) &&
             ((!box1 && !box2 && !box3) ||
               (e.restriction === 1 && box1) ||
               (e.restriction === 2 && box2) ||
@@ -104,6 +104,7 @@ const CourseAccordion = () => {
             label="Spor 2"
             onClick={() => setBox2(!box2)}
             style={{ marginRight: "1em" }}
+            data-cy="checkbox2"
           />
           <Checkbox
             checked={box3}
@@ -113,6 +114,7 @@ const CourseAccordion = () => {
           />
           <Input
             style={{ marginBottom: "0.2em" }}
+            name="searchbar"
             icon="search"
             placeholder="Search..."
             onChange={(e: any) => setInput(e.target.value)}
@@ -124,6 +126,7 @@ const CourseAccordion = () => {
             active={activeIndex === 1}
             onClick={(e) => handleClick(1)}
             style={{ fontSize: 18 }}
+            data-cy="courseAccordion"
           >
             <Icon name="dropdown" />
             <Icon name="briefcase" />

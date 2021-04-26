@@ -8,13 +8,14 @@ const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("courses");
 
   return (
-    <Menu tabular stackable>
+    <Menu tabular stackable data-cy="Navbar">
       <Menu.Item
         as={Link}
         name="Aktiviteter"
         to="courses"
         active={activeItem === "courses"}
         onClick={() => setActiveItem("courses")}
+        data-cy="homeLink"
       ></Menu.Item>
       <Menu.Item
         as={Link}
@@ -22,6 +23,7 @@ const TopNavigator = () => {
         to="mycourses"
         active={activeItem === "mycourses"}
         onClick={() => setActiveItem("mycourses")}
+        data-cy="coursesLink"
       ></Menu.Item>
       <Menu.Item
         as={Link}

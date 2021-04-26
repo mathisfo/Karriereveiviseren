@@ -89,7 +89,7 @@ const CourseTimeline = () => {
   }
 
   return (
-    <Container>
+    <Container data-cy="timeline">
       {allCourses
         .sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
         .map((course: any, index: number) => (
@@ -107,7 +107,7 @@ const CourseTimeline = () => {
             }
             color={setColor(course.restriction)}
             tags={setTag(course)}
-            lineHeight={4}
+            lineHeight={allCourses.length-2}
           />
         ))}
     </Container>

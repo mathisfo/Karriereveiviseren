@@ -60,7 +60,7 @@ const CourseCard: FC<Course> = (props) => {
   function renderLink() {
     if (props.classroom != "") {
       return (
-        <Button target color="blue" floated="right" size="tiny">
+        <Button target color="blue" floated="right" size="tiny" data-cy="classroom">
           <Link
           className="link"
           to="googleClassroom"
