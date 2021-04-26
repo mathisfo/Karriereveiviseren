@@ -1,64 +1,37 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import logo from "../statics/imdi-logo.svg";
-import { PersonCircle } from "react-bootstrap-icons";
-import Button from "react-bootstrap/Button";
 import { Link, NavLink, Router } from "react-router-dom";
 import "../TopNavigator.css";
+import { Grid, Icon, Menu } from "semantic-ui-react";
+import GoogleAuthLogout from "./GoogleAuthentication/GoogleAuthLogout";
 
 const TopNavigator = () => {
-  function resetStorage() {
-    localStorage.setItem("LandingKey", "true");
-    window.location.reload();
-  }
+  const [activeItem, setActiveItem] = React.useState("courses");
 
   return (
-    <Navbar bg="light" expand="lg" data-cy="Navbar">
-      <Navbar.Brand>INN</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Navbar.Text>
-            <NavLink
-              className="navbar-item"
-              activeClassName="is-active"
-              data-cy="homeLink"
-              to="/home"
-              activeStyle={{
-                fontWeight: "bold",
-              }}
-              exact
-            >
-              Hjem
-            </NavLink>
-            <NavLink
-              className="navbar-item"
-              activeClassName="is-active"
-              data-cy="coursesLink"
-              to="/courses"
-              activeStyle={{
-                fontWeight: "bold",
-              }}
-              exact
-            >
-              Mine aktiviteter
-            </NavLink>
-            <NavLink
-              className="navbar-item"
-              activeClassName="is-active"
-              to="/progression"
-              activeStyle={{
-                fontWeight: "bold",
-              }}
-              exact
-            >
-              Mitt introduksjonsprogram
-            </NavLink>
-          </Navbar.Text>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <Menu tabular stackable>
+      <Menu.Item
+        as={Link}
+        name="Aktiviteter"
+        to="courses"
+        active={activeItem === "courses"}
+        onClick={() => setActiveItem("courses")}
+      ></Menu.Item>
+      <Menu.Item
+        as={Link}
+        name="Mine aktiviteter"
+        to="mycourses"
+        active={activeItem === "mycourses"}
+        onClick={() => setActiveItem("mycourses")}
+      ></Menu.Item>
+      <Menu.Item
+        as={Link}
+        name="Mitt introduksjonsprogram"
+        to="progression"
+        active={activeItem === "progression"}
+        onClick={() => setActiveItem("progression")}
+      ></Menu.Item>
+      <GoogleAuthLogout />
+    </Menu>
   );
 };
 

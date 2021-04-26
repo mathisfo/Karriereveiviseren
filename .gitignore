@@ -6,6 +6,7 @@
 .pnp.js
 .idea
 .vscode
+/server/innbackend/.vscode
 
 # testing
 /coverage
@@ -26,3 +27,14 @@ yarn-debug.log*
 yarn-error.log*
 
 0*.py
+
+#db
+/server/innbackend/db.sqlite3
+
+#django migrations
+/server/innbackend/innapp/migrations
+/server/innbackend/innbackend/migrations
+/server/innbackend/userpreferences/migrations
+
+#django
+/server/innbackend/innbackend/__pycache__

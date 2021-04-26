@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from innapp.models import Course
+from django.utils.timezone import now
+from django.core.validators import MinValueValidator
+from innapp.models import Course, OwnCourse
 
 
 # Create your models here.
@@ -10,11 +12,11 @@ class UserPreference(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, default="")
     selected = models.ManyToManyField(Course, blank=True, default=[])
-    #owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    # owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+
+    selectedOwn = models.ManyToManyField(
+        OwnCourse, blank=False, default=[])
 
     def __str__(self):
 
-        if str(self.user)[-1] == 's':
-            return str(self.user) + "'" + ' valgte tiltak'
-        else:
-            return str(self.user) + 's' + ' valgte tiltak'
+        return str(self.user) + ' sin plan'

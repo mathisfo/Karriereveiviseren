@@ -3,11 +3,12 @@ import {
   Card,
   Button,
   Checkbox,
+  Icon,
   Label,
   Modal,
   Header,
 } from "semantic-ui-react";
-import { Icon } from "@iconify/react";
+import { Icon as Iconify } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
@@ -48,8 +49,6 @@ const CourseCard: FC<Course> = (props) => {
   const [open, setOpen] = React.useState(false);
 
 
-  // This should not be this complicated
-  // TODO: Find a better way to handle this
   function selectCard() {
     dispatch(courseSlice.actions.selectCourse(props));
   }
@@ -58,9 +57,26 @@ const CourseCard: FC<Course> = (props) => {
     window.open(props.classroom);
   }
 
+  function renderLink() {
+    if (props.classroom != "") {
+      return (
+        <Button target color="blue" floated="right" size="tiny">
+          <Link
+          className="link"
+          to="googleClassroom"
+          target="_blank"
+          onClick={openTab}
+        >
+          <Iconify icon={googleClassroom} width="1.7em" color="white" />{" "}
+          Google Classroom
+        </Link>
+        </Button> )
+      
+  }}
+
   return (
     <div>
-      <Card style={{ margin: "1.2em" }} data-cy="courseCard">
+      <Card style={{ margin: "1.2em" }} centered data-cy="courseCard">
         <Card.Content>
           <Card.Header data-cy="courseHeader">
             {props.title}
@@ -82,24 +98,13 @@ const CourseCard: FC<Course> = (props) => {
               onOpen={() => setOpen(true)}
               open={open}
               trigger={
-                <Button style={{ marginRight: "1em" }} data-cy="infoButton">Mer informasjon</Button>
+                 <Button fluid basic color='black' content='Black' style={{marginRight: "1em"}} data-cy="infoButton"><Icon name="info circle"/></Button>
               }
               size="tiny"
             >
               <Modal.Header>
-                <p>{props.title}</p>
-                <Button target color="blue" floated="right" size="tiny">
-                  <Link
-                    className="link"
-                    to="googleClassroom"
-                    target="_blank"
-                    onClick={openTab}
-                    
-                  >
-                    <Icon icon={googleClassroom} width="1.7em" color="white" />{" "}
-                   Google Classroom
-                  </Link>
-                </Button>
+                {props.title}
+                {renderLink()}
               </Modal.Header>
               <Modal.Content>
                 <Modal.Description>
