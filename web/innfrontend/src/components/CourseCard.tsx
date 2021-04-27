@@ -14,7 +14,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../store/redux/store";
-import { courseSlice } from "../store/slices/courseSlice";
+import { courseSlice, selectCourse } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
 import axios from "axios";
 
@@ -46,10 +46,12 @@ function setColor(modul?: number) {
 
 const CourseCard: FC<Course> = (props) => {
   const dispatch = useAppDispatch();
+  const { user } = useSelector((state: AppState) => state.user);
   const [open, setOpen] = React.useState(false);
 
   const courses = useSelector((state: AppState) => state.courses.courseList);
 
+  /*
   const putSelectedCourse = async () => {
     axios.put(
       "api/userpreferences/1/",
@@ -63,10 +65,12 @@ const CourseCard: FC<Course> = (props) => {
       }
     );
   };
+*/
 
   function selectCard() {
-    dispatch(courseSlice.actions.selectCourse(props));
-    putSelectedCourse();
+    dispatch(selectCourse({course: props, user: user}));
+    //dispatch(courseSlice.actions.selectCourse(props));
+    //putSelectedCourse();
   }
 
   function openTab() {

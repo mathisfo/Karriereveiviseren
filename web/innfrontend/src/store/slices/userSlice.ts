@@ -7,7 +7,7 @@ type APIUser = {
   first_name: string;
   last_name: string;
   username: string;
-  pk: number,
+  pk: number;
 };
 
 type FetchUserError = {

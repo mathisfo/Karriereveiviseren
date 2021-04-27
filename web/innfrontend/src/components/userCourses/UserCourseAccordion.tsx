@@ -19,6 +19,7 @@ import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import { Course } from "../../store/interfaces/Course";
 import { OwnCourse } from "../../store/interfaces/OwnCourse";
 import CourseAccordion from "../courseList/CourseAccordion";
+import { fetchCourse } from "../../store/slices/courseSlice";
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -36,14 +37,7 @@ const UserCourseAccordion = () => {
   }
 
   const fetchOwnCourses = async () => {
-    axios.get("api/owncourse/", { withCredentials: true }).then((response) => {
-      dispatch(
-        ownCourseSlice.actions.setOwnCourses({
-          ownCourseList: response.data,
-        })
-      );
-      console.log(response.data);
-    });
+    dispatch(fetchCourse());
   };
 
   useEffect(() => {
