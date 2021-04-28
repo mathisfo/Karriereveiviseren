@@ -9,9 +9,8 @@ from innapp.models import Course, OwnCourse
 
 
 class UserPreference(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, default="")
-    selected = models.ManyToManyField(Course, blank=True, default=[])
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    selected = models.ManyToManyField(Course, blank=True, null=True, default=[])
     # owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     # selectedOwn = models.ManyToManyField(

@@ -3,7 +3,6 @@ from django.utils.timezone import now
 from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
 
-
 class Category(models.Model):
     category = models.CharField('kategori', max_length=100, default="")
 

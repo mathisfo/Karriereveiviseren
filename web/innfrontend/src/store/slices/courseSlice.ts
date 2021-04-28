@@ -17,14 +17,32 @@ type FetchCourseError = {
 // fetchCourses
 export const fetchCourse = createAsyncThunk<
   Array<Course>,
-  undefined,
+  User,
   { rejectValue: FetchCourseError }
->("course/fetch", async (undefined, thunkAPI) => {
+>("course/fetch", async (user, thunkAPI) => {
   let response = await axios.get("api/course", { withCredentials: true });
+  let userprefResponse = await axios.get(`api/userpreferences/${user.id}/`, {withCredentials: true});
+  
   let result = await response.data;
+
   if (response.status != 200) {
     return thunkAPI.rejectWithValue(result);
   }
+
+  let courseResult: Array<Course> = result;
+  let userprefResult: Array<Course> = await userprefResponse.data.selected;
+  // TODO: rewrite to use filter
+  if(userprefResult) {
+    userprefResult.map(item => {
+      courseResult.map(course => {
+        if (course.id == item.id) {
+          course.isSelected = true;
+        }
+      } )
+    })
+  }
+
+
   return result;
 });
 
@@ -33,17 +51,16 @@ export const selectCourse = createAsyncThunk<
   selectType,
   { rejectValue: FetchCourseError }
 >("category/update", async (data, thunkAPI) => {
-  let response = await axios.put(
-    "api/userpreferences/1/",
-    { user: `http://127.0.0.1:8000/api/users/${data.user.id}/`, selected: [data.course.url] },
+  let response = await axios.post(
+    `api/userpreferences/`,
+    { user: data.user.id, selected: [{title: data.course.title, description: data.course.description, category: data.course.category}], isSelected: data.course.isSelected },
     { withCredentials: true }
   );
   let result = await response.data;
   if (response.status != 200) {
     return thunkAPI.rejectWithValue(result);
   }
-
-  // must check to see if response.data includes course url dispatched
+  
   return data.course;
 });
 

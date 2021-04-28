@@ -23,6 +23,7 @@ import { fetchCourse } from "../../store/slices/courseSlice";
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
+  const user = useSelector((state: AppState) => state.user.user);
   const owncourses = useSelector(
     (state: AppState) => state.owncourses.ownCourseList
   );
@@ -37,7 +38,7 @@ const UserCourseAccordion = () => {
   }
 
   const fetchOwnCourses = async () => {
-    dispatch(fetchCourse());
+    dispatch(fetchCourse(user));
   };
 
   useEffect(() => {

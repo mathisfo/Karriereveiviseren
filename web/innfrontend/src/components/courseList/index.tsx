@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 
 const CourseList = () => {
   const dispatch = useAppDispatch();
+  const user = useSelector((state: AppState) => state.user.user);
   const courses = useSelector((state: AppState) => state.courses.courseList);
 
   const fetchCourses = async () => {
-    dispatch(fetchCourse());
+    dispatch(fetchCourse(user));
   };
 
   useEffect(() => {
