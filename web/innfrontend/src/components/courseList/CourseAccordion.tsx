@@ -21,17 +21,6 @@ const CourseAccordion = () => {
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
 
-  const fetchCourses = async () => {
-    axios.get("api/course/", { withCredentials: true }).then(
-      (response) => {
-        dispatch(courseSlice.actions.setCourses({ courseList: response.data }));
-      },
-      (error) => {
-        setError(error);
-      }
-    );
-  };
-
   const fetchCategories = async () => {
     axios.get("api/category/", { withCredentials: true }).then(
       (response) => {
@@ -69,7 +58,6 @@ const CourseAccordion = () => {
 
   useEffect(() => {
     fetchCategories();
-    fetchCourses();
   }, []);
 
   return (

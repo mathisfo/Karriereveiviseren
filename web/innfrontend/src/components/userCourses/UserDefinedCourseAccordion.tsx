@@ -11,6 +11,10 @@ import {
 } from "semantic-ui-react";
 import { OwnCourse } from "../../store/interfaces/OwnCourse";
 import { AppState, useAppDispatch } from "../../store/redux/store";
+import {
+  fetchCourse,
+  fetchUserpreference,
+} from "../../store/slices/courseSlice";
 import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import SubmitCourseForm from "../SubmitCourseForm";
 
@@ -21,6 +25,7 @@ const UserDefinedCourseAccordion = () => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   const dispatch = useAppDispatch();
+  const user = useSelector((state: AppState) => state.user.user);
   const owncourses = useSelector(
     (state: AppState) => state.owncourses.ownCourseList
   );
@@ -35,23 +40,24 @@ const UserDefinedCourseAccordion = () => {
     throw new Error("Function not implemented.");
   }
 
+  const fetchCourses = async () => {
+    dispatch(fetchCourse());
+    dispatch(fetchUserpreference(user));
+  };
+
   const fetchOwnCourses = async () => {
-    axios.get("api/owncourse/", { withCredentials: true }).then(
-      (response) => {
-        dispatch(
-          ownCourseSlice.actions.setOwnCourses({
-            ownCourseList: response.data,
-          })
-        );
-        console.log(response.data);
-      },
-      (error) => {
-        setError(error);
-      }
-    );
+    let response = await axios
+      .get("api/owncourse/", { withCredentials: true })
+      .then((result) => {
+        let courses: Array<OwnCourse> = result.data;
+        courses.map((course) => {
+          dispatch(ownCourseSlice.actions.addOwnCourse(course));
+        });
+      });
   };
 
   useEffect(() => {
+    fetchCourses();
     fetchOwnCourses();
   }, []);
 
@@ -82,9 +88,18 @@ const UserDefinedCourseAccordion = () => {
                     <SubmitCourseForm />
                   </Modal.Content>
                   <Modal.Actions>
-                    <Button color="black" onClick={() => setOpen(false)}>
-                      Gå tilbake
-                    </Button>
+                    <Button
+                      content="Legg til aktivitet"
+                      labelPosition="right"
+                      icon="checkmark"
+                      onClick={() => setOpen(false)}
+                      positive
+                    />
+                    <Button
+                      content="Avbryt"
+                      color="red"
+                      onClick={() => setOpen(false)}
+                    />
                   </Modal.Actions>
                 </Modal>
               </Grid.Column>

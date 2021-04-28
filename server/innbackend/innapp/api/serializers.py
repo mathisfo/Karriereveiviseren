@@ -5,12 +5,7 @@ from userpreferences.models import OwnCourse
 
 from rest_framework import serializers
 from django.contrib.auth.models import User
-
-
-class userPreferenceSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = UserPreference
-        fields = ('url', 'id', 'user', 'selected', 'selectedOwn')
+from collections import OrderedDict
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -49,3 +44,33 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
         fields = ('url', 'id', 'category')
+
+
+class UserPreferenceSerializer(serializers.ModelSerializer):
+    # user = serializers.HyperlinkedRelatedField(
+    #    view_name='user-detail', queryset=User.objects.all())
+
+    user = serializers.PrimaryKeyRelatedField(
+        many=False, queryset=User.objects.all()
+    )
+    selected = CourseSerializer(many=True)
+
+    class Meta:
+        model = UserPreference
+        fields = ('url', 'user', 'selected')
+
+    def create(self, validated_data):
+        selected_courses = validated_data.pop('selected', [])
+        userPreference, created = UserPreference.objects.get_or_create(
+            user=self.context['request'].user)
+        if(not created):
+            print(userPreference.selected.all())
+        selected = selected_courses[0]
+        course = Course.objects.get(title=selected['title'])
+        if course in userPreference.selected.all():
+            instance = userPreference.selected.get(title=course.title)
+            userPreference.selected.remove(instance)
+        else:
+            userPreference.selected.add(course)
+
+        return userPreference

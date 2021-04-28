@@ -72,7 +72,9 @@ SOCIALACCOUNT_EMAIL_REQUIRED = False
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'innapp'
 JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
-SITE_ID = 5
+
+# Make sure this corresponds with the site set in http://127.0.0.1:8000/admin/sites/site/
+SITE_ID = 7
 
 
 SIMPLE_JWT = {

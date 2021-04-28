@@ -7,6 +7,7 @@ type APIUser = {
   first_name: string;
   last_name: string;
   username: string;
+  pk: number;
 };
 
 type FetchUserError = {
@@ -86,6 +87,7 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
       state.user.email = payload.email;
       state.user.name = payload.first_name;
+      state.user.id = payload.pk;
       state.isFetching = false;
       state.isSuccess = true;
       return state;
@@ -116,6 +118,7 @@ export const userSlice = createSlice({
     builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
       state.user.email = payload.email;
       state.user.name = payload.first_name;
+      state.user.id = payload.pk
       state.isFetching = false;
       state.isSuccess = true;
       return state;

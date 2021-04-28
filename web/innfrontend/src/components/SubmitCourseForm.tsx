@@ -14,6 +14,8 @@ const SubmitCourseForm = (e: any) => {
     (state: AppState) => state.categories.categoryList
   );
 
+  const user = useSelector((state: AppState) => state.user.user);
+
   async function handleSubmit(e: any) {
     e.preventDefault();
     //TODO: Better way to do this
@@ -28,7 +30,7 @@ const SubmitCourseForm = (e: any) => {
       .post(
         "api/owncourse/",
         {
-          user: 1,
+          user: user.id,
           title: title,
           startDate: startDate,
           endDate: endDate,

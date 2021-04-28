@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 import CourseAccordion from "./CourseAccordion";
+import { AppState, store, useAppDispatch } from "../../store/redux/store";
+import {
+  courseSlice,
+  fetchCourse,
+  fetchUserpreference,
+} from "../../store/slices/courseSlice";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 import styles from "./CourseList.module.css";
 
@@ -14,7 +22,18 @@ interface Iprops {
 const CourseList = (props: Iprops) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [componentStyling, setComponentStyling] = useState(styles.default);
+  const dispatch = useAppDispatch();
+  const user = useSelector((state: AppState) => state.user.user);
+  const courses = useSelector((state: AppState) => state.courses.courseList);
 
+  const fetchCourses = async () => {
+    dispatch(fetchCourse());
+    dispatch(fetchUserpreference(user));
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
   useEffect(() => {
     setIsExpanded(props.isExpanded);
   }, []);
@@ -24,9 +43,7 @@ const CourseList = (props: Iprops) => {
   }, [isExpanded]);
 
   return (
-    <div
-      className={`${styles.courseListContainer} ${componentStyling}`}
-    >
+    <div className={`${styles.courseListContainer} ${componentStyling}`}>
       <CourseAccordion />
     </div>
   );

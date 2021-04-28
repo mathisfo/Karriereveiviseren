@@ -1,11 +1,11 @@
 from userpreferences.models import UserPreference
-from .serializers import CategorySerializer, CourseSerializer, OwnCourseSerializer, UserSerializer, userPreferenceSerializer
+from .serializers import CategorySerializer, CourseSerializer, OwnCourseSerializer, UserSerializer, UserPreferenceSerializer
 from innapp.models import Course, Category, OwnCourse
 from rest_framework import viewsets
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -41,10 +41,14 @@ class OwnCourseViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
-    # TODO filter() should only provide the current user
-    queryset = OwnCourse.objects.filter().order_by('id')
+    queryset = OwnCourse.objects.all().order_by('id')
+
+    # Makes sure that the /owncourses endpoint only gives owncourses to the logged in user
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
 
 
 class UserPreferenceViewSet(viewsets.ModelViewSet):
-    queryset = UserPreference.objects.all().order_by('id')
-    serializer_class = userPreferenceSerializer
+    queryset = UserPreference.objects.all()
+    serializer_class = UserPreferenceSerializer
+    filter_fields = ('user')
