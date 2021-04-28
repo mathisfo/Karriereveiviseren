@@ -19,7 +19,10 @@ import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import { Course } from "../../store/interfaces/Course";
 import { OwnCourse } from "../../store/interfaces/OwnCourse";
 import CourseAccordion from "../courseList/CourseAccordion";
-import { fetchCourse } from "../../store/slices/courseSlice";
+import {
+  fetchCourse,
+  fetchUserpreference,
+} from "../../store/slices/courseSlice";
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -38,7 +41,8 @@ const UserCourseAccordion = () => {
   }
 
   const fetchOwnCourses = async () => {
-    dispatch(fetchCourse(user));
+    dispatch(fetchCourse());
+    dispatch(fetchUserpreference(user));
   };
 
   useEffect(() => {
@@ -75,7 +79,7 @@ const UserCourseAccordion = () => {
         </Grid.Column>
         <Grid.Column>
           <Accordion fluid styled>
-            <Header h1 ></Header>
+            <Header h1></Header>
             {owncourses.map((owncourse: any) =>
               owncourses.length > 0 ? (
                 <div>
@@ -116,7 +120,11 @@ const UserCourseAccordion = () => {
               onClick={() => setOpen(false)}
               positive
             />
-            <Button content="Avbryt" color="red" onClick={() => setOpen(false)} />
+            <Button
+              content="Avbryt"
+              color="red"
+              onClick={() => setOpen(false)}
+            />
           </Modal.Actions>
         </Modal>
       </Grid>
