@@ -102,23 +102,21 @@ const UserCourseAccordion = () => {
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
           open={open}
-          trigger={<Button>TRØKK INN NO COURSES</Button>}
+          trigger={<Button>Add Course</Button>}
         >
           <Modal.Content>
             <SubmitCourseForm />
           </Modal.Content>
 
           <Modal.Actions>
-            <Button color="black" onClick={() => setOpen(false)}>
-              Nope
-            </Button>
             <Button
-              content="Yep, that's me"
+              content="Legg til aktivitet"
               labelPosition="right"
               icon="checkmark"
               onClick={() => setOpen(false)}
               positive
             />
+            <Button content="Avbryt" color="red" onClick={() => setOpen(false)} />
           </Modal.Actions>
         </Modal>
       </Grid>
