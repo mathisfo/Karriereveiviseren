@@ -47,20 +47,22 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
-    #user = serializers.HyperlinkedRelatedField(
+    # user = serializers.HyperlinkedRelatedField(
     #    view_name='user-detail', queryset=User.objects.all())
 
     user = serializers.PrimaryKeyRelatedField(
         many=False, queryset=User.objects.all()
     )
     selected = CourseSerializer(many=True)
+
     class Meta:
         model = UserPreference
         fields = ('url', 'user', 'selected')
 
     def create(self, validated_data):
         selected_courses = validated_data.pop('selected', [])
-        userPreference, created = UserPreference.objects.get_or_create(user=self.context['request'].user)
+        userPreference, created = UserPreference.objects.get_or_create(
+            user=self.context['request'].user)
         if(not created):
             print(userPreference.selected.all())
         selected = selected_courses[0]
@@ -70,5 +72,5 @@ class UserPreferenceSerializer(serializers.ModelSerializer):
             userPreference.selected.remove(instance)
         else:
             userPreference.selected.add(course)
-        
+
         return userPreference

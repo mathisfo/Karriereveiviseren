@@ -40,12 +40,24 @@ const UserCourseAccordion = () => {
     setActiveIndex(newIndex);
   }
 
-  const fetchOwnCourses = async () => {
+  const fetchCourses = async () => {
     dispatch(fetchCourse());
     dispatch(fetchUserpreference(user));
   };
 
+  const fetchOwnCourses = async () => {
+    let response = await axios
+      .get("api/owncourse/", { withCredentials: true })
+      .then((result) => {
+        let courses: Array<OwnCourse> = result.data;
+        courses.map((course) => {
+          dispatch(ownCourseSlice.actions.addOwnCourse(course));
+        });
+      });
+  };
+
   useEffect(() => {
+    fetchCourses();
     fetchOwnCourses();
   }, []);
 

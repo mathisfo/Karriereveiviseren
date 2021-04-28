@@ -42,7 +42,7 @@ class OwnCourseViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     queryset = OwnCourse.objects.all().order_by('id')
-    
+
     # Makes sure that the /owncourses endpoint only gives owncourses to the logged in user
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
