@@ -5,10 +5,17 @@ import { Grid, Icon, Menu } from "semantic-ui-react";
 import GoogleAuthLogout from "./GoogleAuthentication/GoogleAuthLogout";
 
 const TopNavigator = () => {
-  const [activeItem, setActiveItem] = React.useState("courses");
+  const [activeItem, setActiveItem] = React.useState("/");
 
   return (
     <Menu tabular stackable>
+      <Menu.Item
+        as={Link}
+        name="Hjem"
+        to="/"
+        active={activeItem === "/"}
+        onClick={() => setActiveItem("/")}
+      ></Menu.Item>
       <Menu.Item
         as={Link}
         name="Aktiviteter"

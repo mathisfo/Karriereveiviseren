@@ -12,6 +12,7 @@ djangorestframework = "==3.11.0"
 dj-rest-auth = "*"
 djangorestframework-simplejwt = "*"
 pyjwt = "==1.7.0"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.8"

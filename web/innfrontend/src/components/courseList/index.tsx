@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Grid } from "semantic-ui-react";
 import CourseAccordion from "./CourseAccordion";
 import { AppState, store, useAppDispatch } from "../../store/redux/store";
 import {
@@ -9,7 +10,18 @@ import {
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const CourseList = () => {
+import styles from "./CourseList.module.css";
+
+// TODO: adjust style based on props from parent. If self-contained
+// make adjustments based on larger width
+
+interface Iprops {
+  isExpanded: boolean;
+}
+
+const CourseList = (props: Iprops) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [componentStyling, setComponentStyling] = useState(styles.default);
   const dispatch = useAppDispatch();
   const user = useSelector((state: AppState) => state.user.user);
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -22,7 +34,19 @@ const CourseList = () => {
   useEffect(() => {
     fetchCourses();
   }, []);
-  return <CourseAccordion />;
+  useEffect(() => {
+    setIsExpanded(props.isExpanded);
+  }, []);
+
+  useEffect(() => {
+    setComponentStyling(isExpanded ? styles.expanded : styles.default);
+  }, [isExpanded]);
+
+  return (
+    <div className={`${styles.courseListContainer} ${componentStyling}`}>
+      <CourseAccordion />
+    </div>
+  );
 };
 
 export default CourseList;

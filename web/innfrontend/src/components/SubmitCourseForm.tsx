@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import { Button, Checkbox, Dropdown, Form, Input } from "semantic-ui-react";
+import { Button, Checkbox, Dropdown, Form, Icon, Input } from "semantic-ui-react";
 import { Course } from "../store/interfaces/Course";
 import { useAppDispatch, AppState } from "../store/redux/store";
 import { courseSlice } from "../store/slices/courseSlice";
@@ -70,8 +70,9 @@ const SubmitCourseForm = (e: any) => {
         <label htmlFor="">Målsetning</label>
         <Input type="text" name="goal" />
       </Form.Field>
-      <Button type="submit">Lagre</Button>
+      <Button content="Lagre" type="submit" positive>Lagre</Button>
     </Form>
+    
   );
 };
 
