@@ -1,33 +1,14 @@
-import React, { useEffect } from "react";
-import Container from "react-bootstrap/Container";
+import React from "react";
 import { useSelector } from "react-redux";
-import { AppState, useAppDispatch } from "../../store/redux/store";
+import { AppState } from "../../store/redux/store";
 
-import {
-  Accordion,
-  Button,
-  Card,
-  Grid,
-  Header,
-  Icon,
-  Label,
-  Modal,
-} from "semantic-ui-react";
-import SubmitCourseForm from "../SubmitCourseForm";
-import axios from "axios";
-import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
-import { Course } from "../../store/interfaces/Course";
-import { OwnCourse } from "../../store/interfaces/OwnCourse";
-import CourseList from "../courseList";
+import { Accordion, Grid, Header, Icon } from "semantic-ui-react";
+
+import styles from "./UserCourse.module.css";
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
-  const owncourses = useSelector(
-    (state: AppState) => state.owncourses.ownCourseList
-  );
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
-  const dispatch = useAppDispatch();
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -35,94 +16,40 @@ const UserCourseAccordion = () => {
     setActiveIndex(newIndex);
   }
 
-  const fetchOwnCourses = async () => {
-    axios.get("api/owncourse/", { withCredentials: true }).then(
-      (response) => {
-        dispatch(
-          ownCourseSlice.actions.setOwnCourses({
-            ownCourseList: response.data,
-          })
-        );
-        console.log(response.data);
-      },
-      (error) => {
-        setError(error);
-      }
-    );
-  };
-
-  useEffect(() => {
-    fetchOwnCourses();
-  }, []);
-
   return (
     <div>
-      <Grid columns={2} relaxed="very">
+      <Grid padded>
         <Grid.Column>
-          <Header h1>INN</Header>
-          <Accordion fluid styled>
-            {courses.map((course: any) =>
-              course.isSelected ? (
-                <div>
-                  <Accordion.Title
-                    active={activeIndex === courses.indexOf(course)}
-                    onClick={(e) => handleClick(courses.indexOf(course))}
-                  >
-                    <Icon name="dropdown" />
-                    {course.title}
-                  </Accordion.Title>
-                  <Accordion.Content
-                    active={activeIndex === courses.indexOf(course)}
-                  >
-                    {course.description}
-                  </Accordion.Content>
-                </div>
-              ) : (
-                <></>
-              )
-            )}
-          </Accordion>
-        </Grid.Column>
-        <Grid.Column>
-            <Header h1>Egendefinerte <Modal
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            trigger={<Button primary circular animated='vertical' size="mini">
-            <Button.Content hidden>Legg til</Button.Content>
-            <Button.Content visible>
-              <Icon name='add' />
-            </Button.Content>
-          </Button>}
-          >
-            <Modal.Content>
-              <SubmitCourseForm />
-            </Modal.Content>
-  
-            <Modal.Actions>
-              <Button color="black" onClick={() => setOpen(false)}>
-                Gå tilbake
-              </Button>
-            </Modal.Actions>
-          </Modal></Header>
+          <Grid.Row>
+            <Header h1>INN</Header>
+          </Grid.Row>
+
+          <Grid.Row>
             <Accordion fluid styled>
-            {owncourses.map((course: OwnCourse) => 
-              <div>
-                  <Accordion.Title
-                    active={activeIndex === owncourses.indexOf(course)}
-                    onClick={(e) => handleClick(owncourses.indexOf(course))}
-                  >
-                    <Icon name="dropdown" />
-                    {course.title}
-                  </Accordion.Title>
-                  <Accordion.Content
-                    active={activeIndex === owncourses.indexOf(course)}
-                  >
-                    {course.description}
-                  </Accordion.Content>
+              {courses.map((course: any) =>
+                course.isSelected ? (
+                  <div>
+                    <Accordion.Title
+                      active={activeIndex === courses.indexOf(course)}
+                      onClick={(e) => handleClick(courses.indexOf(course))}
+                      className={styles.wordBreak}
+                    >
+                      <Icon name="dropdown" />
+                      {course.title}
+                    </Accordion.Title>
+                    <Accordion.Content
+                      active={activeIndex === courses.indexOf(course)}
+                      className={styles.wordBreak}
+                    >
+                      {course.description}
+                    </Accordion.Content>
                   </div>
+                ) : (
+                  <></>
+                )
               )}
-          </Accordion>
+            </Accordion>
+          </Grid.Row>
         </Grid.Column>
       </Grid>
     </div>
@@ -130,6 +57,3 @@ const UserCourseAccordion = () => {
 };
 
 export default UserCourseAccordion;
-function setError(error: any) {
-  throw new Error("Function not implemented.");
-}

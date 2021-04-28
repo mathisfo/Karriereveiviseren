@@ -1,0 +1,17 @@
+.courseListContainer {
+}
+
+.courseListContainer.default {
+
+}
+
+.courseListContainer.expanded {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+} 
+
+.checkboxRow {
+  margin-left: 0px;
+  margin-right: 0px;
+}

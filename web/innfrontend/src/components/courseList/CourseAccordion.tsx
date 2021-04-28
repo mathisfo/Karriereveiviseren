@@ -1,26 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CourseCard from "../CourseCard";
-import { FormControl, InputGroup } from "react-bootstrap";
-import {
-  Accordion,
-  Button,
-  Card,
-  Checkbox,
-  Container,
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Input,
-  Segment,
-} from "semantic-ui-react";
-import MyCourses from "../userCourses/UserCourseAccordion";
+import { Accordion, Checkbox, Grid, Icon, Input } from "semantic-ui-react";
 import axios from "axios";
 import { AppState, useAppDispatch } from "../../store/redux/store";
 import { useSelector } from "react-redux";
 import { courseSlice } from "../../store/slices/courseSlice";
 import { categorySlice } from "../../store/slices/categorySlice";
-import CourseTimeline from "../progression/CourseTimeline";
+import styles from "./CourseList.module.css";
 
 const CourseAccordion = () => {
   const dispatch = useAppDispatch();
@@ -87,12 +73,13 @@ const CourseAccordion = () => {
   }, []);
 
   return (
-    <Grid stackable relaxed>
-    <Grid.Row>
-      <Grid.Column width={10}>
+    <Grid>
+      <Grid.Row>
         <h2> Tiltak </h2>
+      </Grid.Row>
 
-        <Grid.Row md={2}>
+      <Grid.Row>
+        <Grid.Row className={styles.checkboxRow} md={2}>
           <Checkbox
             checked={box1}
             label="Spor 1"
@@ -118,7 +105,8 @@ const CourseAccordion = () => {
             onChange={(e: any) => setInput(e.target.value)}
           />
         </Grid.Row>
-
+      </Grid.Row>
+      <Grid.Row>
         <Accordion fluid styled>
           <Accordion.Title
             active={activeIndex === 1}
@@ -157,19 +145,8 @@ const CourseAccordion = () => {
             <Grid.Row>{filteredCourses(3)}</Grid.Row>
           </Accordion.Content>
         </Accordion>
-      </Grid.Column>
-      <Grid.Column width={6}>
-        <h2> Mine aktiviteter </h2>
-        <MyCourses />
-      </Grid.Column>
-      </Grid.Row>
-      <Grid.Row  stretched>
-      </Grid.Row>
-      <Grid.Row divided>
-        <CourseTimeline />
       </Grid.Row>
     </Grid>
-    
   );
 };
 
