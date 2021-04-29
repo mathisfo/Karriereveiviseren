@@ -1,14 +1,18 @@
 import React from "react";
 import { Link, NavLink, Router } from "react-router-dom";
 import "../TopNavigator.css";
-import { Grid, Icon, Menu } from "semantic-ui-react";
+import { Grid, Icon, Menu, MenuHeaderProps } from "semantic-ui-react";
 import GoogleAuthLogout from "./GoogleAuthentication/GoogleAuthLogout";
+import logo from "../statics/logo_transparent_small.png"
 
 const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("/");
 
   return (
-    <Menu tabular stackable>
+    <Menu tabular stackable size="massive">
+    <Menu.Item>
+    <img src={logo} style={{width: "14em"}}></img>
+    </Menu.Item>
       <Menu.Item
         as={Link}
         name="Hjem"
