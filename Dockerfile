@@ -1,10 +1,10 @@
 FROM python:3.6
 
 # Install curl, node, & yarn
-RUN apt-get -y install curl \
-  && curl -sL https://deb.nodesource.com/setup_8.x | bash \
-  && apt-get install nodejs \
-  && curl -o- -L https://yarnpkg.com/install.sh | bash
+RUN apt-get -y install curl
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN apt-get install nodejs
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 WORKDIR /inn01-project/backend
 

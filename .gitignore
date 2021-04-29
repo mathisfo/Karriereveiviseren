@@ -37,4 +37,5 @@ yarn-error.log*
 /server/innbackend/userpreferences/migrations
 
 #django
-/server/innbackend/innbackend/__pycache__
+/backend/innbackend/__pycache__
+/backend/innbackend/settings/__pycache__
