@@ -39,3 +39,4 @@ yarn-error.log*
 #django
 /backend/innbackend/__pycache__
 /backend/innbackend/settings/__pycache__
+__pycache__/
