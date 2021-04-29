@@ -17,22 +17,26 @@ RUN pipenv lock --keep-outdated --requirements > requirements.txt
 RUN pip3 install --upgrade pip -r requirements.txt
 
 # Install JS dependencies
-WORKDIR /inn01-project/frontend
+WORKDIR /inn01-project/innfrontend
 
-COPY ./innfrontend/package.json ./innfrontend/yarn.lock /inn01-project/frontend/
-RUN $HOME/.yarn/bin/yarn install
+COPY ./innfrontend/package.json ./innfrontend/yarn.lock /inn01-project/innfrontend/
+RUN $HOME/.yarn/bin/yarn 
 
 # Add the rest of the code
 COPY . /inn01-project/
+
 
 # Build static files
 RUN $HOME/.yarn/bin/yarn build
 
 # Have to move all static files other than index.html to root/
 # for whitenoise middleware
-WORKDIR /inn01-project/frontend/build
+WORKDIR /inn01-project/innfrontend/build
 
-RUN mkdir root && mv *.ico *.js *.json root
+
+RUN mkdir root && mv *.json *.ico *.png *.txt root
+#root && mv *.ico *.js *.json root
+RUN 
 
 # Collect static files
 RUN mkdir /inn01-project/backend/staticfiles
