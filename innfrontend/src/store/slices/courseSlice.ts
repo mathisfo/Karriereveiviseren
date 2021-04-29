@@ -20,7 +20,7 @@ export const fetchCourse = createAsyncThunk<
   undefined,
   { rejectValue: FetchCourseError }
 >("course/fetch", async (undefined, thunkAPI) => {
-  let response = await axios.get("api/course", { withCredentials: true });
+  let response = await axios.get("api/course/", { withCredentials: true });
   let result = await response.data;
 
   if (response.status != 200) {
@@ -68,7 +68,7 @@ export const selectCourse = createAsyncThunk<
     { withCredentials: true }
   );
   let result = await response.data;
-  if (response.status != 200) {
+  if (response.status != 201) {
     return thunkAPI.rejectWithValue(result);
   }
 
@@ -95,9 +95,11 @@ export const courseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCourse.fulfilled, (state, { payload }) => {
-      state.courseList = payload;
-      state.isFetching = false;
-      state.isSuccess = true;
+      if (state.courseList.length === 0) {
+        state.courseList = payload;
+        state.isFetching = false;
+        state.isSuccess = true;
+      }
       return state;
     });
     builder.addCase(fetchCourse.rejected, (state, { payload }) => {

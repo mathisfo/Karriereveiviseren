@@ -41,7 +41,7 @@ const GoogleAuthLogout = () => {
         Logget inn som {user.name ? user.name : "Admin"}
       </p>
       <GoogleLogout
-        clientId="268749028652-1da4v4e8hq7ddrjfg9ac4tt5e9h9cu6b.apps.googleusercontent.com"
+        clientId="246400382917-thmpcrkkuklceq5doiqsfv16qafvq9kr.apps.googleusercontent.com"
         buttonText="Logout"
         onLogoutSuccess={logout}
       ></GoogleLogout>

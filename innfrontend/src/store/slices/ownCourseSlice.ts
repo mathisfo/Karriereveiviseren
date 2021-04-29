@@ -9,12 +9,20 @@ export const ownCourseSlice = createSlice({
     ownCourseList: [],
   } as OwnCourseState,
   reducers: {
-    setOwnCourses: (state: OwnCourseState, action: PayloadAction<OwnCourseState>) => ({
+    setOwnCourses: (
+      state: OwnCourseState,
+      action: PayloadAction<OwnCourseState>
+    ) => ({
       ownCourseList: action.payload.ownCourseList,
     }),
-    addOwnCourse: (state: OwnCourseState, action: PayloadAction<OwnCourse>) => ({
-      
-      ownCourseList: [...state.ownCourseList, action.payload]
+    addOwnCourse: (
+      state: OwnCourseState,
+      action: PayloadAction<OwnCourse>
+    ) => ({
+      ownCourseList: [...state.ownCourseList, action.payload],
     }),
+    resetOwnCourses: (state: OwnCourseState) => {
+      state.ownCourseList = [];
+    },
   },
 });
