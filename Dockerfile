@@ -34,9 +34,8 @@ RUN $HOME/.yarn/bin/yarn build
 WORKDIR /inn01-project/innfrontend/build
 
 
-RUN mkdir root && mv *.json *.ico *.png *.txt root
-#root && mv *.ico *.js *.json root
-RUN 
+#RUN mkdir root && mv *.json *.ico *.png *.txt root
+#RUN mkdir root && mv *.ico *.js *.json root
 
 # Collect static files
 RUN mkdir /inn01-project/backend/staticfiles
