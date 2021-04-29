@@ -11,11 +11,10 @@ WORKDIR /inn01-project/backend
 
 # Install Python dependencies
 RUN pip install pipenv
-COPY Pipfile* /inn01-project/backend
-RUN pipenv install
-#RUN pipenv lock --keep-outdated --requirements > requirements.txt
+COPY ./backend/Pipfile* /inn01-project/backend
+RUN pipenv lock --keep-outdated --requirements > requirements.txt
 # Install Python dependencies
-#RUN pip3 install --upgrade pip -r requirements.txt
+RUN pip3 install --upgrade pip -r requirements.txt
 
 # Install JS dependencies
 WORKDIR /inn01-project/frontend
