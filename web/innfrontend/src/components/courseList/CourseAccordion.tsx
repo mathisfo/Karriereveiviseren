@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { courseSlice } from "../../store/slices/courseSlice";
 import { categorySlice } from "../../store/slices/categorySlice";
 import styles from "./CourseList.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CourseAccordion = () => {
   const dispatch = useAppDispatch();
@@ -96,42 +97,24 @@ const CourseAccordion = () => {
       </Grid.Row>
       <Grid.Row>
         <Accordion fluid styled>
-          <Accordion.Title
-            active={activeIndex === 1}
-            onClick={(e) => handleClick(1)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="briefcase" />
-            Arbeidsrettet {"   "}
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
-            <Grid.Row>{filteredCourses(1)}</Grid.Row>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 2}
-            onClick={(e) => handleClick(2)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="graduation cap" />
-            Utdanningsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 2}>
-            <Grid.Row>{filteredCourses(2)}</Grid.Row>
-          </Accordion.Content>
-          <Accordion.Title
-            active={activeIndex === 3}
-            onClick={(e) => handleClick(3)}
-            style={{ fontSize: 18 }}
-          >
-            <Icon name="dropdown" />
-            <Icon name="users" />
-            Samfunnsrettet
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 3}>
-            <Grid.Row>{filteredCourses(3)}</Grid.Row>
-          </Accordion.Content>
+          {categories.map((category) => (
+            <div>
+              <Accordion.Title
+                active={activeIndex === category.id}
+                onClick={(e) => handleClick(categories.indexOf(category) + 1)}
+                style={{ fontSize: 18 }}
+              >
+                <Icon name="dropdown" />
+                <Icon name={category.icon} />
+                {category.category}
+              </Accordion.Title>
+              <Accordion.Content
+                active={activeIndex === categories.indexOf(category) + 1}
+              >
+                <Grid.Row>{filteredCourses(category.id)}</Grid.Row>
+              </Accordion.Content>
+            </div>
+          ))}
         </Accordion>
       </Grid.Row>
     </Grid>

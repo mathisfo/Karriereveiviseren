@@ -12,10 +12,16 @@ import { AppState, useAppDispatch } from "./store/redux/store";
 import { fetchUser, userSlice } from "./store/slices/userSlice";
 import GoogleAuthLogin from "./components/GoogleAuthentication/GoogleAuthLogin";
 import Home from "./components/home";
-
 import "./App.css";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 function App() {
+  library.add(fas, fab);
+
   const { user, isSuccess, isError, errorMessage } = useSelector(
     (state: AppState) => state.user
   );
@@ -57,13 +63,13 @@ function App() {
                     <Home />
                   </Route>
                   <Route exact path="/courses">
-                    <CourseList isExpanded={true}/>
+                    <CourseList isExpanded={true} />
                   </Route>
                   <Route exact path="/mycourses">
-                    <UserCourses isExpanded={true}/>
+                    <UserCourses isExpanded={true} />
                   </Route>
                   <Route exact path="/progression">
-                    <Progression isExpanded={true}/>
+                    <Progression isExpanded={true} />
                   </Route>
                 </Switch>
               </div>
