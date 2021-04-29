@@ -13,6 +13,9 @@ dj-rest-auth = "*"
 djangorestframework-simplejwt = "*"
 pyjwt = "==1.7.0"
 djangorestframework-jwt = "*"
+gunicorn = "*"
+django-allauth = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"

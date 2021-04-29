@@ -4,9 +4,9 @@ import Container from "react-bootstrap/Container";
 import TopNavigator from "./components/TopNavigator";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import CourseList from "./components/courseList/";
-import UserCourses from "./components/userCourses/";
-import Progression from "./components/progression/";
+import CourseList from "./components/courseList";
+import UserCourses from "./components/userCourses";
+import Progression from "./components/progression";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "./store/redux/store";
 import { fetchUser, userSlice } from "./store/slices/userSlice";
