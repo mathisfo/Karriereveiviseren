@@ -10,7 +10,10 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 WORKDIR /inn01-project/backend
 
 # Install Python dependencies
-COPY ./backend/requirements.txt /inn01-project/backend/
+RUN pip install pipenv
+COPY Pipfile* /inn01-project/backend
+RUN pipenv lock --keep-outdated --requirements > requirements.txt
+# Install Python dependencies
 RUN pip3 install --upgrade pip -r requirements.txt
 
 # Install JS dependencies
