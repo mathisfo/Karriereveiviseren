@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
-from innapp.views import GoogleLogin 
+from innapp.views import GoogleLogin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/', include('innapp.api.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('login/', GoogleLogin.as_view(), name='google_login'),
+    path('faicon/', include('faicon.urls')),
 ]

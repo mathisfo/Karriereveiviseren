@@ -43,7 +43,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('url', 'id', 'category')
+        fields = ('url', 'id', 'category', 'icon')
 
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
