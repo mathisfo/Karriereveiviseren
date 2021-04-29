@@ -2,10 +2,23 @@ from django.db import models
 from django.utils.timezone import now
 from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
+from faicon.fields import FAIconField
+
+
+ICON_CHOICES = [
+    ("user", "Bruker"),
+    ("briefcase", "Koffert"),
+    ("graduation", "Utdanning"),
+    ("university", "Universitet"),
+    ("users", "Samfunn"),
+]
 
 
 class Category(models.Model):
     category = models.CharField('kategori', max_length=100, default="")
+    # icon = FAIconField()
+    icon = models.CharField(choices=ICON_CHOICES,
+                            default="Bruker", max_length=30)
 
     def __str__(self):
         return self.category

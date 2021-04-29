@@ -30,15 +30,15 @@ const UserCourseAccordion = () => {
                 course.isSelected ? (
                   <div>
                     <Accordion.Title
-                      active={activeIndex === courses.indexOf(course)}
-                      onClick={(e) => handleClick(courses.indexOf(course))}
+                      active={activeIndex === courses.indexOf(course) + 1}
+                      onClick={(e) => handleClick(courses.indexOf(course) + 1)}
                       className={styles.wordBreak}
                     >
                       <Icon name="dropdown" />
                       {course.title}
                     </Accordion.Title>
                     <Accordion.Content
-                      active={activeIndex === courses.indexOf(course)}
+                      active={activeIndex === courses.indexOf(course) + 1}
                       className={styles.wordBreak}
                     >
                       {course.description}

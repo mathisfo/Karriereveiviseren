@@ -17,6 +17,8 @@ import { AppState, useAppDispatch } from "../store/redux/store";
 import { courseSlice, selectCourse } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { InfoCircle } from "react-bootstrap-icons";
 
 interface IProps {
   id: number;
