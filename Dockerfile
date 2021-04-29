@@ -11,7 +11,7 @@ WORKDIR /inn01-project/backend
 
 # Install Python dependencies
 RUN pip install pipenv
-COPY ./backend/Pipfile* /inn01-project/backend
+COPY ./backend/Pipfile* /inn01-project/backend/
 RUN pipenv lock --keep-outdated --requirements > requirements.txt
 # Install Python dependencies
 RUN pip3 install --upgrade pip -r requirements.txt
