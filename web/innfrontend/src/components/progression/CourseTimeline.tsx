@@ -11,9 +11,9 @@ const CourseTimeline = () => {
     (state: AppState) => state.owncourses.ownCourseList
   );
 
-  const filteredCourses = courses.filter((course) => course.isSelected)
+  const filteredCourses = courses.filter((course) => course.isSelected);
 
-  const allCourses = [...filteredCourses, ...owncourses]
+  const allCourses = [...filteredCourses, ...owncourses];
 
   const monthNames = [
     "januar",
@@ -81,10 +81,9 @@ const CourseTimeline = () => {
 
   function setTag(course: Course) {
     if (course.restriction) {
-      return ["Spor " + course.restriction]
-    }
-    else {  
-      return ["Egendefinert"]
+      return ["Spor " + course.restriction];
+    } else {
+      return ["Egendefinert"];
     }
   }
 

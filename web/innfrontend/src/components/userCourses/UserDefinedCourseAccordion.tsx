@@ -77,10 +77,8 @@ const UserDefinedCourseAccordion = () => {
                   onOpen={() => setOpen(true)}
                   open={open}
                   trigger={
-                    <Button primary circular animated="vertical" size="tiny">
-                      <Button.Content visible>
-                        <Icon name="add" />
-                      </Button.Content>
+                    <Button icon color="facebook">
+                      <Icon name="add" />
                     </Button>
                   }
                 >
