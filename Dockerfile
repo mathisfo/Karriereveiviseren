@@ -3,7 +3,7 @@ FROM python:3.8
 # Install curl, node, & yarn
 RUN apt-get update
 RUN apt-get -y install curl gnupg
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
 RUN apt-get -y install nodejs
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
