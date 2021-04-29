@@ -20,7 +20,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-/server/innbackend/.env
+/innbackend/.env
 
 npm-debug.log*
 yarn-debug.log*
@@ -29,12 +29,12 @@ yarn-error.log*
 0*.py
 
 #db
-/server/innbackend/db.sqlite3
+/innbackend/db.sqlite3
 
 #django migrations
-/server/innbackend/innapp/migrations
-/server/innbackend/innbackend/migrations
-/server/innbackend/userpreferences/migrations
+/innbackend/innapp/migrations
+/innbackend/innbackend/migrations
+/innbackend/userpreferences/migrations
 
 #django
 /backend/innbackend/__pycache__
