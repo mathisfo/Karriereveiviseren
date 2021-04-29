@@ -80,7 +80,7 @@ const UserCourseAccordion = () => {
         </Grid.Column>
         <Grid.Column>
           <Accordion fluid styled>
-            <Header h1 ></Header>
+            <Header h1></Header>
             {owncourses.map((owncourse: any) =>
               owncourses.length > 0 ? (
                 <div>
@@ -95,6 +95,11 @@ const UserCourseAccordion = () => {
                     active={activeIndex === owncourses.indexOf(owncourse.title)}
                   >
                     {owncourse.description}
+                    <Button
+                      onClick={() => ownCourseSlice.actions.removeOwnCourse}
+                    >
+                      Slett
+                    </Button>
                   </Accordion.Content>
                 </div>
               ) : (

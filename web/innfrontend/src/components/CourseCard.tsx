@@ -49,12 +49,13 @@ const CourseCard: FC<Course> = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const courses = useSelector((state: AppState) => state.courses.courseList);
+  const user = useSelector((state: AppState) => state.user.user);
 
   const putSelectedCourse = async () => {
     axios.put(
-      "api/userpreferences/1/",
+      `api/userpreferences/${user.id}/`,
       {
-        user: "http://127.0.0.1:8000/api/users/1/",
+        user: `http://127.0.0.1:8000/api/users/${user.id}/`,
         selected: courses?.filter((e) => e.isSelected).map((e) => e.url),
       },
 

@@ -15,6 +15,7 @@ export const courseSlice = createSlice({
     }),
     addCourse: (state: CourseState, action: PayloadAction<Course>) => ({
       
+      
       courseList: [...state.courseList, action.payload]
     }),
     selectCourse: (state: CourseState, action: PayloadAction<Course>) => {
@@ -35,6 +36,7 @@ export const courseSlice = createSlice({
 
         }
       });
+      //TODO: Currently not working
       axios.put(
         "api/userpreferences/1/",
         {

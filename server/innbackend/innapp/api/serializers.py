@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 
 
 class userPreferenceSerializer(serializers.HyperlinkedModelSerializer):
+    lookup_field = 'user'
+
     class Meta:
         model = UserPreference
         fields = ('url', 'id', 'user', 'selected')
