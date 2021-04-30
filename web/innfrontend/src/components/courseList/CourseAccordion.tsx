@@ -67,7 +67,7 @@ const CourseAccordion = () => {
         <h2> Tiltak </h2>
       </Grid.Row>
 
-      <Grid.Row>
+      <Grid.Row style= {{marginBottom: "1em"}}>
         <Grid.Row className={styles.checkboxRow} md={2}>
           <Checkbox
             checked={box1}
@@ -88,7 +88,6 @@ const CourseAccordion = () => {
             style={{ marginRight: "2em" }}
           />
           <Input
-            style={{ marginBottom: "0.2em" }}
             icon="search"
             placeholder="Search..."
             onChange={(e: any) => setInput(e.target.value)}
