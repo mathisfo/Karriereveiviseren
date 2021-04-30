@@ -25,7 +25,6 @@ const UserDefinedCourseAccordion = () => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   const dispatch = useAppDispatch();
-  const user = useSelector((state: AppState) => state.user.user);
   const owncourses = useSelector(
     (state: AppState) => state.owncourses.ownCourseList
   );
@@ -36,19 +35,11 @@ const UserDefinedCourseAccordion = () => {
     setActiveIndex(newIndex);
   }
 
-  function setError(error: any) {
-    throw new Error("Function not implemented.");
-  }
-
-  const fetchCourses = async () => {
-    dispatch(fetchCourse());
-    dispatch(fetchUserpreference(user));
-  };
-
   const fetchOwnCourses = async () => {
     let response = await axios
       .get("api/owncourse/", { withCredentials: true })
       .then((result) => {
+        dispatch(ownCourseSlice.actions.resetOwnCourses());
         let courses: Array<OwnCourse> = result.data;
         courses.map((course) => {
           dispatch(ownCourseSlice.actions.addOwnCourse(course));
@@ -57,7 +48,6 @@ const UserDefinedCourseAccordion = () => {
   };
 
   useEffect(() => {
-    fetchCourses();
     fetchOwnCourses();
   }, []);
 

@@ -27,8 +27,10 @@ const CourseList = (props: Iprops) => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
 
   const fetchCourses = async () => {
-    dispatch(fetchCourse());
-    dispatch(fetchUserpreference(user));
+    if (courses.length == 0) {
+      dispatch(fetchCourse());
+      dispatch(fetchUserpreference(user));
+    }
   };
 
   useEffect(() => {

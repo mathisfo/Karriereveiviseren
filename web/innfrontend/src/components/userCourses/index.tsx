@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Grid } from "semantic-ui-react";
+import { AppState, useAppDispatch } from "../../store/redux/store";
+import {
+  fetchCourse,
+  fetchUserpreference,
+} from "../../store/slices/courseSlice";
 import UserCourseAccordion from "./UserCourseAccordion";
 import UserDefinedCourseAccordion from "./UserDefinedCourseAccordion";
 
@@ -10,8 +16,22 @@ interface Iprops {
 }
 
 const UserCourses = (props: Iprops) => {
+  const dispatch = useAppDispatch();
+  const user = useSelector((state: AppState) => state.user.user);
+  const courses = useSelector((state: AppState) => state.courses.courseList);
   const [isExpanded, setIsExpanded] = useState(false);
   const [componentStyling, setComponentStyling] = useState("");
+
+  const fetchCourses = () => {
+    if (courses.length == 0) {
+      dispatch(fetchCourse());
+      dispatch(fetchUserpreference(user));
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
 
   useEffect(() => {
     setIsExpanded(props.isExpanded);
