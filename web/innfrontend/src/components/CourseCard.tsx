@@ -17,6 +17,8 @@ import { AppState, useAppDispatch } from "../store/redux/store";
 import { courseSlice, selectCourse } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { InfoCircle } from "react-bootstrap-icons";
 
 interface IProps {
   id: number;
@@ -34,13 +36,13 @@ interface IProps {
 function setColor(modul?: number) {
   switch (modul) {
     case 1:
-      return "yellow";
+      return "#ffc971";
     case 2:
-      return "green";
+      return "#cfe1b9";
     case 3:
-      return "red";
+      return "#e28080";
     default:
-      return "teal";
+      return "#adb5bd";
   }
 }
 
@@ -68,7 +70,7 @@ const CourseCard: FC<Course> = (props) => {
 */
 
   function selectCard() {
-    dispatch(selectCourse({course: props, user: user}));
+    dispatch(selectCourse({ course: props, user: user }));
     //dispatch(courseSlice.actions.selectCourse(props));
     //putSelectedCourse();
   }
@@ -97,15 +99,15 @@ const CourseCard: FC<Course> = (props) => {
 
   return (
     <div>
-      <Card style={{ margin: "1.2em" }} centered>
+      <Card
+        style={{ margin: "1.2em", background: setColor(props.restriction) }}
+        centered
+      >
         <Card.Content>
           <Card.Header>
             {props.title}
 
-            <Label
-              color={setColor(props.restriction)}
-              style={{ float: "right", margin: 4 }}
-            >
+            <Label inverted style={{ float: "right", margin: 4 }}>
               {" "}
               Spor {props.restriction}{" "}
             </Label>
@@ -113,19 +115,13 @@ const CourseCard: FC<Course> = (props) => {
           <Card.Meta>{props.category}</Card.Meta>
         </Card.Content>
         <Card.Content extra>
-          <div className="ui two buttons">
+          <div className="">
             <Modal
               onClose={() => setOpen(false)}
               onOpen={() => setOpen(true)}
               open={open}
               trigger={
-                <Button
-                  fluid
-                  basic
-                  color="black"
-                  content="Black"
-                  style={{ marginRight: "1em" }}
-                >
+                <Button icon color="facebook">
                   <Icon name="info circle" />
                 </Button>
               }
@@ -161,6 +157,8 @@ const CourseCard: FC<Course> = (props) => {
             <Checkbox
               label="Velg"
               basic
+              style={{ float: "right", margin: 4 }}
+              slider
               checked={props.isSelected}
               onChange={() => selectCard()}
             ></Checkbox>
