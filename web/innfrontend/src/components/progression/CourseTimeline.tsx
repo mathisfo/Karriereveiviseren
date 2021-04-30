@@ -4,6 +4,7 @@ import Timeline from "react-timeline-semantic-ui";
 import { Container, Icon } from "semantic-ui-react";
 import { Course } from "../../store/interfaces/Course";
 import { AppState } from "../../store/redux/store";
+import { convertTime } from "../Helpers"
 
 const CourseTimeline = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -14,21 +15,6 @@ const CourseTimeline = () => {
   const filteredCourses = courses.filter((course) => course.isSelected);
 
   const allCourses = [...filteredCourses, ...owncourses];
-
-  const monthNames = [
-    "januar",
-    "februar",
-    "mars",
-    "april",
-    "mai",
-    "juni",
-    "juli",
-    "august",
-    "september",
-    "oktober",
-    "november",
-    "desember",
-  ];
 
   function cardDirection(courseid: number) {
     if (courseid % 2 === 0) {
@@ -49,17 +35,6 @@ const CourseTimeline = () => {
       default:
         return "teal";
     }
-  }
-
-  function convertTime(time: string) {
-    return (
-      time.slice(8, 10) +
-      "." +
-      " " +
-      monthNames[Number(time.slice(5, 7))] +
-      " " +
-      time.slice(0, 4)
-    );
   }
 
   function setIcon(icon: number) {

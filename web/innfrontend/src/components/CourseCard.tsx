@@ -19,6 +19,7 @@ import { Course } from "../store/interfaces/Course";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { InfoCircle } from "react-bootstrap-icons";
+import { convertTime } from "./Helpers"
 
 interface IProps {
   id: number;
@@ -88,6 +89,7 @@ const CourseCard: FC<Course> = (props) => {
             to="googleClassroom"
             target="_blank"
             onClick={openTab}
+            style= {{ color: "white"}}
           >
             <Iconify icon={googleClassroom} width="1.7em" color="white" />{" "}
             Google Classroom
@@ -117,6 +119,8 @@ const CourseCard: FC<Course> = (props) => {
         <Card.Content extra>
           <div className="">
             <Modal
+            size="tiny"
+            style={{height: "auto", top: "auto", left: "auto", right: "auto", bottom: "auto"}}
               onClose={() => setOpen(false)}
               onOpen={() => setOpen(true)}
               open={open}
@@ -125,7 +129,6 @@ const CourseCard: FC<Course> = (props) => {
                   <Icon name="info circle" />
                 </Button>
               }
-              size="tiny"
             >
               <Modal.Header>
                 {props.title}
@@ -133,9 +136,11 @@ const CourseCard: FC<Course> = (props) => {
               </Modal.Header>
               <Modal.Content>
                 <Modal.Description>
-                  <Header>{props.category}</Header>
-                  <p>{props.shortDescription}</p>
+                  <p><b>{props.shortDescription}</b></p>
                   <p>{props.description}</p>
+                  <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
+              {convertTime(props.startDate)} til {" "}
+              {convertTime(props.endDate)}.</p>
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>
