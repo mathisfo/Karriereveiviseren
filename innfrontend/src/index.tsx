@@ -11,6 +11,7 @@ import { store } from "./store/redux/store";
 axios.defaults.baseURL = "/";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
+//axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 ReactDOM.render(
   <React.StrictMode>

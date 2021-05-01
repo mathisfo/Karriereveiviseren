@@ -36,6 +36,16 @@ const GoogleAuthLogin = () => {
 
   return (
     <div className="login">
+      <p className="tempText">
+        Dette er en testutgave laget av NTNU studenter for INN. Som en følge av
+        dette kan det hende at all funksjonalitet ikke er tilpasset alle
+        nettlesere på markedet. Utviklerteamet anbefaler å bruke Chromium
+        baserte nettlesere eller Safari da Firefox ikke er ferdig støttet. Kun
+        gyldige Trovo kontoer fra Google kan brukes til å logge inn. Innlogging
+        gjennom inkognito modus i Google Chrome er ikke mulig på dette
+        tidspunktet grunnet en inkompatibilitet med hvordan nettleseren
+        håndterer forespørsler.
+      </p>
       <GoogleLogin
         className="loginButton"
         clientId="246400382917-thmpcrkkuklceq5doiqsfv16qafvq9kr.apps.googleusercontent.com"

@@ -10,16 +10,25 @@ type APIUser = {
   pk: number;
 };
 
+type APITokens = {
+  refresh_token: string | null,
+  access_token: string | null,
+}
+
 type FetchUserError = {
   message: string;
 };
 
 export const fetchUser = createAsyncThunk<
   APIUser,
-  undefined,
+  APITokens,
   { rejectValue: FetchUserError }
->("users/fetch", async (undefined, thunkAPI) => {
+>("users/fetch", async (tokens, thunkAPI) => {
   let response = await axios.get("dj-rest-auth/user/", {
+    headers: {
+      "access_token": tokens.access_token,
+      "refresh_token": tokens.refresh_token,
+    },
     withCredentials: true,
   });
   let result = await response.data;
@@ -45,6 +54,8 @@ export const loginUser = createAsyncThunk<
   if (response.status != 200) {
     return thunkAPI.rejectWithValue(result);
   }
+  localStorage.setItem("access_token", accesstoken);
+  localStorage.setItem("refresh_token", result.refresh_token);
   return result.user;
 });
 
@@ -104,6 +115,8 @@ export const userSlice = createSlice({
     builder.addCase(logoutUser.fulfilled, (state) => {
       state.user.email = "";
       state.user.name = "";
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
       window.location.reload();
     });
     builder.addCase(logoutUser.rejected, (state, { payload }) => {
@@ -118,7 +131,7 @@ export const userSlice = createSlice({
     builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
       state.user.email = payload.email;
       state.user.name = payload.first_name;
-      state.user.id = payload.pk
+      state.user.id = payload.pk;
       state.isFetching = false;
       state.isSuccess = true;
       return state;

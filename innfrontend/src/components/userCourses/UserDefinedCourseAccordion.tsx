@@ -60,39 +60,6 @@ const UserDefinedCourseAccordion = () => {
               <Grid.Column>
                 <Header h1>Egendefinerte </Header>
               </Grid.Column>
-              <Grid.Column></Grid.Column>
-              <Grid.Column>
-                <Modal
-                  onClose={() => setOpen(false)}
-                  onOpen={() => setOpen(true)}
-                  open={open}
-                  trigger={
-                    <Button primary circular animated="vertical" size="tiny">
-                      <Button.Content visible>
-                        <Icon name="add" />
-                      </Button.Content>
-                    </Button>
-                  }
-                >
-                  <Modal.Content>
-                    <SubmitCourseForm />
-                  </Modal.Content>
-                  <Modal.Actions>
-                    <Button
-                      content="Legg til aktivitet"
-                      labelPosition="right"
-                      icon="checkmark"
-                      onClick={() => setOpen(false)}
-                      positive
-                    />
-                    <Button
-                      content="Avbryt"
-                      color="red"
-                      onClick={() => setOpen(false)}
-                    />
-                  </Modal.Actions>
-                </Modal>
-              </Grid.Column>
             </Grid>
           </Grid.Row>
 
@@ -117,6 +84,37 @@ const UserDefinedCourseAccordion = () => {
                 </div>
               ))}
             </Accordion>
+          </Grid.Row>
+          <Grid.Row>
+
+                <Modal
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                  open={open}
+                  trigger={
+                    <Button icon color="facebook">
+                        <Icon name="add" />
+                    </Button>
+                  }
+                >
+                  <Modal.Content>
+                    <SubmitCourseForm />
+                  </Modal.Content>
+                  <Modal.Actions>
+                    <Button
+                      content="Legg til aktivitet"
+                      labelPosition="right"
+                      icon="checkmark"
+                      onClick={() => setOpen(false)}
+                      positive
+                    />
+                    <Button
+                      content="Avbryt"
+                      color="red"
+                      onClick={() => setOpen(false)}
+                    />
+                  </Modal.Actions>
+                </Modal>
           </Grid.Row>
         </Grid.Column>
       </Grid>

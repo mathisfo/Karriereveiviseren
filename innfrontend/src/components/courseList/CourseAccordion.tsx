@@ -103,7 +103,7 @@ const CourseAccordion = () => {
           >
             <Icon name="dropdown" />
             <Icon name="briefcase" />
-            Arbeidsrettet {"   "}
+            Startfase {"   "}
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
             <Grid.Row>{filteredCourses(1)}</Grid.Row>
@@ -115,7 +115,7 @@ const CourseAccordion = () => {
           >
             <Icon name="dropdown" />
             <Icon name="graduation cap" />
-            Utdanningsrettet
+            Samfunnsdeltakelse
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
             <Grid.Row>{filteredCourses(2)}</Grid.Row>
@@ -127,12 +127,43 @@ const CourseAccordion = () => {
           >
             <Icon name="dropdown" />
             <Icon name="users" />
-            Samfunnsrettet
+            Karrierelæring
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
             <Grid.Row>{filteredCourses(3)}</Grid.Row>
           </Accordion.Content>
-        </Accordion>
+          <Grid columns="2">
+              <Grid.Column width={8}>
+                <Accordion.Title
+                  active={activeIndex === 4}
+                  onClick={(e) => handleClick(4)}
+                  style={{ fontSize: 18 }}
+                >
+                  <Icon name="dropdown" />
+                  <Icon name="users" />
+                  Veien til Utdanning
+                </Accordion.Title>
+              </Grid.Column>
+              <Grid.Column width={8} floated="right">
+                <Accordion.Title
+                  active={activeIndex === 5}
+                  onClick={(e) => handleClick(5)}
+                  style={{ fontSize: 18 }}
+                >
+                  <Icon name="dropdown" />
+                  <Icon name="users" />
+                  Veien til Arbeid
+                </Accordion.Title>
+              </Grid.Column>
+          </Grid>
+                <Accordion.Content active={activeIndex === 4}>
+                  <Grid.Row>{filteredCourses(4)}</Grid.Row>
+                </Accordion.Content>
+
+                <Accordion.Content active={activeIndex === 5}>
+                  <Grid.Row>{filteredCourses(5)}</Grid.Row>
+                </Accordion.Content>
+          </Accordion>
       </Grid.Row>
     </Grid>
   );
