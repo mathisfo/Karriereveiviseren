@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
 import { useSelector } from "react-redux";

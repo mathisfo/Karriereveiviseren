@@ -1,11 +1,8 @@
 import axios from "axios";
-import { callbackify } from "node:util";
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { Button, Checkbox, Dropdown, Form, Icon, Input } from "semantic-ui-react";
-import { Course } from "../store/interfaces/Course";
+import { Button, Form, Input } from "semantic-ui-react";
 import { useAppDispatch, AppState } from "../store/redux/store";
-import { courseSlice } from "../store/slices/courseSlice";
 import { ownCourseSlice } from "../store/slices/ownCourseSlice";
 
 interface IProps {
@@ -14,12 +11,6 @@ interface IProps {
 
 const SubmitCourseForm:FC<IProps> = ( { handleSave } ) => {
   const dispatch = useAppDispatch();
-  const courses = useSelector((state: AppState) => state.courses.courseList);
-  const categories = useSelector(
-    (state: AppState) => state.categories.categoryList
-  );
-  const [saved, setSaved] = React.useState(false);
-
   const user = useSelector((state: AppState) => state.user.user);
 
 

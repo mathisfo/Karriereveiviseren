@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "semantic-ui-react";
 import CourseAccordion from "./CourseAccordion";
 import { AppState, store, useAppDispatch } from "../../store/redux/store";
 import {
-  courseSlice,
   fetchCourse,
   fetchUserpreference,
 } from "../../store/slices/courseSlice";
-import axios from "axios";
 import { useSelector } from "react-redux";
-
 import styles from "./CourseList.module.css";
 
 // TODO: adjust style based on props from parent. If self-contained

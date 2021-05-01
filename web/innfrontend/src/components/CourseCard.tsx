@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC } from "react";
 import {
   Card,
   Button,
@@ -6,7 +6,6 @@ import {
   Icon,
   Label,
   Modal,
-  Header,
 } from "semantic-ui-react";
 import { Icon as Iconify } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
@@ -14,11 +13,8 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../store/redux/store";
-import { courseSlice, selectCourse } from "../store/slices/courseSlice";
+import { selectCourse } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { InfoCircle } from "react-bootstrap-icons";
 import { convertTime } from "./Helpers"
 
 interface IProps {

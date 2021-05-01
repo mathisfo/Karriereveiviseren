@@ -4,10 +4,8 @@ import { Accordion, Checkbox, Grid, Icon, Input } from "semantic-ui-react";
 import axios from "axios";
 import { AppState, useAppDispatch } from "../../store/redux/store";
 import { useSelector } from "react-redux";
-import { courseSlice } from "../../store/slices/courseSlice";
 import { categorySlice } from "../../store/slices/categorySlice";
 import styles from "./CourseList.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CourseAccordion = () => {
   const dispatch = useAppDispatch();

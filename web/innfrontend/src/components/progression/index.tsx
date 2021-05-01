@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "semantic-ui-react";
 import CourseChart from "./CourseChart";
 import CourseTimeline from "./CourseTimeline";
 
