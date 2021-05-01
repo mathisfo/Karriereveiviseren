@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Timeline from "react-timeline-semantic-ui";
-import { Container, Icon } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import { Course } from "../../store/interfaces/Course";
 import { AppState } from "../../store/redux/store";
 import { convertTime } from "../Helpers"

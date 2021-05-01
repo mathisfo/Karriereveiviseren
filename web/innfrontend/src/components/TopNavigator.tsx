@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, NavLink, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../TopNavigator.css";
-import { Grid, Icon, Menu, MenuHeaderProps } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import GoogleAuthLogout from "./GoogleAuthentication/GoogleAuthLogout";
 import logo from "../statics/logo_transparent_small.png"
 

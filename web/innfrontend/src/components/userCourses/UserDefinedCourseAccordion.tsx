@@ -11,10 +11,6 @@ import {
 } from "semantic-ui-react";
 import { OwnCourse } from "../../store/interfaces/OwnCourse";
 import { AppState, useAppDispatch } from "../../store/redux/store";
-import {
-  fetchCourse,
-  fetchUserpreference,
-} from "../../store/slices/courseSlice";
 import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import SubmitCourseForm from "../SubmitCourseForm";
 
