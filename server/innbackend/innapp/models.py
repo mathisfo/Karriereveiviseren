@@ -58,7 +58,7 @@ class Course(models.Model):
     # other = models.ArrayField()
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, related_name="category1")
-    classroom = models.CharField('link', max_length=150, default="")
+    classroom = models.URLField('link', max_length=200, default="")
 
     def __str__(self):
         return self.title
