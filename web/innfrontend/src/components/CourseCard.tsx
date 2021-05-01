@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../store/redux/store";
 import { selectCourse } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
-import { convertTime } from "./Helpers"
+import { convertTime, setColor } from "./Helpers"
 
 interface IProps {
   id: number;
@@ -28,19 +28,6 @@ interface IProps {
   isSelected: boolean;
   category: string;
   classroom: string;
-}
-
-function setColor(modul?: number) {
-  switch (modul) {
-    case 1:
-      return "#ffc971";
-    case 2:
-      return "#cfe1b9";
-    case 3:
-      return "#e28080";
-    default:
-      return "#adb5bd";
-  }
 }
 
 const CourseCard: FC<Course> = (props) => {

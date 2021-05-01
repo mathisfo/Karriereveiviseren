@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
+import { Divider, Grid } from "semantic-ui-react";
 import CourseList from "../courseList";
 import Progression from "../progression";
 import UserCourses from "../userCourses";
@@ -11,7 +11,7 @@ import UserCourses from "../userCourses";
 const Home = () => {
   return (
     <div>
-      <Grid columns={2}>
+      <Grid doubling columns={2}>
         <Grid.Row>
           <Grid.Column>
             <CourseList isExpanded={false} />
@@ -21,6 +21,7 @@ const Home = () => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row></Grid.Row>
+        <Divider style= {{marginBottom: "5em"}} />
         <Grid.Row>
           <Progression isExpanded={false} />
         </Grid.Row>

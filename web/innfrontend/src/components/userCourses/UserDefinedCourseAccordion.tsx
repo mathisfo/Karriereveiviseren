@@ -62,7 +62,7 @@ const UserDefinedCourseAccordion = () => {
           <Grid.Row>
             <Grid columns={3}>
               <Grid.Column>
-                <Header h1 style={{marginBottom: "1em"}}>Egendefinerte </Header>
+                <Header as="h2" style={{marginBottom: "1em"}}>Egendefinerte </Header>
               </Grid.Column>
             </Grid>
           </Grid.Row>

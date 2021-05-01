@@ -28,3 +28,16 @@ export function convertTime(time: string) {
       time.slice(0, 4)
     );
   }
+
+export function setColor(modul?: number) {
+    switch (modul) {
+      case 1:
+        return "#ffc971";
+      case 2:
+        return "#cfe1b9";
+      case 3:
+        return "#e28080";
+      default:
+        return "#adb5bd";
+    }
+  }

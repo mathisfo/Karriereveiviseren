@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Timeline from "react-timeline-semantic-ui";
-import { Container } from "semantic-ui-react";
+import { Container, Grid, Header } from "semantic-ui-react";
 import { Course } from "../../store/interfaces/Course";
 import { AppState } from "../../store/redux/store";
 import { convertTime } from "../Helpers"
@@ -64,6 +64,9 @@ const CourseTimeline = () => {
 
   return (
     <Container>
+      <Grid.Row>
+      <Header as="h2" style={{marginBottom: "5em"}}>Mitt introduksjonsprogram</Header>
+      </Grid.Row>
       {allCourses
         .sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
         .map((course: any, index: number) => (
@@ -81,7 +84,7 @@ const CourseTimeline = () => {
             }
             color={setColor(course.restriction)}
             tags={setTag(course)}
-            lineHeight={4}
+            lineHeight={allCourses.length-1}
           />
         ))}
     </Container>

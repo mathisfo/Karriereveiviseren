@@ -43,7 +43,7 @@ const UserCourses = (props: Iprops) => {
 
   return (
     <div>
-      <Grid columns={2}>
+      <Grid doubling columns={2}>
         <Grid.Row>
           <h2> Mine aktiviteter </h2>
         </Grid.Row>

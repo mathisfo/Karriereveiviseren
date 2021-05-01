@@ -5,7 +5,7 @@ import { AppState } from "../../store/redux/store";
 import { Accordion, Grid, Header, Icon, Label } from "semantic-ui-react";
 
 import styles from "./UserCourse.module.css";
-import { convertTime } from "../Helpers"
+import { convertTime, setColor } from "../Helpers"
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -22,7 +22,7 @@ const UserCourseAccordion = () => {
       <Grid padded>
         <Grid.Column>
           <Grid.Row>
-            <Header h1 style= {{marginBottom: "1em"}}>INN</Header>
+            <Header as="h2" style= {{marginBottom: "1em"}}>INN</Header>
           </Grid.Row>
 
           <Grid.Row>
@@ -31,7 +31,7 @@ const UserCourseAccordion = () => {
                 course.isSelected ? (
                   <div>
                     <Accordion.Title
-                     style={{ fontSize: 18 }}
+                     style={{ fontSize: 18, background: setColor(course.restriction) }}
                       active={activeIndex === courses.indexOf(course) + 1}
                       onClick={(e) => handleClick(courses.indexOf(course) + 1)}
                       className={styles.wordBreak}

@@ -9,7 +9,7 @@ const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("/");
 
   return (
-    <Menu tabular stackable size="massive">
+    <Menu secondary stackable size="massive">
     <Menu.Item>
     <img src={logo} style={{width: "14em"}}></img>
     </Menu.Item>
