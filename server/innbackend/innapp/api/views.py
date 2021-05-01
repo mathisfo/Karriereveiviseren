@@ -34,9 +34,6 @@ class OwnCourseViewSet(viewsets.ModelViewSet):
 
     @api_view(['GET'])
     def current_user(self, request):
-        """
-        Determine the current user by their token, and return their data
-        """
         print(request.user.id)
         serializer = UserSerializer(request.user)
         return Response(serializer.data)

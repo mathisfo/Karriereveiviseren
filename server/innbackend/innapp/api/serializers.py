@@ -36,8 +36,6 @@ class OwnCourseSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
-    #course = CourseSerializer(read_only=True, many=True)
-
     def create(self, validated_data):
         return Category.objects.create(**validated_data)
 
@@ -47,9 +45,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
-    # user = serializers.HyperlinkedRelatedField(
-    #    view_name='user-detail', queryset=User.objects.all())
-
+    
     user = serializers.PrimaryKeyRelatedField(
         many=False, queryset=User.objects.all()
     )

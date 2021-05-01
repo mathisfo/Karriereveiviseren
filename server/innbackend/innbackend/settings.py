@@ -52,7 +52,6 @@ INSTALLED_APPS = [
 
     'innapp',
     'userpreferences',
-    'faicon'
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -75,9 +74,6 @@ JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
 
 # Make sure this corresponds with the site set in http://127.0.0.1:8000/admin/sites/site/
 SITE_ID = 8
-
-FAICON_YAML_FILE = 'fontawesome/metadata/icons.yml'
-FAICON_CSS_URL = 'fontawesome/css/all.css'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

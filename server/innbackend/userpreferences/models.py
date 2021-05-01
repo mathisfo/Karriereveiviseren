@@ -11,11 +11,7 @@ from innapp.models import Course, OwnCourse
 class UserPreference(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     selected = models.ManyToManyField(Course, blank=True, null=True, default=[])
-    # owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-
-    # selectedOwn = models.ManyToManyField(
-    #    OwnCourse, blank=True, default=[])
-
+    
     def __str__(self):
 
         return str(self.user) + ' sin plan'
