@@ -1,7 +1,6 @@
-from innapp.models import Course
+
 from userpreferences.models import UserPreference
-from innapp.models import Course, Category
-from userpreferences.models import OwnCourse
+from activity.models import Course, Category, OwnCourse
 
 from rest_framework import serializers
 from django.contrib.auth.models import User
