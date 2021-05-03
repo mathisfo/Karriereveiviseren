@@ -15,6 +15,9 @@ pyjwt = "==1.7.0"
 djangorestframework-jwt = "*"
 django-faicon = "*"
 django-semantic-admin = "*"
+django-allauth = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"
