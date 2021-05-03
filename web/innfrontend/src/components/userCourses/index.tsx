@@ -50,10 +50,10 @@ const UserCourses = (props: Iprops) => {
         <Grid.Row></Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <UserCourseAccordion />
+          <UserDefinedCourseAccordion />
           </Grid.Column>
           <Grid.Column>
-            <UserDefinedCourseAccordion />
+          <UserCourseAccordion />
           </Grid.Column>
         </Grid.Row>
       </Grid>

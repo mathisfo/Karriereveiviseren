@@ -5,7 +5,7 @@ import { AppState } from "../../store/redux/store";
 import { Accordion, Grid, Header, Icon, Label } from "semantic-ui-react";
 
 import styles from "./UserCourse.module.css";
-import { convertTime, setColor } from "../Helpers"
+import { convertDate, setColor } from "../Helpers"
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -45,8 +45,8 @@ const UserCourseAccordion = () => {
                     >
                       <p>{course.description}</p>
                       <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
-              {convertTime(course.startDate)} til {" "}
-              {convertTime(course.endDate)}.</p>
+              {convertDate(course.startDate)} til {" "}
+              {convertDate(course.endDate)}.</p>
               <Label inverted>
               {" "}
               Spor {course.restriction}{" "}

@@ -15,7 +15,7 @@ import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import SubmitCourseForm from "../SubmitCourseForm";
 
 import styles from "./UserCourse.module.css";
-import { convertTime } from "../Helpers"
+import { convertDate } from "../Helpers"
 
 const UserDefinedCourseAccordion = () => {
   const [open, setOpen] = useState(false);
@@ -87,8 +87,8 @@ const UserDefinedCourseAccordion = () => {
                     <p>{course.description}</p>
                     <p><Icon name="trophy"/><b> Mål: </b>{course.goal}</p>
                     <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
-              {convertTime(course.startDate)} til {" "}
-              {convertTime(course.endDate)}.</p>
+              {convertDate(course.startDate)} til {" "}
+              {convertDate(course.endDate)}.</p>
 
                   </Accordion.Content>
                 </div>

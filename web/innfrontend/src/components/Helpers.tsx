@@ -3,7 +3,7 @@
 
 import React from "react";
 
-export function convertTime(time: string) {
+export function convertDate(time: string) {
     const monthNames = [
         "januar",
         "februar",
@@ -29,12 +29,18 @@ export function convertTime(time: string) {
     );
   }
 
+export function convertHours(time: string) {
+  return (
+    time.slice(11, 16)
+  )
+}
+
 export function setColor(modul?: number) {
     switch (modul) {
       case 1:
-        return "#ffc971";
-      case 2:
         return "#cfe1b9";
+      case 2:
+        return "#ffc971";
       case 3:
         return "#e28080";
       default:

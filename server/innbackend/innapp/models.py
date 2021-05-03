@@ -11,6 +11,8 @@ ICON_CHOICES = [
     ("graduation", "Utdanning"),
     ("university", "Universitet"),
     ("users", "Samfunn"),
+    ("building outline", "Leilighet"),
+    ("lightbulb", "Lyspære")
 ]
 
 

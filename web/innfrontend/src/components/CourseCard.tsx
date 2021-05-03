@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../store/redux/store";
 import { selectCourse } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
-import { convertTime, setColor } from "./Helpers"
+import { convertDate, convertHours, setColor } from "./Helpers"
 
 interface IProps {
   id: number;
@@ -97,7 +97,9 @@ const CourseCard: FC<Course> = (props) => {
               Spor {props.restriction}{" "}
             </Label>
           </Card.Header>
-          <Card.Meta>{props.category}</Card.Meta>
+          <Card.Meta><p><Icon name="calendar alternate outline"/>
+              {convertDate(props.startDate)} - {" "}
+              {convertDate(props.endDate)}</p></Card.Meta>
         </Card.Content>
         <Card.Content extra>
           <div className="">
@@ -122,8 +124,9 @@ const CourseCard: FC<Course> = (props) => {
                   <p><b>{props.shortDescription}</b></p>
                   <p>{props.description}</p>
                   <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
-              {convertTime(props.startDate)} til {" "}
-              {convertTime(props.endDate)}.</p>
+              {convertDate(props.startDate)} til {" "}
+              {convertDate(props.endDate)}.</p>
+                  <p><Icon name="clock"/>Kl. {" "} {convertHours(props.startDate)} </p>
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../TopNavigator.css";
 import { Menu } from "semantic-ui-react";
 import GoogleAuthLogout from "./GoogleAuthentication/GoogleAuthLogout";
-import logo from "../statics/logo_transparent_small.png"
+import logo from "../statics/logo_transparent.png"
 
 const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("/");

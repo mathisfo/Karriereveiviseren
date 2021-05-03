@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CourseCard from "../CourseCard";
-import { Accordion, Checkbox, Grid, Icon, Input } from "semantic-ui-react";
+import { Accordion, Checkbox, Grid, Icon, Input, Label } from "semantic-ui-react";
 import axios from "axios";
 import { AppState, useAppDispatch } from "../../store/redux/store";
 import { useSelector } from "react-redux";
@@ -62,29 +62,28 @@ const CourseAccordion = () => {
   return (
     <Grid>
       <Grid.Row>
-        <h2> Tiltak </h2>
+        <h2> Velg aktiviteter </h2>
       </Grid.Row>
-
       <Grid.Row style= {{marginBottom: "1em"}}>
         <Grid.Row className={styles.checkboxRow} md={2}>
-          <Checkbox
+        <Label style={{height: "2.3em", marginRight: "2em", background: "#cfe1b9"}}>
+      <Checkbox
             checked={box1}
-            label="Spor 1"
             onClick={() => setBox1(!box1)}
-            style={{ marginRight: "1em" }}
           />
-          <Checkbox
+    </Label>
+    <Label style={{height: "2.3em", marginRight: "2em", background: "#ffc971"}}>
+      <Checkbox
             checked={box2}
-            label="Spor 2"
             onClick={() => setBox2(!box2)}
-            style={{ marginRight: "1em" }}
           />
-          <Checkbox
-            checked={box3}
-            label="Spor 3"
+    </Label>
+    <Label style={{height: "2.3em", marginRight: "2em", background: "#e28080"}}>
+      <Checkbox
+            checked={box1}
             onClick={() => setBox3(!box3)}
-            style={{ marginRight: "2em" }}
           />
+    </Label>
           <Input
             icon="search"
             placeholder="Search..."

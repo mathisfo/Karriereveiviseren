@@ -4,7 +4,7 @@ import Timeline from "react-timeline-semantic-ui";
 import { Container, Grid, Header } from "semantic-ui-react";
 import { Course } from "../../store/interfaces/Course";
 import { AppState } from "../../store/redux/store";
-import { convertTime } from "../Helpers"
+import { convertDate } from "../Helpers"
 
 const CourseTimeline = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -74,17 +74,17 @@ const CourseTimeline = () => {
             direction={cardDirection(index)}
             icon={setIcon(course.category)}
             title={course.title}
-            time={convertTime(course.startDate)}
+            time={convertDate(course.startDate)}
             description={
               course.shortDescription +
               ".   Fra " +
-              convertTime(course.startDate) +
+              convertDate(course.startDate) +
               " til " +
-              convertTime(course.endDate)
+              convertDate(course.endDate)
             }
             color={setColor(course.restriction)}
             tags={setTag(course)}
-            lineHeight={allCourses.length-1}
+            lineHeight={allCourses.length+1}
           />
         ))}
     </Container>
