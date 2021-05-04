@@ -63,7 +63,7 @@ const CourseTimeline = () => {
   }
 
   return (
-    <Container>
+    <Container data-cy="timeline">
       <Grid.Row>
       <Header as="h2" style={{marginBottom: "5em"}}>Mitt introduksjonsprogram</Header>
       </Grid.Row>
@@ -84,7 +84,7 @@ const CourseTimeline = () => {
             }
             color={setColor(course.restriction)}
             tags={setTag(course)}
-            lineHeight={allCourses.length+1}
+            lineHeight={allCourses.length-2}
           />
         ))}
     </Container>

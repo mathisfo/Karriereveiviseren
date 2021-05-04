@@ -32,12 +32,6 @@ const UserDefinedCourseAccordion = () => {
     setActiveIndex(newIndex);
   }
 
-  const handleSave = (saved: boolean) => {
-    console.log("I got fired");
-
-    setOpen(saved);
-  };
-
   const fetchOwnCourses = async () => {
     let response = await axios
       .get("api/owncourse/", { withCredentials: true })
@@ -77,6 +71,7 @@ const UserDefinedCourseAccordion = () => {
                     active={activeIndex === owncourses.indexOf(course)}
                     onClick={(e) => handleClick(owncourses.indexOf(course))}
                     className={styles.wordBreak}
+                    data-cy="userDefinedAccordion"
                   >
                     <Icon name="dropdown" />
                     {course.title}
@@ -102,30 +97,24 @@ const UserDefinedCourseAccordion = () => {
             </Accordion>
           </Grid.Row>
           <Grid.Row>
-            <Modal
-              closeIcon
-              size="tiny"
-              style={{
-                height: "auto",
-                top: "auto",
-                left: "auto",
-                right: "auto",
-                bottom: "auto",
-              }}
-              onClose={() => setOpen(false)}
-              onOpen={() => setOpen(true)}
-              open={open}
-              trigger={
-                <Button icon color="facebook" style={{ marginTop: "1em" }}>
-                  <Icon name="add" />
-                </Button>
-              }
-            >
-              <Modal.Header>Legg til egen aktivitet</Modal.Header>
-              <Modal.Content>
-                <SubmitCourseForm />
-              </Modal.Content>
-            </Modal>
+          <Modal
+          closeIcon
+          size="tiny"
+          style={{height: "auto", top: "auto", left: "auto", right: "auto", bottom: "auto"}}
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                  open={open}
+                  trigger={
+                    <Button icon color="facebook" style={{ marginTop: "1em" }} data-cy="addButton">
+                      <Icon name="add" />
+                    </Button>
+                  }
+                >
+                  <Modal.Header>Legg til egen aktivitet</Modal.Header>
+                  <Modal.Content>
+                    <SubmitCourseForm />
+                  </Modal.Content>
+                </Modal>
           </Grid.Row>
         </Grid.Column>
       </Grid>

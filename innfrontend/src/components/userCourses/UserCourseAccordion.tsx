@@ -35,6 +35,8 @@ const UserCourseAccordion = () => {
                       active={activeIndex === courses.indexOf(course) + 1}
                       onClick={(e) => handleClick(courses.indexOf(course) + 1)}
                       className={styles.wordBreak}
+                    data-cy="accordionTitle"
+
                     >
                       <Icon name="dropdown" />
                       {course.title}

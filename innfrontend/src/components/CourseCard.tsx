@@ -66,7 +66,7 @@ const CourseCard: FC<Course> = (props) => {
   function renderLink() {
     if (props.classroom != "") {
       return (
-        <Button target color="blue" floated="right" size="tiny">
+        <Button target color="blue" floated="right" size="tiny" data-cy="classroom">
           <Link
             className="link"
             to="googleClassroom"
@@ -87,9 +87,10 @@ const CourseCard: FC<Course> = (props) => {
       <Card
         style={{ margin: "1.2em", background: setColor(props.restriction) }}
         centered
+        data-cy="courseCard"
       >
         <Card.Content>
-          <Card.Header>
+          <Card.Header data-cy="courseHeader">
             {props.title}
 
             <Label inverted style={{ float: "right", margin: 4 }}>
@@ -110,7 +111,7 @@ const CourseCard: FC<Course> = (props) => {
               onOpen={() => setOpen(true)}
               open={open}
               trigger={
-                <Button icon color="facebook">
+                <Button icon color="facebook" data-cy="infoButton">
                   <Icon name="info circle" />
                 </Button>
               }
@@ -146,12 +147,14 @@ const CourseCard: FC<Course> = (props) => {
               </Modal.Actions>
             </Modal>
             <Checkbox
+              
               label="Velg"
               basic
               style={{ float: "right", margin: 4 }}
               slider
               checked={props.isSelected}
               onChange={() => selectCard()}
+              data-cy="checkbox"
             ></Checkbox>
           </div>
         </Card.Content>

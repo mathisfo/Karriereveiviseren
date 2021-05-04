@@ -9,7 +9,7 @@ const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("/");
 
   return (
-    <Menu secondary stackable size="massive">
+    <Menu secondary stackable size="massive" data-cy="Navbar">
     <Menu.Item>
     <img src={logo} style={{width: "14em"}}></img>
     </Menu.Item>
@@ -19,6 +19,7 @@ const TopNavigator = () => {
         to="/"
         active={activeItem === "/"}
         onClick={() => setActiveItem("/")}
+        data-cy="homeLink"
       ></Menu.Item>
       <Menu.Item
         as={Link}
@@ -33,6 +34,7 @@ const TopNavigator = () => {
         to="mycourses"
         active={activeItem === "mycourses"}
         onClick={() => setActiveItem("mycourses")}
+        data-cy="coursesLink"
       ></Menu.Item>
       <Menu.Item
         as={Link}

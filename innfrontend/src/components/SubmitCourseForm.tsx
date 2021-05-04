@@ -38,7 +38,7 @@ const SubmitCourseForm = () => {
       });
   }
   return (
-    <Form onSubmit={(e) => handleSubmit(e)}>
+    <Form onSubmit={(e) => handleSubmit(e)} data-cy="form">
       <Form.Field>
         <label>Egen aktivitet</label>
         <Input required placeholder="Tiltak" name="title" />
@@ -63,9 +63,7 @@ const SubmitCourseForm = () => {
         <label htmlFor="">Målsetning</label>
         <Input required type="text" name="goal" />
       </Form.Field>
-      <Button content="Lagre" type="submit" positive>
-        Lagre
-      </Button>
+      <Button content="Lagre" type="submit" positive data-cy="saveButton">Lagre</Button>
     </Form>
   );
 };
