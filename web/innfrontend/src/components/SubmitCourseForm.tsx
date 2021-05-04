@@ -5,17 +5,11 @@ import { Button, Form, Input } from "semantic-ui-react";
 import { useAppDispatch, AppState } from "../store/redux/store";
 import { ownCourseSlice } from "../store/slices/ownCourseSlice";
 
-interface IProps {
-  handleSave: (save: boolean) => void;
-}
-
-const SubmitCourseForm:FC<IProps> = ( { handleSave } ) => {
+const SubmitCourseForm = () => {
   const dispatch = useAppDispatch();
   const user = useSelector((state: AppState) => state.user.user);
 
-
   async function handleSubmit(e: any) {
-
     e.preventDefault();
     //TODO: Better way to do this
     const title = e.target.elements.title.value;
@@ -24,7 +18,6 @@ const SubmitCourseForm:FC<IProps> = ( { handleSave } ) => {
     const description = e.target.elements.description.value;
     const shortDescription = e.target.elements.shortDescription.value;
     const goal = e.target.elements.goal.value;
-
 
     let response = await axios
       .post(
@@ -59,7 +52,7 @@ const SubmitCourseForm:FC<IProps> = ( { handleSave } ) => {
         <Input required type="datetime-local" name="startDate" />
       </Form.Field>
       <Form.Field>
-        <label  htmlFor="">Sluttdato</label>
+        <label htmlFor="">Sluttdato</label>
         <Input required type="datetime-local" name="endDate" />
       </Form.Field>
       <Form.Field>
@@ -70,9 +63,10 @@ const SubmitCourseForm:FC<IProps> = ( { handleSave } ) => {
         <label htmlFor="">Målsetning</label>
         <Input required type="text" name="goal" />
       </Form.Field>
-      <Button content="Lagre" type="submit" onClick={() => handleSave(false)} positive data-cy="saveButton">Lagre</Button>
+      <Button content="Lagre" type="submit" positive data-cy="saveButton">
+        Lagre
+      </Button>
     </Form>
-    
   );
 };
 
