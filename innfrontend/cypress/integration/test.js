@@ -1,9 +1,9 @@
 
 describe("User logins and home page renders", () => {
     it("works", () => {
-      cy.visit("localhost:3000")
+      cy.visit("/")
       cy.get(".loginButton").click()
-      cy.wait(5000)
+      cy.wait(15000)
       cy.get("h2").contains("Velg aktiviteter");
     });
   });
@@ -23,7 +23,6 @@ describe("Courses are rendered from backend", () => {
 
 describe("User can add a course", () => {
   it("works", () => {
-    cy.get("[data-cy=Navbar]").get("[data-cy=coursesLink]").click()
     cy.get("[data-cy=addButton]").click()
     cy.get('input[name="title"]').type("My course")
     cy.get('input[name="description"]').type("My description")
@@ -31,8 +30,8 @@ describe("User can add a course", () => {
     cy.get('input[name="endDate"]').type("2020-06-01T10:30")
     cy.get('input[name="shortDescription"]').type("My short description")
     cy.get('input[name="goal"]').type("My goal for this course")
-    cy.get('[data-cy=form]').get('.button').contains('Lagre').click()
-    cy.get('input[name="goal"]').type("{esc}");
+ //   cy.get('[data-cy=form]').get('.button').contains('Lagre').click()
+    cy.get('input[name="goal"]').type("{esc}")
     cy.get("[data-cy=Navbar]").get("[data-cy=homeLink]").click()
     cy.get("[data-cy=userDefinedAccordion]").contains("My course").should('exist');
     
