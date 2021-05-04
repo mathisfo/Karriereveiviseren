@@ -81,7 +81,7 @@ const CourseAccordion = () => {
     </Label>
     <Label style={{height: "2.3em", marginRight: "2em", background: "#e28080"}}>
       <Checkbox
-            checked={box1}
+            checked={box3}
             onClick={() => setBox3(!box3)}
           />
     </Label>

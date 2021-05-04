@@ -63,9 +63,7 @@ const SubmitCourseForm = () => {
         <label htmlFor="">Målsetning</label>
         <Input required type="text" name="goal" />
       </Form.Field>
-      <Button content="Lagre" type="submit" positive data-cy="saveButton">
-        Lagre
-      </Button>
+      <Button content="Lagre" type="submit" positive data-cy="saveButton">Lagre</Button>
     </Form>
   );
 };

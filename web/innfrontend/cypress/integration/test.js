@@ -1,20 +1,13 @@
-/* funker ikke atm
-describe("User can log in", () => {
-  it("logs in", () => {
-    cy.visit("localhost:3000")
-    cy.get('input[name="username"]').type("admin")
-    cy.get('input[name="password"]').type("admin")
-    
-  })
-})
-*/
 
-describe("Home page renders", () => {
-    it("renders page", () => {
-      cy.visit("localhost:3000/courses");
-      cy.get("h2").contains("Tiltak");
+describe("User logins and home page renders", () => {
+    it("works", () => {
+      cy.visit("localhost:3000")
+      cy.get(".loginButton").click()
+      cy.wait(5000)
+      cy.get("h2").contains("Velg aktiviteter");
     });
   });
+
 
 describe("Navbar renders", () => {
   it("renders navbar", () => {
@@ -22,7 +15,11 @@ describe("Navbar renders", () => {
   });
 });
 
-
+describe("Courses are rendered from backend", () => {
+  it("works", () => {
+    cy.get("[data-cy=courseCard]").should('exist');
+  })
+})
 
 describe("User can add a course", () => {
   it("works", () => {
@@ -35,13 +32,12 @@ describe("User can add a course", () => {
     cy.get('input[name="shortDescription"]').type("My short description")
     cy.get('input[name="goal"]').type("My goal for this course")
     cy.get('[data-cy=form]').get('.button').contains('Lagre').click()
-    cy.get('.button').contains("Gå tilbake").click()
+    cy.get('input[name="goal"]').type("{esc}");
     cy.get("[data-cy=Navbar]").get("[data-cy=homeLink]").click()
-    cy.get("[data-cy=accordionTitle]").contains("My course").should('exist');
+    cy.get("[data-cy=userDefinedAccordion]").contains("My course").should('exist');
     
   });
 });
-
 
 
 describe("Added courses shows up in the timeline", () => {
@@ -65,9 +61,10 @@ describe("User can access more information about a course", () => {
 describe("User can select a course and add it to their course list", () => {
   it("works", () => {
     cy.get("[data-cy=checkbox]").first().click();
-    cy.get("[data-cy=innaccordion]").should('exist');
+    cy.get("[data-cy=accordionTitle]").should('exist');
   });
 });
+
 
 
 describe("User can search for a course", () => {
@@ -76,30 +73,10 @@ describe("User can search for a course", () => {
     cy.get("[data-cy=courseAccordion]:first").click()
     cy.get("[data-cy=courseHeader]").each((item) => {
     cy.wrap(item).contains("INN Course")
+    cy.get("input[name=searchbar]").clear()
     })
   })
 })
-
-/* funker ikke atm
-
-describe("User can click google classroom link and get redirected", () => {
-  it("redirects", () => {
-    const obj = {
-      openTab() {},
-    }
-    const spy = cy.spy(obj, 'openTab')
-    cy.get("[data-cy=infoButton]:first").click()
-
-    cy.get("[data-cy=classroom]").click()
-    expect(spy).to.be.called
-    
-    cy.get(".button").contains("Gå tilbake").click()
-    cy.get("input[name=searchbar]").clear()
-  })
-})
-*/
-
-
 
 describe("User can filter on restriction", () => {
   it("works", () => {
@@ -128,19 +105,3 @@ describe('test for API GET request', () => {
       .should('include', 'application/json')
   })
 })
-
-/* funker ikke
-describe('test for API', () => {
-  it('loads 5 items', () => {
-    cy.visit('http://127.0.0.1:8000/api-auth/login/?next=/login/')
-    cy.get('input[name="username"]').type("admin")
-    cy.get('input[name="password"]').type("admin")
-    cy.get('input[name="submit"]').click()
-    cy.visit('http://127.0.0.1:8000/api/')
-      .its('body')
-      .should('have.length', 5)
-  })
-})
-
-*/
-

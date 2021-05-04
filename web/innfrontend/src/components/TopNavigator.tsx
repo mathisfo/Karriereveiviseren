@@ -19,6 +19,7 @@ const TopNavigator = () => {
         to="/"
         active={activeItem === "/"}
         onClick={() => setActiveItem("/")}
+        data-cy="homeLink"
       ></Menu.Item>
       <Menu.Item
         as={Link}
@@ -26,7 +27,6 @@ const TopNavigator = () => {
         to="courses"
         active={activeItem === "courses"}
         onClick={() => setActiveItem("courses")}
-        data-cy="homeLink"
       ></Menu.Item>
       <Menu.Item
         as={Link}
