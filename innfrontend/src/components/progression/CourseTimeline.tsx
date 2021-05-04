@@ -84,7 +84,7 @@ const CourseTimeline = () => {
             }
             color={setColor(course.restriction)}
             tags={setTag(course)}
-            lineHeight={allCourses.length-2}
+            lineHeight={allCourses.length}
           />
         ))}
     </Container>
