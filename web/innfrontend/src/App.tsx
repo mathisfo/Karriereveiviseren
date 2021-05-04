@@ -7,13 +7,21 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CourseList from "./components/courseList/";
 import UserCourses from "./components/userCourses/";
 import Progression from "./components/progression/";
-import { Provider, useSelector } from "react-redux";
-import { AppState, store, useAppDispatch } from "./store/redux/store";
+import { useSelector } from "react-redux";
+import { AppState, useAppDispatch } from "./store/redux/store";
 import { fetchUser, userSlice } from "./store/slices/userSlice";
 import GoogleAuthLogin from "./components/GoogleAuthentication/GoogleAuthLogin";
+import Home from "./components/home";
+import "./App.css";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 
 function App() {
-  const { user, isFetching, isSuccess, isError, errorMessage } = useSelector(
+  library.add(fas, fab);
+
+  const { user, isSuccess, isError, errorMessage } = useSelector(
     (state: AppState) => state.user
   );
   const dispatch = useAppDispatch();
@@ -47,17 +55,20 @@ function App() {
         <BrowserRouter>
           <div>
             <TopNavigator></TopNavigator>
-            <Container className="p-3">
+            <Container fluid className="appContainer">
               <div>
                 <Switch>
+                  <Route exact path="/">
+                    <Home />
+                  </Route>
                   <Route exact path="/courses">
-                    <CourseList />
+                    <CourseList isExpanded={true} />
                   </Route>
                   <Route exact path="/mycourses">
-                    <UserCourses />
+                    <UserCourses isExpanded={true} />
                   </Route>
                   <Route exact path="/progression">
-                    <Progression />
+                    <Progression isExpanded={true} />
                   </Route>
                 </Switch>
               </div>

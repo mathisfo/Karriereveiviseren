@@ -16,5 +16,8 @@ export const ownCourseSlice = createSlice({
       
       ownCourseList: [...state.ownCourseList, action.payload]
     }),
+    resetOwnCourses: (state: OwnCourseState) => {
+      state.ownCourseList = [];
+    }
   },
 });

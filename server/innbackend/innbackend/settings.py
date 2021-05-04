@@ -30,7 +30,6 @@ DEBUG = True
 # Application definition
 INSTALLED_APPS = [
     'corsheaders',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +49,9 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-
+    'userpreferences',
+    'activity',
     'innapp',
-    'userpreferences'
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -72,8 +71,9 @@ SOCIALACCOUNT_EMAIL_REQUIRED = False
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'innapp'
 JWT_AUTH_REFRESH_COOKIE = 'user_refresh_token'
-SITE_ID = 4
 
+# Make sure this corresponds with the site set in http://127.0.0.1:8000/admin/sites/site/
+SITE_ID = 8
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC } from "react";
 import {
   Card,
   Button,
@@ -6,7 +6,6 @@ import {
   Icon,
   Label,
   Modal,
-  Header,
 } from "semantic-ui-react";
 import { Icon as Iconify } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
@@ -14,9 +13,9 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "../store/redux/store";
-import { courseSlice } from "../store/slices/courseSlice";
+import { selectCourse } from "../store/slices/courseSlice";
 import { Course } from "../store/interfaces/Course";
-import axios from "axios";
+import { convertDate, convertHours, setColor } from "./Helpers"
 
 interface IProps {
   id: number;
@@ -31,26 +30,33 @@ interface IProps {
   classroom: string;
 }
 
-function setColor(modul?: number) {
-  switch (modul) {
-    case 1:
-      return "yellow";
-    case 2:
-      return "green";
-    case 3:
-      return "red";
-    default:
-      return "teal";
-  }
-}
-
 const CourseCard: FC<Course> = (props) => {
   const dispatch = useAppDispatch();
+  const { user } = useSelector((state: AppState) => state.user);
   const [open, setOpen] = React.useState(false);
 
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+
+  /*
+  const putSelectedCourse = async () => {
+    axios.put(
+      "api/userpreferences/1/",
+      {
+        user: "http://127.0.0.1:8000/api/users/1/",
+        selected: courses?.filter((e) => e.isSelected).map((e) => e.url),
+      },
+
+      {
+        withCredentials: true,
+      }
+    );
+  };
+*/
 
   function selectCard() {
-    dispatch(courseSlice.actions.selectCourse(props));
+    dispatch(selectCourse({ course: props, user: user }));
+    //dispatch(courseSlice.actions.selectCourse(props));
+    //putSelectedCourse();
   }
 
   function openTab() {
@@ -62,45 +68,53 @@ const CourseCard: FC<Course> = (props) => {
       return (
         <Button target color="blue" floated="right" size="tiny" data-cy="classroom">
           <Link
-          className="link"
-          to="googleClassroom"
-          target="_blank"
-          onClick={openTab}
-        >
-          <Iconify icon={googleClassroom} width="1.7em" color="white" />{" "}
-          Google Classroom
-        </Link>
-        </Button> )
-      
-  }}
+            className="link"
+            to="googleClassroom"
+            target="_blank"
+            onClick={openTab}
+            style= {{ color: "white"}}
+          >
+            <Iconify icon={googleClassroom} width="1.7em" color="white" />{" "}
+            Google Classroom
+          </Link>
+        </Button>
+      );
+    }
+  }
 
   return (
     <div>
-      <Card style={{ margin: "1.2em" }} centered data-cy="courseCard">
+      <Card
+        style={{ margin: "1.2em", background: setColor(props.restriction) }}
+        centered
+        data-cy="courseCard"
+      >
         <Card.Content>
           <Card.Header data-cy="courseHeader">
             {props.title}
 
-            <Label
-              color={setColor(props.restriction)}
-              style={{ float: "right", margin: 4 }}
-            >
+            <Label inverted style={{ float: "right", margin: 4 }}>
               {" "}
               Spor {props.restriction}{" "}
             </Label>
           </Card.Header>
-          <Card.Meta>{props.category}</Card.Meta>
+          <Card.Meta><p><Icon name="calendar alternate outline"/>
+              {convertDate(props.startDate)} - {" "}
+              {convertDate(props.endDate)}</p></Card.Meta>
         </Card.Content>
         <Card.Content extra>
-          <div className="ui two buttons">
+          <div className="">
             <Modal
+            size="tiny"
+            style={{height: "auto", top: "auto", left: "auto", right: "auto", bottom: "auto"}}
               onClose={() => setOpen(false)}
               onOpen={() => setOpen(true)}
               open={open}
               trigger={
-                 <Button fluid basic color='black' content='Black' style={{marginRight: "1em"}} data-cy="infoButton"><Icon name="info circle"/></Button>
+                <Button icon color="facebook" data-cy="infoButton">
+                  <Icon name="info circle" />
+                </Button>
               }
-              size="tiny"
             >
               <Modal.Header>
                 {props.title}
@@ -108,9 +122,12 @@ const CourseCard: FC<Course> = (props) => {
               </Modal.Header>
               <Modal.Content>
                 <Modal.Description>
-                  <Header>{props.category}</Header>
-                  <p>{props.shortDescription}</p>
+                  <p><b>{props.shortDescription}</b></p>
                   <p>{props.description}</p>
+                  <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
+              {convertDate(props.startDate)} til {" "}
+              {convertDate(props.endDate)}.</p>
+                  <p><Icon name="clock"/>Kl. {" "} {convertHours(props.startDate)} </p>
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>
@@ -133,6 +150,8 @@ const CourseCard: FC<Course> = (props) => {
               
               label="Velg"
               basic
+              style={{ float: "right", margin: 4 }}
+              slider
               checked={props.isSelected}
               onChange={() => selectCard()}
               data-cy="checkbox"
