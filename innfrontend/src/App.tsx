@@ -33,7 +33,17 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchUser());
+    if (
+      localStorage.getItem("refresh_token") &&
+      localStorage.getItem("access_token")
+    ) {
+      dispatch(
+        fetchUser({
+          refresh_token: localStorage.getItem("refresh_token"),
+          access_token: localStorage.getItem("access_token"),
+        })
+      );
+    }
   }, []);
 
   useEffect(() => {

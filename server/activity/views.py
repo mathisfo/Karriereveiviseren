@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from innapp.api.serializers import CategorySerializer, CourseSerializer, OwnCourseSerializer, UserPreferenceSerializer, UserSerializer
 from activity.models import Course, Category, OwnCourse
 from rest_framework.decorators import api_view, action
-# Create your views here.
 
 
 class CourseViewSet(viewsets.ModelViewSet):

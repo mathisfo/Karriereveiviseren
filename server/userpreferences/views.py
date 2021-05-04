@@ -2,20 +2,14 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from userpreferences.models import UserPreference
 from innapp.api.serializers import UserPreferenceSerializer
-
-# Create your views here.
+from innapp.api.serializers import UserSerializer
+from django.contrib.auth.models import User
 
 
 class UserPreferenceViewSet(viewsets.ModelViewSet):
     queryset = UserPreference.objects.all()
     serializer_class = UserPreferenceSerializer
     filter_fields = ('user')
-
-from innapp.api.serializers import UserSerializer
-from django.contrib.auth.models import User
-
-
-from rest_framework import viewsets
 
 
 class UserViewSet(viewsets.ModelViewSet):

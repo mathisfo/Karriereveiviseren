@@ -1,7 +1,5 @@
-
 from userpreferences.models import UserPreference
 from activity.models import Course, Category, OwnCourse
-
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from collections import OrderedDict
@@ -44,7 +42,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
-    
+
     user = serializers.PrimaryKeyRelatedField(
         many=False, queryset=User.objects.all()
     )

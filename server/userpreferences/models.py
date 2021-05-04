@@ -5,9 +5,6 @@ from django.core.validators import MinValueValidator
 from activity.models import Course, OwnCourse
 
 
-# Create your models here.
-
-
 class UserPreference(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     selected = models.ManyToManyField(Course, blank=True, null=True, default=[])

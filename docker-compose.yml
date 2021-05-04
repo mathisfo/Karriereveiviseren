@@ -1,0 +1,26 @@
+version: "3.2"
+services:
+  server:
+    build: ./server
+    volumes:
+      - ./server:/inn01-project/server
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=innbackend.settings.development
+    stdin_open: true
+    tty: true
+    command: python3 manage.py runserver 0.0.0.0:8000
+  innfrontend:
+    build: ./innfrontend
+    volumes:
+      - ./innfrontend:/inn01-project
+      # One-way volume to use node_modules from inside image
+      - /inn01-project/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - server
+    command: npm start
