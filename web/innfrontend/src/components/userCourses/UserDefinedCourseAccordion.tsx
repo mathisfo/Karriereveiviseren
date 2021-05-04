@@ -15,7 +15,7 @@ import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
 import SubmitCourseForm from "../SubmitCourseForm";
 
 import styles from "./UserCourse.module.css";
-import { convertDate } from "../Helpers"
+import { convertDate } from "../Helpers";
 
 const UserDefinedCourseAccordion = () => {
   const [open, setOpen] = useState(false);
@@ -34,9 +34,9 @@ const UserDefinedCourseAccordion = () => {
 
   const handleSave = (saved: boolean) => {
     console.log("I got fired");
-    
-    setOpen(saved)
-  }
+
+    setOpen(saved);
+  };
 
   const fetchOwnCourses = async () => {
     let response = await axios
@@ -53,7 +53,6 @@ const UserDefinedCourseAccordion = () => {
   useEffect(() => {
     fetchOwnCourses();
   }, []);
-  
 
   return (
     <div>
@@ -62,7 +61,9 @@ const UserDefinedCourseAccordion = () => {
           <Grid.Row>
             <Grid columns={3}>
               <Grid.Column>
-                <Header as="h2" style={{marginBottom: "1em"}}>Egendefinerte </Header>
+                <Header as="h2" style={{ marginBottom: "1em" }}>
+                  Egendefinerte{" "}
+                </Header>
               </Grid.Column>
             </Grid>
           </Grid.Row>
@@ -72,7 +73,7 @@ const UserDefinedCourseAccordion = () => {
               {owncourses.map((course: OwnCourse) => (
                 <div>
                   <Accordion.Title
-                  style={{ fontSize: 18 }}
+                    style={{ fontSize: 18 }}
                     active={activeIndex === owncourses.indexOf(course)}
                     onClick={(e) => handleClick(owncourses.indexOf(course))}
                     className={styles.wordBreak}
@@ -85,35 +86,46 @@ const UserDefinedCourseAccordion = () => {
                     className={styles.wordBreak}
                   >
                     <p>{course.description}</p>
-                    <p><Icon name="trophy"/><b> Mål: </b>{course.goal}</p>
-                    <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
-              {convertDate(course.startDate)} til {" "}
-              {convertDate(course.endDate)}.</p>
-
+                    <p>
+                      <Icon name="trophy" />
+                      <b> Mål: </b>
+                      {course.goal}
+                    </p>
+                    <p>
+                      <Icon name="calendar alternate outline" />
+                      <b>Dato: </b>Fra {convertDate(course.startDate)} til{" "}
+                      {convertDate(course.endDate)}.
+                    </p>
                   </Accordion.Content>
                 </div>
               ))}
             </Accordion>
           </Grid.Row>
           <Grid.Row>
-          <Modal
-          closeIcon
-          size="tiny"
-          style={{height: "auto", top: "auto", left: "auto", right: "auto", bottom: "auto"}}
-                  onClose={() => setOpen(false)}
-                  onOpen={() => setOpen(true)}
-                  open={open}
-                  trigger={
-                    <Button icon color="facebook" style={{ marginTop: "1em" }} >
-                      <Icon name="add" />
-                    </Button>
-                  }
-                >
-                  <Modal.Header>Legg til egen aktivitet</Modal.Header>
-                  <Modal.Content>
-                    <SubmitCourseForm handleSave={handleSave} />
-                  </Modal.Content>
-                </Modal>
+            <Modal
+              closeIcon
+              size="tiny"
+              style={{
+                height: "auto",
+                top: "auto",
+                left: "auto",
+                right: "auto",
+                bottom: "auto",
+              }}
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+              open={open}
+              trigger={
+                <Button icon color="facebook" style={{ marginTop: "1em" }}>
+                  <Icon name="add" />
+                </Button>
+              }
+            >
+              <Modal.Header>Legg til egen aktivitet</Modal.Header>
+              <Modal.Content>
+                <SubmitCourseForm />
+              </Modal.Content>
+            </Modal>
           </Grid.Row>
         </Grid.Column>
       </Grid>
