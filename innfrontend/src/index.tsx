@@ -8,7 +8,7 @@ import axios from "axios";
 import { Provider } from "react-redux";
 import { store } from "./store/redux/store";
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "http://innapp.herokuapp.com/";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
