@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from rest_framework_jwt.views import obtain_jwt_token
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 from innapp.views import GoogleLogin
@@ -26,6 +25,5 @@ urlpatterns = [
     path('api/', include('innapp.api.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('login/', GoogleLogin.as_view(), name='google_login'),
-    path('faicon/', include('faicon.urls')),
     re_path(".*", TemplateView.as_view(template_name="index.html")),
 ]

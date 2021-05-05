@@ -17,7 +17,6 @@ ICON_CHOICES = [
 
 class Category(models.Model):
     category = models.CharField('kategori', max_length=100, default="")
-    # icon = FAIconField()
     icon = models.CharField(choices=ICON_CHOICES,
                             default="Bruker", max_length=30)
 
