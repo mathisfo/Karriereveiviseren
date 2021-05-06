@@ -105,6 +105,8 @@ CORS_ORIGIN_WHITELIST = [
 
 CORS_ALLOW_HEADERS = default_headers + (
     'Access-Control-Allow-Origin',
+    'access_token',
+    'refresh_token',
 )
 
 

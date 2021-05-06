@@ -1,37 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CourseCard from "../CourseCard";
-import { Accordion, Checkbox, Grid, Icon, Input, Label } from "semantic-ui-react";
-import axios from "axios";
-import { AppState, useAppDispatch } from "../../store/redux/store";
+import {
+  Accordion,
+  Checkbox,
+  Grid,
+  Icon,
+  Input,
+  Label,
+} from "semantic-ui-react";
+import { AppState } from "../../redux/store/store";
 import { useSelector } from "react-redux";
-import { categorySlice } from "../../store/slices/categorySlice";
 import styles from "./CourseList.module.css";
 
 const CourseAccordion = () => {
-  const dispatch = useAppDispatch();
-  const courses = useSelector((state: AppState) => state.courses.courseList);
-  const categories = useSelector(
-    (state: AppState) => state.categories.categoryList
-  );
-  const [error, setError] = useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
 
-  const fetchCategories = async () => {
-    axios.get("api/category/", { withCredentials: true }).then(
-      (response) => {
-        dispatch(
-          categorySlice.actions.setCategory({ categoryList: response.data })
-        );
-      },
-      (error) => {
-        setError(error);
-      }
-    );
-  };
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+  const categories = useSelector(
+    (state: AppState) => state.categories.categoryList
+  );
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -55,36 +46,44 @@ const CourseAccordion = () => {
     }
   }
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
   return (
     <Grid>
       <Grid.Row>
         <h2> Velg aktiviteter </h2>
       </Grid.Row>
-      <Grid.Row style= {{marginBottom: "1em"}}>
+      <Grid.Row style={{ marginBottom: "1em" }}>
         <Grid.Row className={styles.checkboxRow} md={2}>
-        <Label style={{height: "2.3em", marginRight: "2em", background: "#cfe1b9"}}>
-      <Checkbox
-            checked={box1}
-            onClick={() => setBox1(!box1)}
-          />
-    </Label>
-    <Label style={{height: "2.3em", marginRight: "2em", background: "#ffc971"}}>
-      <Checkbox
-            checked={box2}
-            onClick={() => setBox2(!box2)}
-            data-cy="checkbox2"
-          />
-    </Label>
-    <Label style={{height: "2.3em", marginRight: "2em", background: "#e28080"}}>
-      <Checkbox
-            checked={box3}
-            onClick={() => setBox3(!box3)}
-          />
-    </Label>
+          <Label
+            style={{
+              height: "2.3em",
+              marginRight: "2em",
+              background: "#cfe1b9",
+            }}
+          >
+            <Checkbox checked={box1} onClick={() => setBox1(!box1)} />
+          </Label>
+          <Label
+            style={{
+              height: "2.3em",
+              marginRight: "2em",
+              background: "#ffc971",
+            }}
+          >
+            <Checkbox
+              checked={box2}
+              onClick={() => setBox2(!box2)}
+              data-cy="checkbox2"
+            />
+          </Label>
+          <Label
+            style={{
+              height: "2.3em",
+              marginRight: "2em",
+              background: "#e28080",
+            }}
+          >
+            <Checkbox checked={box3} onClick={() => setBox3(!box3)} />
+          </Label>
           <Input
             name="searchbar"
             icon="search"

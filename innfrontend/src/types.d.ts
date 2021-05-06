@@ -1,1 +1,1 @@
-declare module 'react-timeline-semantic-ui';
+declare module "react-timeline-semantic-ui";

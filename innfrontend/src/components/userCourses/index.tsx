@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Grid } from "semantic-ui-react";
-import { AppState, useAppDispatch } from "../../store/redux/store";
+import { AppState, useAppDispatch } from "../../redux/store/store";
 import {
   fetchCourse,
   fetchUserpreference,
-} from "../../store/slices/courseSlice";
+} from "../../redux/slices/courseSlice";
 import UserCourseAccordion from "./UserCourseAccordion";
 import UserDefinedCourseAccordion from "./UserDefinedCourseAccordion";
+import axios from "axios";
+import { ownCourseSlice } from "../../redux/slices/ownCourseSlice";
+import { OwnCourse } from "../../redux/types/OwnCourse";
 
-// TODO: adjust style based on props from parent. If self-contained
-// make adjustments based on larger width
-interface Iprops {
-  isExpanded: boolean;
-}
-
-const UserCourses = (props: Iprops) => {
+const UserCourses = () => {
   const dispatch = useAppDispatch();
   const user = useSelector((state: AppState) => state.user.user);
   const courses = useSelector((state: AppState) => state.courses.courseList);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [componentStyling, setComponentStyling] = useState("");
 
   const fetchCourses = () => {
     if (courses.length == 0) {
@@ -29,17 +24,22 @@ const UserCourses = (props: Iprops) => {
     }
   };
 
+  const fetchOwnCourses = async () => {
+    let response = await axios
+      .get("api/owncourse/", { withCredentials: true })
+      .then((result) => {
+        dispatch(ownCourseSlice.actions.resetOwnCourses());
+        let courses: Array<OwnCourse> = result.data;
+        courses.map((course) => {
+          dispatch(ownCourseSlice.actions.addOwnCourse(course));
+        });
+      });
+  };
+
   useEffect(() => {
     fetchCourses();
+    fetchOwnCourses();
   }, []);
-
-  useEffect(() => {
-    setIsExpanded(props.isExpanded);
-  }, []);
-
-  useEffect(() => {
-    setComponentStyling(isExpanded ? "expanded" : "default");
-  }, [isExpanded]);
 
   return (
     <div>
@@ -50,10 +50,10 @@ const UserCourses = (props: Iprops) => {
         <Grid.Row></Grid.Row>
         <Grid.Row>
           <Grid.Column>
-          <UserDefinedCourseAccordion />
+            <UserDefinedCourseAccordion />
           </Grid.Column>
           <Grid.Column>
-          <UserCourseAccordion />
+            <UserCourseAccordion />
           </Grid.Column>
         </Grid.Row>
       </Grid>

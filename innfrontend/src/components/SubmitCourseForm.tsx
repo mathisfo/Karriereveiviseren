@@ -1,9 +1,9 @@
+import React from "react";
 import axios from "axios";
-import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { Button, Form, Input } from "semantic-ui-react";
-import { useAppDispatch, AppState } from "../store/redux/store";
-import { ownCourseSlice } from "../store/slices/ownCourseSlice";
+import { useAppDispatch, AppState } from "../redux/store/store";
+import { ownCourseSlice } from "../redux/slices/ownCourseSlice";
 
 const SubmitCourseForm = () => {
   const dispatch = useAppDispatch();
@@ -63,7 +63,9 @@ const SubmitCourseForm = () => {
         <label htmlFor="">Målsetning</label>
         <Input required type="text" name="goal" />
       </Form.Field>
-      <Button content="Lagre" type="submit" positive data-cy="saveButton">Lagre</Button>
+      <Button content="Lagre" type="submit" positive data-cy="saveButton">
+        Lagre
+      </Button>
     </Form>
   );
 };

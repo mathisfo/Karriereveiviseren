@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { UserState } from "../types/UserState";
+import { UserState } from "../types/User";
 
 type APIUser = {
   email: string;
@@ -78,6 +78,10 @@ export const logoutUser = createAsyncThunk<
   return result;
 });
 
+/**
+ * Slice have been configured according to redux documentation.
+ * Information about usage can be found at https://redux-toolkit.js.org/tutorials/overview
+ */
 export const userSlice = createSlice({
   name: "user-slice",
   initialState: {

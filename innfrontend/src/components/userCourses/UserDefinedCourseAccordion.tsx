@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Accordion,
@@ -9,19 +9,17 @@ import {
   Icon,
   Modal,
 } from "semantic-ui-react";
-import { OwnCourse } from "../../store/interfaces/OwnCourse";
-import { AppState, useAppDispatch } from "../../store/redux/store";
-import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
+import { OwnCourse } from "../../redux/types/OwnCourse";
+import { AppState } from "../../redux/store/store";
 import SubmitCourseForm from "../SubmitCourseForm";
 
 import styles from "./UserCourse.module.css";
-import { convertDate } from "../Helpers";
+import { convertDate } from "../../utils/helpers";
 
 const UserDefinedCourseAccordion = () => {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const dispatch = useAppDispatch();
   const owncourses = useSelector(
     (state: AppState) => state.owncourses.ownCourseList
   );
@@ -31,22 +29,6 @@ const UserDefinedCourseAccordion = () => {
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   }
-
-  const fetchOwnCourses = async () => {
-    let response = await axios
-      .get("api/owncourse/", { withCredentials: true })
-      .then((result) => {
-        dispatch(ownCourseSlice.actions.resetOwnCourses());
-        let courses: Array<OwnCourse> = result.data;
-        courses.map((course) => {
-          dispatch(ownCourseSlice.actions.addOwnCourse(course));
-        });
-      });
-  };
-
-  useEffect(() => {
-    fetchOwnCourses();
-  }, []);
 
   return (
     <div>
@@ -97,24 +79,35 @@ const UserDefinedCourseAccordion = () => {
             </Accordion>
           </Grid.Row>
           <Grid.Row>
-          <Modal
-          closeIcon
-          size="tiny"
-          style={{height: "auto", top: "auto", left: "auto", right: "auto", bottom: "auto"}}
-                  onClose={() => setOpen(false)}
-                  onOpen={() => setOpen(true)}
-                  open={open}
-                  trigger={
-                    <Button icon color="facebook" style={{ marginTop: "1em" }} data-cy="addButton">
-                      <Icon name="add" />
-                    </Button>
-                  }
+            <Modal
+              closeIcon
+              size="tiny"
+              style={{
+                height: "auto",
+                top: "auto",
+                left: "auto",
+                right: "auto",
+                bottom: "auto",
+              }}
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+              open={open}
+              trigger={
+                <Button
+                  icon
+                  color="facebook"
+                  style={{ marginTop: "1em" }}
+                  data-cy="addButton"
                 >
-                  <Modal.Header>Legg til egen aktivitet</Modal.Header>
-                  <Modal.Content>
-                    <SubmitCourseForm />
-                  </Modal.Content>
-                </Modal>
+                  <Icon name="add" />
+                </Button>
+              }
+            >
+              <Modal.Header>Legg til egen aktivitet</Modal.Header>
+              <Modal.Content>
+                <SubmitCourseForm />
+              </Modal.Content>
+            </Modal>
           </Grid.Row>
         </Grid.Column>
       </Grid>

@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
 import CourseAccordion from "./CourseAccordion";
-import { AppState, store, useAppDispatch } from "../../store/redux/store";
+import { AppState, useAppDispatch } from "../../redux/store/store";
 import {
   fetchCourse,
   fetchUserpreference,
-} from "../../store/slices/courseSlice";
+} from "../../redux/slices/courseSlice";
 import { useSelector } from "react-redux";
 import styles from "./CourseList.module.css";
+import axios from "axios";
+import { categorySlice } from "../../redux/slices/categorySlice";
 
-// TODO: adjust style based on props from parent. If self-contained
-// make adjustments based on larger width
-
-interface Iprops {
-  isExpanded: boolean;
-}
-
-const CourseList = (props: Iprops) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [componentStyling, setComponentStyling] = useState(styles.default);
+const CourseList = () => {
+  const [error, setError] = useState("");
   const dispatch = useAppDispatch();
   const user = useSelector((state: AppState) => state.user.user);
   const courses = useSelector((state: AppState) => state.courses.courseList);
+
+  const fetchCategories = async () => {
+    axios.get("api/category/", { withCredentials: true }).then(
+      (response) => {
+        dispatch(
+          categorySlice.actions.setCategory({ categoryList: response.data })
+        );
+      },
+      (error) => {
+        setError(error);
+      }
+    );
+  };
 
   const fetchCourses = async () => {
     if (courses.length == 0) {
@@ -30,18 +37,12 @@ const CourseList = (props: Iprops) => {
   };
 
   useEffect(() => {
+    fetchCategories();
     fetchCourses();
   }, []);
-  useEffect(() => {
-    setIsExpanded(props.isExpanded);
-  }, []);
-
-  useEffect(() => {
-    setComponentStyling(isExpanded ? styles.expanded : styles.default);
-  }, [isExpanded]);
 
   return (
-    <div className={`${styles.courseListContainer} ${componentStyling}`}>
+    <div className={`${styles.courseListContainer} ${styles.expanded}`}>
       <CourseAccordion />
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { GoogleLogout } from "react-google-login";
 import { useSelector } from "react-redux";
-import { AppState, useAppDispatch } from "../../store/redux/store";
-import { logoutUser, userSlice } from "../../store/slices/userSlice";
+import { AppState, useAppDispatch } from "../../redux/store/store";
+import { logoutUser, userSlice } from "../../redux/slices/userSlice";
 
 import "./googleLogin.css";
 
@@ -33,7 +33,6 @@ const GoogleAuthLogout = () => {
     }
   }, [isError, isSuccess]);
 
-  // TODO: Clean up the conditional name redering
   return (
     <div className="logout">
       <p className="userLogin">

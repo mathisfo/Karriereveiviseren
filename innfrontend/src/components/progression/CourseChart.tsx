@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
 import { useSelector } from "react-redux";
-import { Course } from "../../store/interfaces/Course";
-import { AppState } from "../../store/redux/store";
+import { Course } from "../../redux/types/Course";
+import { AppState } from "../../redux/store/store";
 
 const prepareChartData = (course: Course) => {
   let selectedCourse = [];
@@ -59,7 +59,6 @@ const CourseChart = () => {
     });
     console.log(diagramData);
   }, [courses]);
-
 
   return (
     <div>

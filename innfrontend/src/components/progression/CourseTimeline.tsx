@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Timeline from "react-timeline-semantic-ui";
 import { Container, Grid, Header } from "semantic-ui-react";
-import { Course } from "../../store/interfaces/Course";
-import { AppState } from "../../store/redux/store";
-import { convertDate } from "../Helpers"
+import { Course } from "../../redux/types/Course";
+import { AppState } from "../../redux/store/store";
+import { convertDate } from "../../utils/helpers";
 
 const CourseTimeline = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -65,7 +65,9 @@ const CourseTimeline = () => {
   return (
     <Container data-cy="timeline">
       <Grid.Row>
-      <Header as="h2" style={{marginBottom: "5em"}}>Mitt introduksjonsprogram</Header>
+        <Header as="h2" style={{ marginBottom: "5em" }}>
+          Mitt introduksjonsprogram
+        </Header>
       </Grid.Row>
       {allCourses
         .sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
