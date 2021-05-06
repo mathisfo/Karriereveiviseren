@@ -1,4 +1,8 @@
-import { User } from "../interfaces/User";
+export interface User {
+  name: string;
+  email: string;
+  id: number;
+}
 
 export type UserState = {
   user: User;

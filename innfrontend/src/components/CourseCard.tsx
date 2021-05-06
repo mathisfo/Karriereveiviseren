@@ -1,21 +1,14 @@
 import React, { FC } from "react";
-import {
-  Card,
-  Button,
-  Checkbox,
-  Icon,
-  Label,
-  Modal,
-} from "semantic-ui-react";
+import { Card, Button, Checkbox, Icon, Label, Modal } from "semantic-ui-react";
 import { Icon as Iconify } from "@iconify/react";
 import googleClassroom from "@iconify-icons/mdi/google-classroom";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AppState, useAppDispatch } from "../store/redux/store";
-import { selectCourse } from "../store/slices/courseSlice";
-import { Course } from "../store/interfaces/Course";
-import { convertDate, convertHours, setColor } from "./Helpers"
+import { AppState, useAppDispatch } from "../redux/store/store";
+import { selectCourse } from "../redux/slices/courseSlice";
+import { Course } from "../redux/types/Course";
+import { convertDate, convertHours, setColor } from "../utils/helpers";
 
 interface IProps {
   id: number;
@@ -66,13 +59,19 @@ const CourseCard: FC<Course> = (props) => {
   function renderLink() {
     if (props.classroom != "") {
       return (
-        <Button target color="blue" floated="right" size="tiny" data-cy="classroom">
+        <Button
+          target
+          color="blue"
+          floated="right"
+          size="tiny"
+          data-cy="classroom"
+        >
           <Link
             className="link"
             to="googleClassroom"
             target="_blank"
             onClick={openTab}
-            style= {{ color: "white"}}
+            style={{ color: "white" }}
           >
             <Iconify icon={googleClassroom} width="1.7em" color="white" />{" "}
             Google Classroom
@@ -98,15 +97,24 @@ const CourseCard: FC<Course> = (props) => {
               Spor {props.restriction}{" "}
             </Label>
           </Card.Header>
-          <Card.Meta><p><Icon name="calendar alternate outline"/>
-              {convertDate(props.startDate)} - {" "}
-              {convertDate(props.endDate)}</p></Card.Meta>
+          <Card.Meta>
+            <p>
+              <Icon name="calendar alternate outline" />
+              {convertDate(props.startDate)} - {convertDate(props.endDate)}
+            </p>
+          </Card.Meta>
         </Card.Content>
         <Card.Content extra>
           <div className="">
             <Modal
-            size="tiny"
-            style={{height: "auto", top: "auto", left: "auto", right: "auto", bottom: "auto"}}
+              size="tiny"
+              style={{
+                height: "auto",
+                top: "auto",
+                left: "auto",
+                right: "auto",
+                bottom: "auto",
+              }}
               onClose={() => setOpen(false)}
               onOpen={() => setOpen(true)}
               open={open}
@@ -122,12 +130,19 @@ const CourseCard: FC<Course> = (props) => {
               </Modal.Header>
               <Modal.Content>
                 <Modal.Description>
-                  <p><b>{props.shortDescription}</b></p>
+                  <p>
+                    <b>{props.shortDescription}</b>
+                  </p>
                   <p>{props.description}</p>
-                  <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
-              {convertDate(props.startDate)} til {" "}
-              {convertDate(props.endDate)}.</p>
-                  <p><Icon name="clock"/>Kl. {" "} {convertHours(props.startDate)} </p>
+                  <p>
+                    <Icon name="calendar alternate outline" />
+                    <b>Dato: </b>Fra {convertDate(props.startDate)} til{" "}
+                    {convertDate(props.endDate)}.
+                  </p>
+                  <p>
+                    <Icon name="clock" />
+                    Kl. {convertHours(props.startDate)}{" "}
+                  </p>
                 </Modal.Description>
               </Modal.Content>
               <Modal.Actions>
@@ -147,7 +162,6 @@ const CourseCard: FC<Course> = (props) => {
               </Modal.Actions>
             </Modal>
             <Checkbox
-              
               label="Velg"
               basic
               style={{ float: "right", margin: 4 }}

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { UserState } from "../types/UserState";
+import { UserState } from "../types/User";
 
 type APIUser = {
   email: string;

@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../TopNavigator.css";
+import "./TopNavigator.css";
 import { Menu } from "semantic-ui-react";
 import GoogleAuthLogout from "./GoogleAuthentication/GoogleAuthLogout";
-import logo from "../statics/logo_transparent.png"
+import logo from "../statics/logo_transparent.png";
 
 const TopNavigator = () => {
   const [activeItem, setActiveItem] = React.useState("/");
 
   return (
     <Menu secondary stackable size="massive" data-cy="Navbar">
-    <Menu.Item>
-    <img src={logo} style={{width: "14em"}}></img>
-    </Menu.Item>
+      <Menu.Item>
+        <img src={logo} style={{ width: "14em" }}></img>
+      </Menu.Item>
       <Menu.Item
         as={Link}
         name="Hjem"

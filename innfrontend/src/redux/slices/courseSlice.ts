@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { Course } from "../interfaces/Course";
-import { User } from "../interfaces/User";
-import { CourseState } from "../types/CourseState";
+import { Course } from "../types/Course";
+import { User } from "../types/User";
+import { CourseState } from "../types/Course";
 
 type selectType = {
   course: Course;

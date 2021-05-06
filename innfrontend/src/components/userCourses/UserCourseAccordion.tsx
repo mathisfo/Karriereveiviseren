@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { AppState } from "../../store/redux/store";
+import { AppState } from "../../redux/store/store";
 
 import { Accordion, Grid, Header, Icon, Label } from "semantic-ui-react";
 
 import styles from "./UserCourse.module.css";
-import { convertDate, setColor } from "../Helpers"
+import { convertDate, setColor } from "../../utils/helpers";
 
 const UserCourseAccordion = () => {
   const courses = useSelector((state: AppState) => state.courses.courseList);
@@ -22,7 +22,9 @@ const UserCourseAccordion = () => {
       <Grid padded>
         <Grid.Column>
           <Grid.Row>
-            <Header as="h2" style= {{marginBottom: "1em"}}>INN</Header>
+            <Header as="h2" style={{ marginBottom: "1em" }}>
+              INN
+            </Header>
           </Grid.Row>
 
           <Grid.Row>
@@ -31,12 +33,14 @@ const UserCourseAccordion = () => {
                 course.isSelected ? (
                   <div>
                     <Accordion.Title
-                     style={{ fontSize: 18, background: setColor(course.restriction) }}
+                      style={{
+                        fontSize: 18,
+                        background: setColor(course.restriction),
+                      }}
                       active={activeIndex === courses.indexOf(course) + 1}
                       onClick={(e) => handleClick(courses.indexOf(course) + 1)}
                       className={styles.wordBreak}
-                    data-cy="accordionTitle"
-
+                      data-cy="accordionTitle"
                     >
                       <Icon name="dropdown" />
                       {course.title}
@@ -46,13 +50,12 @@ const UserCourseAccordion = () => {
                       className={styles.wordBreak}
                     >
                       <p>{course.description}</p>
-                      <p><Icon name="calendar alternate outline"/><b>Dato: </b>Fra {" "}
-              {convertDate(course.startDate)} til {" "}
-              {convertDate(course.endDate)}.</p>
-              <Label inverted>
-              {" "}
-              Spor {course.restriction}{" "}
-            </Label>
+                      <p>
+                        <Icon name="calendar alternate outline" />
+                        <b>Dato: </b>Fra {convertDate(course.startDate)} til{" "}
+                        {convertDate(course.endDate)}.
+                      </p>
+                      <Label inverted> Spor {course.restriction} </Label>
                     </Accordion.Content>
                   </div>
                 ) : (

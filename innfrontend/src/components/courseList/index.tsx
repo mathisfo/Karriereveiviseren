@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import CourseAccordion from "./CourseAccordion";
-import { AppState, store, useAppDispatch } from "../../store/redux/store";
+import { AppState, useAppDispatch } from "../../redux/store/store";
 import {
   fetchCourse,
   fetchUserpreference,
-} from "../../store/slices/courseSlice";
+} from "../../redux/slices/courseSlice";
 import { useSelector } from "react-redux";
 import styles from "./CourseList.module.css";
-
-// TODO: adjust style based on props from parent. If self-contained
-// make adjustments based on larger width
 
 interface Iprops {
   isExpanded: boolean;

@@ -9,13 +9,13 @@ import {
   Icon,
   Modal,
 } from "semantic-ui-react";
-import { OwnCourse } from "../../store/interfaces/OwnCourse";
-import { AppState, useAppDispatch } from "../../store/redux/store";
-import { ownCourseSlice } from "../../store/slices/ownCourseSlice";
+import { OwnCourse } from "../../redux/types/OwnCourse";
+import { AppState, useAppDispatch } from "../../redux/store/store";
+import { ownCourseSlice } from "../../redux/slices/ownCourseSlice";
 import SubmitCourseForm from "../SubmitCourseForm";
 
 import styles from "./UserCourse.module.css";
-import { convertDate } from "../Helpers";
+import { convertDate } from "../../utils/helpers";
 
 const UserDefinedCourseAccordion = () => {
   const [open, setOpen] = useState(false);
@@ -97,24 +97,35 @@ const UserDefinedCourseAccordion = () => {
             </Accordion>
           </Grid.Row>
           <Grid.Row>
-          <Modal
-          closeIcon
-          size="tiny"
-          style={{height: "auto", top: "auto", left: "auto", right: "auto", bottom: "auto"}}
-                  onClose={() => setOpen(false)}
-                  onOpen={() => setOpen(true)}
-                  open={open}
-                  trigger={
-                    <Button icon color="facebook" style={{ marginTop: "1em" }} data-cy="addButton">
-                      <Icon name="add" />
-                    </Button>
-                  }
+            <Modal
+              closeIcon
+              size="tiny"
+              style={{
+                height: "auto",
+                top: "auto",
+                left: "auto",
+                right: "auto",
+                bottom: "auto",
+              }}
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+              open={open}
+              trigger={
+                <Button
+                  icon
+                  color="facebook"
+                  style={{ marginTop: "1em" }}
+                  data-cy="addButton"
                 >
-                  <Modal.Header>Legg til egen aktivitet</Modal.Header>
-                  <Modal.Content>
-                    <SubmitCourseForm />
-                  </Modal.Content>
-                </Modal>
+                  <Icon name="add" />
+                </Button>
+              }
+            >
+              <Modal.Header>Legg til egen aktivitet</Modal.Header>
+              <Modal.Content>
+                <SubmitCourseForm />
+              </Modal.Content>
+            </Modal>
           </Grid.Row>
         </Grid.Column>
       </Grid>

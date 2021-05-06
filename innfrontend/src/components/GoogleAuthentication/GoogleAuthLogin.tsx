@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
 import { useSelector } from "react-redux";
-import { AppState, useAppDispatch } from "../../store/redux/store";
-import { loginUser, userSlice } from "../../store/slices/userSlice";
+import { AppState, useAppDispatch } from "../../redux/store/store";
+import { loginUser, userSlice } from "../../redux/slices/userSlice";
 
 import "./googleLogin.css";
 

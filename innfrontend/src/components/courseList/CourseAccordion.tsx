@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import CourseCard from "../CourseCard";
-import { Accordion, Checkbox, Grid, Icon, Input, Label } from "semantic-ui-react";
+import {
+  Accordion,
+  Checkbox,
+  Grid,
+  Icon,
+  Input,
+  Label,
+} from "semantic-ui-react";
 import axios from "axios";
-import { AppState, useAppDispatch } from "../../store/redux/store";
+import { AppState, useAppDispatch } from "../../redux/store/store";
 import { useSelector } from "react-redux";
-import { categorySlice } from "../../store/slices/categorySlice";
+import { categorySlice } from "../../redux/slices/categorySlice";
 import styles from "./CourseList.module.css";
 
 const CourseAccordion = () => {
@@ -64,27 +71,39 @@ const CourseAccordion = () => {
       <Grid.Row>
         <h2> Velg aktiviteter </h2>
       </Grid.Row>
-      <Grid.Row style= {{marginBottom: "1em"}}>
+      <Grid.Row style={{ marginBottom: "1em" }}>
         <Grid.Row className={styles.checkboxRow} md={2}>
-        <Label style={{height: "2.3em", marginRight: "2em", background: "#cfe1b9"}}>
-      <Checkbox
-            checked={box1}
-            onClick={() => setBox1(!box1)}
-          />
-    </Label>
-    <Label style={{height: "2.3em", marginRight: "2em", background: "#ffc971"}}>
-      <Checkbox
-            checked={box2}
-            onClick={() => setBox2(!box2)}
-            data-cy="checkbox2"
-          />
-    </Label>
-    <Label style={{height: "2.3em", marginRight: "2em", background: "#e28080"}}>
-      <Checkbox
-            checked={box3}
-            onClick={() => setBox3(!box3)}
-          />
-    </Label>
+          <Label
+            style={{
+              height: "2.3em",
+              marginRight: "2em",
+              background: "#cfe1b9",
+            }}
+          >
+            <Checkbox checked={box1} onClick={() => setBox1(!box1)} />
+          </Label>
+          <Label
+            style={{
+              height: "2.3em",
+              marginRight: "2em",
+              background: "#ffc971",
+            }}
+          >
+            <Checkbox
+              checked={box2}
+              onClick={() => setBox2(!box2)}
+              data-cy="checkbox2"
+            />
+          </Label>
+          <Label
+            style={{
+              height: "2.3em",
+              marginRight: "2em",
+              background: "#e28080",
+            }}
+          >
+            <Checkbox checked={box3} onClick={() => setBox3(!box3)} />
+          </Label>
           <Input
             name="searchbar"
             icon="search"

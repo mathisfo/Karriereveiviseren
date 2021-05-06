@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Grid } from "semantic-ui-react";
-import { AppState, useAppDispatch } from "../../store/redux/store";
+import { AppState, useAppDispatch } from "../../redux/store/store";
 import {
   fetchCourse,
   fetchUserpreference,
-} from "../../store/slices/courseSlice";
+} from "../../redux/slices/courseSlice";
 import UserCourseAccordion from "./UserCourseAccordion";
 import UserDefinedCourseAccordion from "./UserDefinedCourseAccordion";
 
@@ -50,10 +50,10 @@ const UserCourses = (props: Iprops) => {
         <Grid.Row></Grid.Row>
         <Grid.Row>
           <Grid.Column>
-          <UserDefinedCourseAccordion />
+            <UserDefinedCourseAccordion />
           </Grid.Column>
           <Grid.Column>
-          <UserCourseAccordion />
+            <UserCourseAccordion />
           </Grid.Column>
         </Grid.Row>
       </Grid>
