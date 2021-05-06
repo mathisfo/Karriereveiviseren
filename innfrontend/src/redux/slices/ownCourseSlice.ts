@@ -3,6 +3,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OwnCourse } from "../types/OwnCourse";
 import { OwnCourseState } from "../types/OwnCourse";
 
+/**
+ * Slice have been configured according to redux documentation.
+ * Information about usage can be found at https://redux-toolkit.js.org/tutorials/overview
+ */
 export const ownCourseSlice = createSlice({
   name: "own-course-slice",
   initialState: {

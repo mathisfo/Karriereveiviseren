@@ -14,7 +14,6 @@ type FetchCourseError = {
   message: string;
 };
 
-// fetchCourses
 export const fetchCourse = createAsyncThunk<
   Array<Course>,
   undefined,
@@ -75,6 +74,10 @@ export const selectCourse = createAsyncThunk<
   return data.course;
 });
 
+/**
+ * Slice have been configured according to redux documentation.
+ * Information about usage can be found at https://redux-toolkit.js.org/tutorials/overview
+ */
 export const courseSlice = createSlice({
   name: "course-slice",
   initialState: {

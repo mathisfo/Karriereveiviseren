@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Accordion,
@@ -10,8 +10,7 @@ import {
   Modal,
 } from "semantic-ui-react";
 import { OwnCourse } from "../../redux/types/OwnCourse";
-import { AppState, useAppDispatch } from "../../redux/store/store";
-import { ownCourseSlice } from "../../redux/slices/ownCourseSlice";
+import { AppState } from "../../redux/store/store";
 import SubmitCourseForm from "../SubmitCourseForm";
 
 import styles from "./UserCourse.module.css";
@@ -21,7 +20,6 @@ const UserDefinedCourseAccordion = () => {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const dispatch = useAppDispatch();
   const owncourses = useSelector(
     (state: AppState) => state.owncourses.ownCourseList
   );
@@ -31,22 +29,6 @@ const UserDefinedCourseAccordion = () => {
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   }
-
-  const fetchOwnCourses = async () => {
-    let response = await axios
-      .get("api/owncourse/", { withCredentials: true })
-      .then((result) => {
-        dispatch(ownCourseSlice.actions.resetOwnCourses());
-        let courses: Array<OwnCourse> = result.data;
-        courses.map((course) => {
-          dispatch(ownCourseSlice.actions.addOwnCourse(course));
-        });
-      });
-  };
-
-  useEffect(() => {
-    fetchOwnCourses();
-  }, []);
 
   return (
     <div>

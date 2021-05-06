@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CourseCard from "../CourseCard";
 import {
   Accordion,
@@ -8,37 +8,21 @@ import {
   Input,
   Label,
 } from "semantic-ui-react";
-import axios from "axios";
-import { AppState, useAppDispatch } from "../../redux/store/store";
+import { AppState } from "../../redux/store/store";
 import { useSelector } from "react-redux";
-import { categorySlice } from "../../redux/slices/categorySlice";
 import styles from "./CourseList.module.css";
 
 const CourseAccordion = () => {
-  const dispatch = useAppDispatch();
-  const courses = useSelector((state: AppState) => state.courses.courseList);
-  const categories = useSelector(
-    (state: AppState) => state.categories.categoryList
-  );
-  const [error, setError] = useState("");
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [box1, setBox1] = useState(false);
   const [box2, setBox2] = useState(false);
   const [box3, setBox3] = useState(false);
 
-  const fetchCategories = async () => {
-    axios.get("api/category/", { withCredentials: true }).then(
-      (response) => {
-        dispatch(
-          categorySlice.actions.setCategory({ categoryList: response.data })
-        );
-      },
-      (error) => {
-        setError(error);
-      }
-    );
-  };
+  const courses = useSelector((state: AppState) => state.courses.courseList);
+  const categories = useSelector(
+    (state: AppState) => state.categories.categoryList
+  );
 
   function handleClick(index: number) {
     setActiveIndex(index);
@@ -61,10 +45,6 @@ const CourseAccordion = () => {
         .map((course: any) => <CourseCard {...course}></CourseCard>);
     }
   }
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
 
   return (
     <Grid>

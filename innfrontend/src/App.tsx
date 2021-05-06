@@ -72,13 +72,13 @@ function App() {
                     <Home />
                   </Route>
                   <Route exact path="/courses">
-                    <CourseList isExpanded={true} />
+                    <CourseList />
                   </Route>
                   <Route exact path="/mycourses">
-                    <UserCourses isExpanded={true} />
+                    <UserCourses />
                   </Route>
                   <Route exact path="/progression">
-                    <Progression isExpanded={true} />
+                    <Progression />
                   </Route>
                 </Switch>
               </div>

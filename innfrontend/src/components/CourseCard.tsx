@@ -10,46 +10,13 @@ import { selectCourse } from "../redux/slices/courseSlice";
 import { Course } from "../redux/types/Course";
 import { convertDate, convertHours, setColor } from "../utils/helpers";
 
-interface IProps {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  shortDescription: string;
-  restriction: number;
-  isSelected: boolean;
-  category: string;
-  classroom: string;
-}
-
 const CourseCard: FC<Course> = (props) => {
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: AppState) => state.user);
   const [open, setOpen] = React.useState(false);
 
-  const courses = useSelector((state: AppState) => state.courses.courseList);
-
-  /*
-  const putSelectedCourse = async () => {
-    axios.put(
-      "api/userpreferences/1/",
-      {
-        user: "http://127.0.0.1:8000/api/users/1/",
-        selected: courses?.filter((e) => e.isSelected).map((e) => e.url),
-      },
-
-      {
-        withCredentials: true,
-      }
-    );
-  };
-*/
-
   function selectCard() {
     dispatch(selectCourse({ course: props, user: user }));
-    //dispatch(courseSlice.actions.selectCourse(props));
-    //putSelectedCourse();
   }
 
   function openTab() {

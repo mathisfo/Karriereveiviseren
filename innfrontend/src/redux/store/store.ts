@@ -5,6 +5,10 @@ import { categorySlice } from "../slices/categorySlice";
 import { ownCourseSlice } from "../slices/ownCourseSlice";
 import { userSlice } from "../slices/userSlice";
 
+/**
+ * Store have been configured according to redux documentation.
+ * Information about usage can be found at https://redux-toolkit.js.org/tutorials/overview
+ */
 export const store = configureStore({
   reducer: {
     courses: courseSlice.reducer,
