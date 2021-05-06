@@ -11,7 +11,7 @@ const SubmitCourseForm = () => {
 
   async function handleSubmit(e: any) {
     e.preventDefault();
-    //TODO: Better way to do this
+    
     const title = e.target.elements.title.value;
     const startDate = e.target.elements.startDate.value;
     const endDate = e.target.elements.endDate.value;

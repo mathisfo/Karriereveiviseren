@@ -3,6 +3,7 @@ import Chart from "react-google-charts";
 import { useSelector } from "react-redux";
 import { Course } from "../../redux/types/Course";
 import { AppState } from "../../redux/store/store";
+import { Loader } from "semantic-ui-react";
 
 const prepareChartData = (course: Course) => {
   let selectedCourse = [];
@@ -30,7 +31,6 @@ interface IDiagramConst {
   label: string;
 }
 
-// TODO: make custom type prettier
 type ChartTypes = Array<IDiagramConst> | Array<string | number | Date | null>;
 
 const CourseChart = () => {
@@ -62,15 +62,14 @@ const CourseChart = () => {
 
   return (
     <div>
-      {diagramData.length == 1 ? (
+      {diagramData.length === 1 ? (
         <div> No selected courses </div>
       ) : (
         <Chart
           width={"100%"}
           height={"300px"}
           chartType="Gantt"
-          // TODO: Replace loader with loading wheel/bar
-          loader={<div>Laster inn Gantt diagram...</div>}
+          loader={<Loader active inline />}
           data={diagramData}
           options={{
             gantt: {

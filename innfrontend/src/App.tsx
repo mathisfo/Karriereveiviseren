@@ -14,12 +14,7 @@ import GoogleAuthLogin from "./components/GoogleAuthentication/GoogleAuthLogin";
 import Home from "./components/home";
 import "./App.css";
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-
 function App() {
-  library.add(fas, fab);
 
   const { user, isSuccess, isError, errorMessage } = useSelector(
     (state: AppState) => state.user

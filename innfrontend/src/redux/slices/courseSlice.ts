@@ -22,7 +22,7 @@ export const fetchCourse = createAsyncThunk<
   let response = await axios.get("api/course/", { withCredentials: true });
   let result = await response.data;
 
-  if (response.status != 200) {
+  if (response.status !== 200) {
     return thunkAPI.rejectWithValue(result);
   }
 
@@ -39,7 +39,7 @@ export const fetchUserpreference = createAsyncThunk<
   });
   let result = await response.data.selected;
 
-  if (response.status != 200) {
+  if (response.status !== 200) {
     return thunkAPI.rejectWithValue(result);
   }
 
@@ -67,7 +67,7 @@ export const selectCourse = createAsyncThunk<
     { withCredentials: true }
   );
   let result = await response.data;
-  if (response.status != 201) {
+  if (response.status !== 201) {
     return thunkAPI.rejectWithValue(result);
   }
 
@@ -119,11 +119,10 @@ export const courseSlice = createSlice({
       state.isFetching = true;
     });
     builder.addCase(fetchUserpreference.fulfilled, (state, { payload }) => {
-      // TODO: rewrite to use filter
       if (payload) {
         payload.map((item) => {
           state.courseList.map((course) => {
-            if (course.id == item.id) {
+            if (course.id === item.id) {
               course.isSelected = true;
             }
           });
@@ -147,7 +146,7 @@ export const courseSlice = createSlice({
     });
     builder.addCase(selectCourse.fulfilled, (state, { payload }) => {
       state.courseList.map((course) => {
-        if (course.id == payload.id) {
+        if (course.id === payload.id) {
           course.isSelected = !course.isSelected;
         }
       });
