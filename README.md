@@ -1,9 +1,28 @@
 # inn01-project
 
-(temporary guide)
-Getting backend up and running
-1. `pip install pipenv`
-2. Navigate to server folder
-3. `pipenv install`
-4. `pipenv shell`
-5. `python manage.py runserver`
+Authored by: Mathias Strømmen, Simon Larsen, Jon-Inge Heggstad, Johanne Tronstad and Mathias Fossum
+
+## Installation
+
+**NOTE:** You must have docker installed for this project.
+
+In project root run:  
+`docker-compose up --build`
+
+Application is hosted on `localhost:3000`
+
+Adminpanel is hosted on `localhost:8000`
+
+## Credentials
+
+### Frontend
+
+The frontend requires authentication. The product does not allow access to other accounts than municipality email addresses ending in @trovo.no
+
+### Backend
+
+In order to access the backend:
+
+| username | admin |
+| -------- | ----- |
+| password | admin |
